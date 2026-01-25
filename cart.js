@@ -84,6 +84,7 @@ function removeItem(id) {
 function checkout() {
   let msg = "Order Details:%0A";
   let total = 0;
+  const note = document.querySelector('.note-box').value;
 
   for (let id in cart) {
     const item = cart[id];
@@ -92,7 +93,7 @@ function checkout() {
   }
 
   msg += `%0ATotal: ₹${total}`;
-  window.open(`https://wa.me/919519171931?text=${msg}`, "_blank");
+  window.open(`https://wa.me/919519171931?text=Room No :  ${note}%0A%0A${msg}`, "_blank");
 }
 
 renderCart();

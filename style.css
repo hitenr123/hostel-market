@@ -206,3 +206,27 @@ footer {
 .cart-btn:hover {
   background: #fbbf24;
 }
+
+.search-container {
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+  margin: 20px auto;
+}
+
+.search-container i {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 16px;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 10px 10px 10px 38px; /* space for icon */
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}

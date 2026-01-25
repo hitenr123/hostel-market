@@ -45,10 +45,20 @@ function updateCartCount() {
 
 function searchItems() {
   const input = document.getElementById("searchBox").value.toLowerCase();
-  const items = document.querySelectorAll(".product"); // product class
+  const items = document.querySelectorAll(".product");
+  let found = false;
 
   items.forEach(item => {
     const name = item.querySelector("h2").innerText.toLowerCase();
-    item.style.display = name.includes(input) ? "block" : "none";
+
+    if (name.includes(input)) {
+      item.style.display = "flex";
+      found = true;
+    } else {
+      item.style.display = "none";
+    }
   });
+
+  document.getElementById("noResult").style.display =
+    found || input === "" ? "none" : "block";
 }
