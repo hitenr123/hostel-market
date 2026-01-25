@@ -230,3 +230,75 @@ footer {
   border: 1px solid #ccc;
   font-size: 16px;
 }
+
+
+/* ☀️ THEME BUTTON */
+.theme-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: #1e293b;
+  color: #ffffff;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 1000;
+}
+
+/* ☀️ LIGHT MODE */
+body.light {
+  background: #ffffff;
+  color: #020617;
+}
+
+body.light header,
+body.light footer {
+  background: #8cc5ff;
+  color: #020617;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+body.light .product {
+  background: #cae5ff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+body.light .cart-btn,
+body.light .btn {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+body.light .qty-btn {
+  background: #e5e7eb;
+  color: #020617;
+}
+
+body.light input {
+  background: #ffffff;
+  color: #020617;
+  border: 1px solid #cbd5f5;
+}
+
+body.light .product h2 {
+  color: #020617;
+}
+
+body.light .product p {
+  color: #020617;
+}
+
+body.light .offer {
+  color: red;
+}
+
+body.light .note-box:focus {
+  border-color: #000000;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0);
+}
+
+body.light .cart-header{
+  background-color: #fec66c;
+}
