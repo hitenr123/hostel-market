@@ -13,10 +13,10 @@ header {
 }
 
 header h1 {
-  margin: 0;
+  margin: 10px;
 }
 header p {
-  margin: 5px 0 0;
+  margin: 10px 0 0;
   font-size: 14px;
 }
 
@@ -107,11 +107,11 @@ header p {
   padding: 10px 12px;
   margin: 6px 0 10px 0px;
   border-radius: 10px;
+  font-size: 14px;
   
   border: 1px solid #334155;
   background-color: #0f172a;
   color: #f8fafc;
-  font-size: 14px;
   outline: none;
   transition:
     border-color 0.2s,
@@ -234,9 +234,7 @@ footer {
 
 /* ☀️ THEME BUTTON */
 .theme-btn {
-  position: fixed;
-  top: 15px;
-  left: 15px;
+  position: relative;
   background: #1e293b;
   color: #ffffff;
   border: none;

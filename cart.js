@@ -21,7 +21,6 @@ function renderCart() {
 
     total += Number(item.price) * Number(item.qty);
     itemCount += Number(item.qty);
-    console.log(item);
 
     container.innerHTML += `
       <div class="cart-item">
@@ -97,3 +96,12 @@ function checkout() {
 }
 
 renderCart();
+
+// Apply saved theme on cart page
+const savedTheme = localStorage.getItem("theme");
+
+if (savedTheme === "light") {
+  document.body.classList.add("light");
+} else {
+  document.body.classList.remove("light"); // default dark
+}
