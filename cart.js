@@ -72,6 +72,11 @@ function checkout() {
   let total = 0;
   const note = document.querySelector(".note-box")?.value || "Not provided";
 
+  if (localStorage.getItem("shopStatus") === "closed") {
+    alert("🚫 Shop is CLOSED. Please try later.");
+    return;
+  }
+
   cart.forEach(item => {
     msg += `${item.name} x ${item.qty} = ₹${item.qty * item.price}%0A`;
     total += item.qty * item.price;
@@ -86,4 +91,15 @@ renderCart();
 // THEME SYNC
 if (localStorage.getItem("theme") === "light") {
   document.body.classList.add("light");
+}
+
+function clearCart() {
+  cart = [];
+  localStorage.removeItem("cart");
+
+  document.getElementById("cart-items").innerHTML =
+    "<p>Your cart is empty.</p>";
+
+  document.getElementById("total-price").innerText = "0";
+  document.getElementById("item-count").innerText = "0";
 }

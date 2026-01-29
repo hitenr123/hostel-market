@@ -1,24 +1,49 @@
-function changeQty(button, change) {
-    const product = button.closest(".product");
-    const qtySpan = product.querySelector(".qty");
-    let qty = parseInt(qtySpan.innerText);
-    
-    qty += change;
-    if (qty < 1) qty = 1;
-    
-    qtySpan.innerText = qty;
-    
-    // Update WhatsApp link
-    const productName = product.querySelector("h2").innerText;
-    const orderBtn = product.querySelector(".btn");
-    const note = document.querySelector('.note-box')?.value || "Not provided";
+// default: OPEN
+let shopStatus = localStorage.getItem("shopStatus") || "open";
+localStorage.setItem("shopStatus", shopStatus);
 
-    orderBtn.href =
-      "https://wa.me/919519171931?text=" +
-      encodeURIComponent(`Order :\n${productName}\nQty :  ${qty}\nRoom No :  ${note}`);
+function changeQty(button, change) {
+  const product = button.closest(".product");
+  const qtySpan = product.querySelector(".qty");
+  let qty = parseInt(qtySpan.innerText);
+
+  qty += change;
+  if (qty < 1) qty = 1;
+
+  qtySpan.innerText = qty;
+
+  // Update WhatsApp link
+  const productName = product.querySelector("h2").innerText;
+  const note = document.querySelector(".note-box")?.value || "Not provided";
+
+}
+
+function orderProduct(button) {
+  const product = button.closest(".product");
+  const productName = product.querySelector("h2").innerText;
+  const qty = parseInt(product.querySelector(".qty").innerText);
+  const note = document.querySelector(".note-box")?.value || "Not provided";
+
+  if (shopStatus === "closed") {
+    alert("🚫 Shop is CLOSED. Please try later.");
+    return;
   }
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];                 // reset cart on every reload
+  orderOnWhatsApp(productName, qty, note);
+}
+
+
+function orderOnWhatsApp(productName, qty, note) {
+  const message = `Order :\n${productName}\nQty : ${qty}\nRoom No : ${note}`;
+
+  window.open(
+    "https://wa.me/919519171931?text=" + encodeURIComponent(message),
+    "_blank"
+  );
+}
+
+
+let cart = JSON.parse(localStorage.getItem("cart")) || []; // reset cart on every reload
 
 updateCartCount();
 
@@ -31,7 +56,7 @@ function addToCart(btn) {
   const alt = product.querySelector("img").alt;
 
   // Check if item already exists
-  const existing = cart.find(item => item.name === name);
+  const existing = cart.find((item) => item.name === name);
   if (existing) {
     existing.qty = Number(existing.qty) + qty;
   } else {
@@ -44,12 +69,11 @@ function addToCart(btn) {
   btn.style.display = "none";
 }
 
-
 function updateCartCount() {
   const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
   let count = 0;
 
-  storedCart.forEach(item => {
+  storedCart.forEach((item) => {
     if (item && item.qty) {
       count += Number(item.qty);
     }
@@ -58,13 +82,12 @@ function updateCartCount() {
   document.getElementById("cart-count").innerText = count;
 }
 
-
 function searchItems() {
   const input = document.getElementById("searchBox").value.toLowerCase();
   const items = document.querySelectorAll(".product");
   let found = false;
 
-  items.forEach(item => {
+  items.forEach((item) => {
     const name = item.querySelector("h2").innerText.toLowerCase();
 
     if (name.includes(input)) {
@@ -109,3 +132,39 @@ toggleBtn.addEventListener("click", () => {
     toggleBtn.classList.remove("rotate");
   }, 200);
 });
+
+// ===== SHOP OPEN / CLOSE =====
+
+// Admin login
+document.getElementById("adminLogin").addEventListener("click", () => {
+  const code = prompt("Enter admin code:");
+  if (code === "1234") {
+    // 🔐 change this
+    document.getElementById("adminPanel").style.display = "block";
+    alert("Admin mode enabled");
+  } else {
+    alert("Wrong code");
+  }
+});
+
+const shopToggleBtn = document.getElementById("shopToggle");
+const shopStatusText = document.getElementById("shopStatus");
+
+function updateShopUI() {
+  if (shopStatus === "open") {
+    shopStatusText.innerText = "OPEN";
+    shopToggleBtn.style.background = "#22c55e";
+  } else {
+    shopStatusText.innerText = "CLOSED";
+    shopToggleBtn.style.background = "#ef4444";
+  }
+}
+
+// Toggle open/close
+shopToggleBtn.addEventListener("click", () => {
+  shopStatus = shopStatus === "open" ? "closed" : "open";
+  localStorage.setItem("shopStatus", shopStatus);
+  updateShopUI();
+});
+
+updateShopUI();
