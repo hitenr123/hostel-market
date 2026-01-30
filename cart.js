@@ -31,10 +31,10 @@ function renderCart() {
           <p>₹${price}</p>
 
           <div class="cart-qty">
-            <button onclick="${qty === 1 
-              ? `removeItem(${index})`
-              : `changeQty(${index}, -1)`}">
-              <i class="fa-solid ${qty === 1 ? 'fa-trash' : 'fa-minus'}"></i>
+            <button onclick="${
+              qty === 1 ? `removeItem(${index})` : `changeQty(${index}, -1)`
+            }">
+              <i class="fa-solid ${qty === 1 ? "fa-trash" : "fa-minus"}"></i>
             </button>
 
             <span>${qty}</span>
@@ -77,13 +77,16 @@ function checkout() {
     return;
   }
 
-  cart.forEach(item => {
+  cart.forEach((item) => {
     msg += `${item.name} x ${item.qty} = ₹${item.qty * item.price}%0A`;
     total += item.qty * item.price;
   });
 
   msg += `%0ATotal: ₹${total}`;
-  window.open(`https://wa.me/919519171931?text=Room No : ${note}%0A%0A${msg}`, "_blank");
+  window.open(
+    `https://wa.me/919519171931?text=Room No : ${note}%0A%0A${msg}`,
+    "_blank",
+  );
 }
 
 renderCart();
@@ -93,13 +96,48 @@ if (localStorage.getItem("theme") === "light") {
   document.body.classList.add("light");
 }
 
-function clearCart() {
-  cart = [];
+function confirmClearCart() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  if (cart.length === 0) {
+    showToast("Cart is already empty");
+    return;
+  }
+
+  document.getElementById("clearCartModal").style.display = "flex";
+}
+
+function closeClearCartModal() {
+  document.getElementById("clearCartModal").style.display = "none";
+}
+
+function clearCartConfirmed() {
   localStorage.removeItem("cart");
+  closeClearCartModal();
+  location.reload();
+}
 
-  document.getElementById("cart-items").innerHTML =
-    "<p>Your cart is empty.</p>";
+// Close modal when clicking outside
+document.getElementById("clearCartModal").addEventListener("click", e => {
+  if (e.target.id === "clearCartModal") closeClearCartModal();
+});
 
-  document.getElementById("total-price").innerText = "0";
-  document.getElementById("item-count").innerText = "0";
+// Small toast helper
+function showToast(msg) {
+  const toast = document.createElement("div");
+  toast.innerText = msg;
+  toast.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    z-index: 1000;
+  `;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 2000);
 }
