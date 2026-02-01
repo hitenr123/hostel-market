@@ -7,6 +7,7 @@ body {
 .cart-header {
   background: linear-gradient(135deg, #020617,#1e293b);
   color: white;
+  width: 100%;
   padding: 15px 20px;
 }
 
