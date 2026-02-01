@@ -36,10 +36,9 @@ function orderProduct(button) {
 function orderOnWhatsApp(productName, qty, note) {
   const message = `Order :\n${productName}\nQty : ${qty}\nRoom No : ${note}`;
 
-  window.open(
-    "https://wa.me/919519171931?text=" + encodeURIComponent(message),
-    "_blank"
-  );
+  const url = `whatsapp://send?phone=919519171931&text=${encodeURIComponent(message)}`;
+
+  window.location.href = url;
 }
 
 

@@ -83,10 +83,8 @@ function checkout() {
   });
 
   msg += `%0ATotal: ₹${total}`;
-  window.open(
-    `https://wa.me/919519171931?text=Room No : ${note}%0A%0A${msg}`,
-    "_blank",
-  );
+  const url = `whatsapp://send?phone=919519171931&text=${encodeURIComponent(msg)}`;
+  window.location.href = url;
 }
 
 renderCart();
