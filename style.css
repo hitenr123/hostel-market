@@ -1,3 +1,12 @@
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 body {
   margin: 0;
   font-family: "Segoe UI", sans-serif;
@@ -333,4 +342,59 @@ body.light .qty-btn:hover {
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
+}
+
+/* 📱 MOBILE */
+@media (max-width: 600px) {
+
+  .container {
+    grid-template-columns: 1fr;
+    padding: 12px;
+  }
+
+  .product {
+    padding: 12px;
+  }
+
+  .product img {
+    height: 160px;
+  }
+
+  .search-container {
+    padding: 0 12px;
+  }
+
+  .cart-header {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 1000;
+  }
+
+  .btn,
+  .cart-btn {
+    font-size: 16px;
+    padding: 14px;
+    min-height: 44px;
+  }
+}
+
+/* 📱 TABLET */
+@media (min-width: 600px) and (max-width: 1024px) {
+
+  .container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .product img {
+    height: 180px;
+  }
+}
+
+body {
+  font-size: clamp(14px, 2.5vw, 16px);
+}
+
+h2 {
+  font-size: clamp(18px, 4vw, 22px);
 }
