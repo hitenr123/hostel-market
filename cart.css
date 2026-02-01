@@ -1,3 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
 body {
   font-family: Arial, sans-serif;
   background: #020617;
@@ -7,18 +17,20 @@ body {
 .cart-header {
   background: linear-gradient(135deg, #020617,#1e293b);
   color: white;
-  width: 100%;
   padding: 15px 20px;
 }
 
 .cart-page {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   padding: 20px;
 }
 
 .cart-items {
-  flex: 3;
+  flex: 1 1 60%;
+  min-width: 280px;
+  max-width: 100%;
   background: #031525;
   color: rgb(255, 255, 255);
   padding: 15px;
@@ -26,20 +38,41 @@ body {
 
 .cart-item {
   display: flex;
+  flex-wrap: wrap;
   gap: 15px;
   border-bottom: 1px solid #ddd;
-  padding: 15px 0;
+  padding: 10px 0;
 }
 
 .cart-item img {
+  flex: 0 0 100px;
+  max-width: 25%;
   width: 100px;
-  height: 100px;
+  height: auto;
   object-fit: contain;
+}
+
+.cart-info {
+  flex: 1 1 60%;
+  min-width: 160px;
 }
 
 .cart-info h4 {
   margin: 0 0 5px;
 }
+
+.cart-qty {
+  display: flex;
+  flex-wrap: wrap;       /* buttons + qty wrap if not enough space */
+  gap: 8px;
+  justify-content: flex-start;
+}
+
+.cart-qty span {
+  min-width: 24px;
+  text-align: center;
+}
+
 
 .cart-qty button {
   padding: 4px 8px;
@@ -49,12 +82,14 @@ body {
 }
 
 .cart-summary {
-  flex: 1;
+  flex: 1 1 35%;
   background: #031525;
   padding: 15px;
   height: fit-content;
   border: 1px solid #031525;
   color: white;
+  min-width: 250px;
+  max-width: 100%;
 }
 
 .note-box {
@@ -296,3 +331,11 @@ body {
 h2 {
   font-size: clamp(18px, 4vw, 22px);
 }
+
+.checkout-btn,
+.clear-cart-btn,
+.note-box {
+  width: 100%;           /* always fill the container */
+  box-sizing: border-box;
+}
+
