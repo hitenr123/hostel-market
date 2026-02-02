@@ -78,10 +78,11 @@ function checkout() {
   }
 
   cart.forEach((item) => {
+    const price = Number(String(item.price).replace("₹", "").trim());
     msg += `${item.name} x ${item.qty} = ₹${item.qty * item.price}%0A`;
     total += item.qty * item.price;
   });
-
+  msg += `%0ARoom No: ${note}`;
   msg += `%0ATotal: ₹${total}`;
   const url = `whatsapp://send?phone=919519171931&text=${encodeURIComponent(msg)}`;
   window.location.href = url;
