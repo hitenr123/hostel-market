@@ -68,7 +68,7 @@ function removeItem(index) {
 }
 
 function checkout() {
-  let msg = "Order Details:%0A";
+  let msg = "Order Details:\n";
   let total = 0;
   const note = document.querySelector(".note-box")?.value || "Not provided";
 
@@ -79,11 +79,11 @@ function checkout() {
 
   cart.forEach((item) => {
     const price = Number(String(item.price).replace("₹", "").trim());
-    msg += `${item.name} x ${item.qty} = ₹${item.qty * item.price}%0A`;
+    msg += `${item.name} x ${item.qty} = ₹${item.qty * price}\n`;
     total += item.qty * price;
   });
-  msg += `%0ARoom No: ${note}`;
-  msg += `%0ATotal: ₹${total}`;
+  msg += `\nRoom No: ${note}`;
+  msg += `\nTotal: ₹${total}`;
   const url = `whatsapp://send?phone=919519171931&text=${encodeURIComponent(msg)}`;
   window.location.href = url;
 }
