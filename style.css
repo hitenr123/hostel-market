@@ -219,7 +219,7 @@ footer {
 
 .search-container {
   position: relative;
-  max-width: 400px;
+  max-width: 450px;
   width: 100%;
   margin: 20px auto;
 }
@@ -235,7 +235,7 @@ footer {
 
 .search-container input {
   width: 100%;
-  padding: 10px 10px 10px 38px; /* space for icon */
+  padding: 10px 11px 10px 38px; /* space for icon */
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 16px;
@@ -362,10 +362,6 @@ body.light .qty-btn:hover {
 
   .search-container {
     padding: 0 12px;
-  }
-
-  .search-container i{
-    left: 102px;
   }
 
   .cart-header {
