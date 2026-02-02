@@ -68,21 +68,22 @@ function removeItem(index) {
 }
 
 function checkout() {
-  let msg = "Order Details:\n";
-  let total = 0;
   const note = document.querySelector(".note-box")?.value || "Not provided";
-
+  let msg = `Room No: ${note}\n`;
+  let total = 0;
+  
   if (localStorage.getItem("shopStatus") === "closed") {
     alert("🚫 Shop is CLOSED. Please try later.");
     return;
   }
+  
+  msg += "Order Details:\n";
 
   cart.forEach((item) => {
     const price = Number(String(item.price).replace("₹", "").trim());
     msg += `${item.name} x ${item.qty} = ₹${item.qty * price}\n`;
     total += item.qty * price;
   });
-  msg += `\nRoom No: ${note}`;
   msg += `\nTotal: ₹${total}`;
   const url = `whatsapp://send?phone=919519171931&text=${encodeURIComponent(msg)}`;
   window.location.href = url;
