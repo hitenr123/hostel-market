@@ -67,16 +67,27 @@ function removeItem(index) {
   renderCart();
 }
 
-function checkout() {
+async function checkout() {
   const note = document.querySelector(".note-box")?.value || "Not provided";
   let msg = `Room No: ${note}\n`;
   let total = 0;
-  
-  if (localStorage.getItem("shopStatus") === "closed") {
-    alert("🚫 Shop is CLOSED. Please try later.");
+
+  // Fetch the live shop status from website
+  try {
+    const res = await fetch('https://hitenr123.github.io/hostel-market/shopStatus.json');
+    const data = await res.json();
+    const shopStatus = data.shopStatus;
+
+    if (shopStatus === "closed") {
+      alert("🚫 Shop is CLOSED. Please try later.");
+      return;
+    }
+  } catch (err) {
+    console.error("Could not fetch shop status:", err);
+    alert("⚠️ Could not check shop status. Try again later.");
     return;
   }
-  
+
   msg += "Order Details:\n";
 
   cart.forEach((item) => {
@@ -84,10 +95,12 @@ function checkout() {
     msg += `${item.name} x ${item.qty} = ₹${item.qty * price}\n`;
     total += item.qty * price;
   });
+
   msg += `\nTotal: ₹${total}`;
   const url = `whatsapp://send?phone=919519171931&text=${encodeURIComponent(msg)}`;
   window.location.href = url;
 }
+
 
 renderCart();
 
