@@ -364,6 +364,10 @@ body.light .qty-btn:hover {
     padding: 0 12px;
   }
 
+  .search-container i{
+    left: 102px;
+  }
+
   .cart-header {
     position: fixed;
     top: 12px;
