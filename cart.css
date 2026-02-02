@@ -129,6 +129,10 @@ body {
   cursor: pointer;
 }
 
+.checkout-btn:hover{
+  background: #0e622c;
+}
+
 .clear-cart-btn {
   width: 100%;
   padding: 10px;
