@@ -1,5 +1,19 @@
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+let shopStatus = "loading";
+
+const SHOP_API = "https://script.google.com/macros/s/AKfycbySrYZ3NZOveS79TmLHHvNA6Ew1YGIrV5REFZZIJbVgQI7qZxhGlRO3Aa6HGjbd5d-j/exec";
+
+async function fetchShopStatus() {
+  const res = await fetch(SHOP_API, { cache: "no-store" });
+  const data = await res.json();
+  shopStatus = data.status;
+}
+
+fetchShopStatus();
+setInterval(fetchShopStatus, 5000);
+
+
 function renderCart() {
   const container = document.getElementById("cart-items");
   container.innerHTML = "";
@@ -67,28 +81,16 @@ function removeItem(index) {
   renderCart();
 }
 
-async function checkout() {
-  const note = document.querySelector(".note-box")?.value || "Not provided";
-  let msg = `Room No: ${note}\n`;
-  let total = 0;
-
-  // Fetch the live shop status from website
-  try {
-    const res = await fetch('https://hitenr123.github.io/hostel-market/shopStatus.json');
-    const data = await res.json();
-    const shopStatus = data.shopStatus;
-
-    if (shopStatus === "closed") {
-      alert("🚫 Shop is CLOSED. Please try later.");
-      return;
-    }
-  } catch (err) {
-    console.error("Could not fetch shop status:", err);
-    alert("⚠️ Could not check shop status. Try again later.");
+function checkout() {
+  if (shopStatus !== "open") {
+    alert("🚫 Shop is CLOSED. Please try later.");
     return;
   }
 
-  msg += "Order Details:\n";
+  const note = document.querySelector(".note-box")?.value || "Not provided";
+
+  let msg = `Room No: ${note}\n\nOrder Details:\n`;
+  let total = 0;
 
   cart.forEach((item) => {
     const price = Number(String(item.price).replace("₹", "").trim());
@@ -97,6 +99,7 @@ async function checkout() {
   });
 
   msg += `\nTotal: ₹${total}`;
+
   const url = `whatsapp://send?phone=919519171931&text=${encodeURIComponent(msg)}`;
   window.location.href = url;
 }
@@ -110,8 +113,6 @@ if (localStorage.getItem("theme") === "light") {
 }
 
 function confirmClearCart() {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
   if (cart.length === 0) {
     showToast("Cart is already empty");
     return;
@@ -131,7 +132,7 @@ function clearCartConfirmed() {
 }
 
 // Close modal when clicking outside
-document.getElementById("clearCartModal").addEventListener("click", e => {
+document.getElementById("clearCartModal").addEventListener("click", (e) => {
   if (e.target.id === "clearCartModal") closeClearCartModal();
 });
 
