@@ -23,17 +23,17 @@ body {
 .cart-page {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  align-items: flex-start;   /* prevents vertical stretching */
+  gap: 24px;
   padding: 20px;
 }
 
 .cart-items {
-  flex: 1 1 60%;
-  min-width: 280px;
-  max-width: 100%;
+  flex: 2 1 600px;      /* takes more horizontal space */
   background: #031525;
-  color: rgb(255, 255, 255);
-  padding: 15px;
+  color: white;
+  padding: 18px;
+  border-radius: 14px;
 }
 
 .cart-item {
@@ -82,14 +82,13 @@ body {
 }
 
 .cart-summary {
-  flex: 1 1 35%;
+  flex: 0 0 320px;      /* fixed width → square shape */
   background: #031525;
-  padding: 15px;
-  height: fit-content;
-  border: 1px solid #031525;
+  padding: 18px;
+  border-radius: 14px;
   color: white;
-  min-width: 250px;
-  max-width: 100%;
+
+  height: fit-content;
 }
 
 .note-box {
@@ -162,12 +161,18 @@ body {
 .modal-box {
   background: linear-gradient(135deg, #1e293b, #020617);
   color: white;
-  padding: 20px;
-  width: 90%;
-  max-width: 90%;
-  border-radius: 14px;
+  padding: 24px;
+
+  /* Responsive sizing */
+  width: min(92%, 420px);   /* never stretch beyond 420px */
+  
+  border-radius: 16px;
   text-align: center;
-  animation: scaleIn 0.2s ease;
+
+  /* Modern shadow for depth */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+
+  animation: scaleIn 0.25s ease;
 }
 
 .modal-box h3 {
@@ -182,18 +187,28 @@ body {
 
 .modal-actions {
   display: flex;
-  gap: 10px;
+  gap: 12px;
+  margin-top: 10px;
 }
 
 .modal-cancel,
 .modal-confirm {
   flex: 1;
-  padding: 10px;
+  padding: 12px;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   font-weight: 600;
+  font-size: 15px;
   cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
 }
+
+.modal-cancel:hover,
+.modal-confirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+
 
 .modal-cancel {
   background: #e5e7eb;
@@ -275,7 +290,9 @@ body.light .modal-box{
 
   .cart-items,
   .cart-summary {
+    flex: 1 1 100%;
     width: 100%;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
   }
 
   /* Cart item layout */
@@ -327,6 +344,18 @@ body.light .modal-box{
     width: 92%;
   }
 }
+
+@media (max-width: 480px) {
+  .modal-box {
+    padding: 18px;
+    border-radius: 14px;
+  }
+
+  .modal-actions {
+    flex-direction: column;   /* stack buttons vertically */
+  }
+}
+
 
 body {
   font-size: clamp(14px, 2.5vw, 16px);
