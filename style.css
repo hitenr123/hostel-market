@@ -217,6 +217,11 @@ footer {
   background: #fbbf24;
 }
 
+.cart-btn:disabled{
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 .search-container {
   position: relative;
   max-width: 450px;

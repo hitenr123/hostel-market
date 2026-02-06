@@ -1,19 +1,5 @@
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-let shopStatus = "loading";
-
-const SHOP_API = "https://script.google.com/macros/s/AKfycbySrYZ3NZOveS79TmLHHvNA6Ew1YGIrV5REFZZIJbVgQI7qZxhGlRO3Aa6HGjbd5d-j/exec";
-
-async function fetchShopStatus() {
-  const res = await fetch(SHOP_API, { cache: "no-store" });
-  const data = await res.json();
-  shopStatus = data.status;
-}
-
-fetchShopStatus();
-setInterval(fetchShopStatus, 5000);
-
-
 function renderCart() {
   const container = document.getElementById("cart-items");
   container.innerHTML = "";
@@ -82,10 +68,6 @@ function removeItem(index) {
 }
 
 function checkout() {
-  if (shopStatus !== "open") {
-    alert("🚫 Shop is CLOSED. Please try later.");
-    return;
-  }
 
   const note = document.querySelector(".note-box")?.value || "Not provided";
 

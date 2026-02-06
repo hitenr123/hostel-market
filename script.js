@@ -1,34 +1,3 @@
-let shopStatus = "loading";
-
-function updateShopUI() {
-  if (shopStatus === "loading") {
-    shopStatusText.innerText = "CHECKING...";
-    shopToggleBtn.style.background = "#64748b";
-    return;
-  }
-
-  if (shopStatus === "open") {
-    shopStatusText.innerText = "OPEN";
-    shopToggleBtn.style.background = "#22c55e";
-  } else {
-    shopStatusText.innerText = "CLOSED";
-    shopToggleBtn.style.background = "#ef4444";
-  }
-}
-
-const SHOP_API = "https://script.google.com/macros/s/AKfycbySrYZ3NZOveS79TmLHHvNA6Ew1YGIrV5REFZZIJbVgQI7qZxhGlRO3Aa6HGjbd5d-j/exec";
-
-async function fetchShopStatus() {
-  const res = await fetch(SHOP_API, { cache: "no-store" });
-  const data = await res.json();
-  shopStatus = data.status;
-  updateShopUI(); // ✅ ADD THIS
-}
-
-
-fetchShopStatus();
-setInterval(fetchShopStatus, 5000);
-
 function changeQty(button, change) {
   const product = button.closest(".product");
   const qtySpan = product.querySelector(".qty");
@@ -38,7 +7,6 @@ function changeQty(button, change) {
   if (qty < 1) qty = 1;
 
   qtySpan.innerText = qty;
-
 }
 
 function orderProduct(button) {
@@ -47,14 +15,8 @@ function orderProduct(button) {
   const qty = parseInt(product.querySelector(".qty").innerText);
   const note = document.querySelector(".note-box")?.value || "Not provided";
 
-  if (shopStatus !== "open") {
-    alert("🚫 Shop is CLOSED. Please try later.");
-    return;
-  }
-
   orderOnWhatsApp(productName, qty, note);
 }
-
 
 function orderOnWhatsApp(productName, qty, note) {
   const message = `Order :\n${productName}\nQty : ${qty}\nRoom No : ${note}`;
@@ -63,7 +25,6 @@ function orderOnWhatsApp(productName, qty, note) {
 
   window.location.href = url;
 }
-
 
 let cart = JSON.parse(localStorage.getItem("cart")) || []; // reset cart on every reload
 
@@ -88,7 +49,15 @@ function addToCart(btn) {
   localStorage.setItem("cart", JSON.stringify(cart));
   updateCartCount();
 
-  btn.style.display = "none";
+  const originalHTML = btn.innerHTML;
+
+  btn.innerHTML = "Added ✓";
+  btn.disabled = true;
+
+  setTimeout(() => {
+    btn.innerHTML = originalHTML;
+    btn.disabled = false;
+  }, 3000);
 }
 
 function updateCartCount() {
@@ -167,17 +136,4 @@ document.getElementById("adminLogin").addEventListener("click", () => {
   } else {
     alert("Wrong code");
   }
-});
-
-const shopToggleBtn = document.getElementById("shopToggle");
-const shopStatusText = document.getElementById("shopStatus");
-
-
-// Toggle open/close
-shopToggleBtn.addEventListener("click", async () => {
-  const newStatus = shopStatus === "open" ? "closed" : "open";
-
-  await fetch(`${SHOP_API}?set=${newStatus}`);
-  shopStatus = newStatus;
-  updateShopUI();
 });
