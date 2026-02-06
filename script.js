@@ -10,10 +10,15 @@ function changeQty(button, change) {
 }
 
 function orderProduct(button) {
+  if (localStorage.getItem("shopStatus") === "closed") {
+    alert("Shop is currently CLOSED");
+    return;
+  }
+
   const product = button.closest(".product");
   const productName = product.querySelector("h2").innerText;
   const qty = parseInt(product.querySelector(".qty").innerText);
-  const note = document.querySelector(".note-box")?.value || "Not provided";
+  const note = product.querySelector(".note-box")?.value || "Not provided";
 
   orderOnWhatsApp(productName, qty, note);
 }
@@ -136,4 +141,64 @@ document.getElementById("adminLogin").addEventListener("click", () => {
   } else {
     alert("Wrong code");
   }
+});
+
+// ================= SHOP OPEN / CLOSE SYSTEM =================
+
+// Load saved status (default OPEN)
+let shopStatus = localStorage.getItem("shopStatus") || "open";
+localStorage.setItem("shopStatus", shopStatus);
+
+// Update UI text
+function updateShopLabel() {
+  const label = document.getElementById("shopStatus");
+  const toggle = document.getElementById("shopToggle");
+  if (!label || !toggle) return;
+
+  // Update text
+  label.innerText = shopStatus.toUpperCase();
+
+  // Update colors
+  if (shopStatus === "open") {
+    toggle.style.background = "#22c55e";
+    toggle.style.color = "black";
+  } else {
+    toggle.style.background = "red";
+    toggle.style.color = "white";
+  }
+}
+
+// Disable/Enable ordering
+function applyShopState() {
+  const closed = shopStatus === "closed";
+
+  // Buttons affected
+  const buttons = document.querySelectorAll(
+    ".btn, .order-btn",
+  );
+
+  buttons.forEach((btn) => {
+    btn.disabled = closed;
+    btn.style.opacity = closed ? "0.5" : "1";
+    btn.style.cursor = closed ? "not-allowed" : "pointer";
+  });
+}
+
+// Toggle button click
+const toggle = document.getElementById("shopToggle");
+
+if (toggle) {
+  toggle.addEventListener("click", () => {
+    shopStatus = shopStatus === "open" ? "closed" : "open";
+    localStorage.setItem("shopStatus", shopStatus);
+
+    updateShopLabel();
+    applyShopState();
+  });
+}
+
+// Run on load
+document.addEventListener("DOMContentLoaded", () => {
+  updateShopLabel();
+  applyShopState();
 });

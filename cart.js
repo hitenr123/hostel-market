@@ -1,3 +1,22 @@
+// ===== APPLY SHOP STATE ON CART PAGE =====
+function applyShopStateCart() {
+  const closed = localStorage.getItem("shopStatus") === "closed";
+
+  const buttons = document.querySelectorAll(
+    ".checkout-btn"
+  );
+
+  buttons.forEach(btn => {
+    btn.disabled = closed;
+    btn.style.opacity = closed ? "0.6" : "1";
+    btn.style.cursor = closed ? "not-allowed" : "pointer";
+  });
+}
+
+applyShopStateCart();
+
+
+
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 function renderCart() {
