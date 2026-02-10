@@ -43,6 +43,8 @@ function addToCart(btn) {
   const image = product.querySelector("img").src;
   const alt = product.querySelector("img").alt;
 
+  cartDropAnimation();
+
   // Check if item already exists
   const existing = cart.find((item) => item.name === name);
   if (existing) {
@@ -173,9 +175,7 @@ function applyShopState() {
   const closed = shopStatus === "closed";
 
   // Buttons affected
-  const buttons = document.querySelectorAll(
-    ".btn, .order-btn",
-  );
+  const buttons = document.querySelectorAll(".btn, .order-btn");
 
   buttons.forEach((btn) => {
     btn.disabled = closed;
@@ -202,3 +202,72 @@ document.addEventListener("DOMContentLoaded", () => {
   updateShopLabel();
   applyShopState();
 });
+
+
+function cartDropAnimation() {
+  console.log("BALL FUNCTION RUNNING");
+
+  const cart = document.querySelector(".cart-header");
+  const icon = cart.querySelector("i");
+  if (!cart || !icon) return;
+
+  const cartRect = cart.getBoundingClientRect();
+  const iconRect = icon.getBoundingClientRect();
+
+  // Create ball
+  const ball = document.createElement("div");
+  ball.className = "cart-drop-ball";
+  cart.appendChild(ball);
+
+  // Target relative to cart header
+  const targetX = iconRect.left - cartRect.left + iconRect.width / 2;
+  const targetY = iconRect.top - cartRect.top + iconRect.height / 2;
+
+  // ⭐ YOUR initial values kept
+  let x = targetX - 20;
+  let y = 10;
+
+  ball.style.left = "0px";
+  ball.style.top = "0px";
+  ball.style.transform = `translate(${x}px, ${y}px)`; // FIXED
+
+  let vx = (targetX - x) / 30;
+  let vy = -4;
+  const gravity = 0.35;
+
+  function step() {
+    vy += gravity;
+    x += vx;
+    y += vy;
+
+    // ---- KEEP BALL INSIDE BUTTON ----
+    const maxX = cart.clientWidth - ball.offsetWidth;
+    const maxY = cart.clientHeight - ball.offsetHeight;
+
+    x = Math.max(0, Math.min(x, maxX));
+    y = Math.max(0, Math.min(y, maxY));
+    // ---------------------------------
+
+    ball.style.transform = `translate(${x}px, ${y}px)`;
+
+    // ---- LOCAL TOUCH CHECK ----
+    const iconX = icon.offsetLeft;
+    const iconY = icon.offsetTop;
+
+    const touching =
+      x + ball.offsetWidth >= iconX &&
+      x <= iconX + icon.offsetWidth &&
+      y + ball.offsetHeight >= iconY &&
+      y <= iconY + icon.offsetHeight;
+    // ---------------------------
+
+    if (touching) {
+      ball.remove();
+      return;
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  step();
+}
