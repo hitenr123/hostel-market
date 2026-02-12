@@ -205,8 +205,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 function cartDropAnimation() {
-  console.log("BALL FUNCTION RUNNING");
-
   const cart = document.querySelector(".cart-header");
   const icon = cart.querySelector("i");
   if (!cart || !icon) return;
@@ -271,3 +269,9 @@ function cartDropAnimation() {
 
   step();
 }
+
+fetch("http://127.0.0.1:5000/products")
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+  });
