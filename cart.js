@@ -86,8 +86,7 @@ function removeItem(index) {
   renderCart();
 }
 
-function checkout() {
-
+async function checkout() {
   const note = document.querySelector(".note-box")?.value || "Not provided";
 
   let msg = `Room No: ${note}\n\nOrder Details:\n`;
@@ -101,6 +100,19 @@ function checkout() {
 
   msg += `\nTotal: ₹${total}`;
 
+  // --- SEND ORDER TO SERVER ---
+  try {
+    await fetch("http://localhost:5000/update-orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(cart)  // sending cart array
+    });
+    console.log("Orders updated in database");
+  } catch (err) {
+    console.error("Failed to update orders:", err);
+  }
+
+  // --- OPEN WHATSAPP ---
   const url = `whatsapp://send?phone=919519171931&text=${encodeURIComponent(msg)}`;
   window.location.href = url;
 }
