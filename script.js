@@ -139,6 +139,7 @@ document.getElementById("adminLogin").addEventListener("click", () => {
   if (code === "1234") {
     // 🔐 change this
     document.getElementById("adminPanel").style.display = "block";
+    document.getElementById("pendingBtn").style.display = "block";
     alert("Admin mode enabled");
   } else {
     alert("Wrong code");
@@ -202,7 +203,6 @@ document.addEventListener("DOMContentLoaded", () => {
   updateShopLabel();
   applyShopState();
 });
-
 
 function cartDropAnimation() {
   const cart = document.querySelector(".cart-header");
@@ -271,7 +271,18 @@ function cartDropAnimation() {
 }
 
 fetch("http://127.0.0.1:5000/products")
-  .then(res => res.json())
-  .then(data => {
+  .then((res) => res.json())
+  .then((data) => {
     console.log(data);
   });
+
+function updatePendingCount() {
+  const countSpan = document.getElementById("pending-count");
+  if (!countSpan) return;
+
+  let orders = JSON.parse(localStorage.getItem("pendingOrders")) || [];
+
+  countSpan.innerText = orders.length;
+}
+
+window.addEventListener("storage", updatePendingCount());

@@ -16,8 +16,21 @@
   </head>
   <body>
     <header>
-      <div class="cart">
+      <div class="cart-bar">
+        <!-- LEFT SIDE — Pending Orders -->
+        <div
+          id="pendingBtn"
+          class="pending-header"
+          onclick="window.location.href = 'order.html'"
+          style="display: none"
+        >
+          Pending Orders (<span id="pending-count">0</span>)
+        </div>
+
+        <!-- CENTER — Title -->
         <h1>Hostel Mini Shop</h1>
+
+        <!-- RIGHT SIDE — Cart -->
         <div class="cart-header" onclick="window.location.href = 'cart.html'">
           <i class="fa-solid fa-cart-shopping"></i>
           Cart (<span id="cart-count">0</span>)

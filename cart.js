@@ -2,11 +2,9 @@
 function applyShopStateCart() {
   const closed = localStorage.getItem("shopStatus") === "closed";
 
-  const buttons = document.querySelectorAll(
-    ".checkout-btn"
-  );
+  const buttons = document.querySelectorAll(".checkout-btn");
 
-  buttons.forEach(btn => {
+  buttons.forEach((btn) => {
     btn.disabled = closed;
     btn.style.opacity = closed ? "0.6" : "1";
     btn.style.cursor = closed ? "not-allowed" : "pointer";
@@ -14,8 +12,6 @@ function applyShopStateCart() {
 }
 
 applyShopStateCart();
-
-
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -86,7 +82,7 @@ function removeItem(index) {
   renderCart();
 }
 
-async function checkout() {
+function checkout() {
   const note = document.querySelector(".note-box")?.value || "Not provided";
 
   let msg = `Room No: ${note}\n\nOrder Details:\n`;
@@ -100,23 +96,21 @@ async function checkout() {
 
   msg += `\nTotal: ₹${total}`;
 
-  // --- SEND ORDER TO SERVER ---
-  try {
-    await fetch("http://localhost:5000/update-orders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(cart)  // sending cart array
-    });
-    console.log("Orders updated in database");
-  } catch (err) {
-    console.error("Failed to update orders:", err);
-  }
+  // ===== SAVE PENDING ORDER =====
+  let pending = JSON.parse(localStorage.getItem("pendingOrders")) || [];
+
+  pending.push({
+    room: note,
+    items: cart,
+    time: new Date().toLocaleString(),
+  });
+
+  localStorage.setItem("pendingOrders", JSON.stringify(pending));
 
   // --- OPEN WHATSAPP ---
   const url = `whatsapp://send?phone=919519171931&text=${encodeURIComponent(msg)}`;
   window.location.href = url;
 }
-
 
 renderCart();
 
@@ -168,3 +162,30 @@ function showToast(msg) {
   document.body.appendChild(toast);
   setTimeout(() => toast.remove(), 2000);
 }
+
+const container = document.getElementById("orders-container");
+
+function addOrder(order) {
+    const div = document.createElement("div");
+    div.className = "order-card";
+
+    div.innerHTML = `
+        <div class="order-info">
+            <h3>Room ${order.room}</h3>
+            <ul class="items">
+                ${order.items.map(i => `<li>${i.name} × ${i.qty}</li>`).join("")}
+            </ul>
+            <p class="time">${order.time}</p>
+        </div>
+
+        <div class="actions">
+            <button class="confirm-btn"
+                onclick="confirmOrder(${order.id})">
+                Confirm
+            </button>
+        </div>
+    `;
+
+    container.appendChild(div);
+}
+
