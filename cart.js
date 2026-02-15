@@ -107,6 +107,12 @@ function checkout() {
 
   localStorage.setItem("pendingOrders", JSON.stringify(pending));
 
+  fetch("http://localhost:5000/update-orders", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(cart),
+  });
+
   // --- OPEN WHATSAPP ---
   const url = `whatsapp://send?phone=919519171931&text=${encodeURIComponent(msg)}`;
   window.location.href = url;
@@ -166,14 +172,14 @@ function showToast(msg) {
 const container = document.getElementById("orders-container");
 
 function addOrder(order) {
-    const div = document.createElement("div");
-    div.className = "order-card";
+  const div = document.createElement("div");
+  div.className = "order-card";
 
-    div.innerHTML = `
+  div.innerHTML = `
         <div class="order-info">
             <h3>Room ${order.room}</h3>
             <ul class="items">
-                ${order.items.map(i => `<li>${i.name} × ${i.qty}</li>`).join("")}
+                ${order.items.map((i) => `<li>${i.name} × ${i.qty}</li>`).join("")}
             </ul>
             <p class="time">${order.time}</p>
         </div>
@@ -186,6 +192,5 @@ function addOrder(order) {
         </div>
     `;
 
-    container.appendChild(div);
+  container.appendChild(div);
 }
-
