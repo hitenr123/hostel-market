@@ -75,6 +75,35 @@
       </button>
     </div>
 
+    <!-- ===== ADMIN LOGIN MODAL ===== -->
+    <div id="adminModal" class="admin-modal">
+      <div class="admin-modal-content">
+        <h3>Admin Login</h3>
+
+        <input
+          type="password"
+          id="adminPassword"
+          placeholder="Enter Admin Code"
+        />
+
+        <div class="admin-modal-buttons">
+          <button id="adminSubmit">Login</button>
+          <button id="adminClose">Cancel</button>
+        </div>
+
+        <p id="adminError" class="admin-error"></p>
+      </div>
+    </div>
+
+    <!-- ===== ADMIN SUCCESS POPUP ===== -->
+    <div id="adminSuccessModal" class="admin-modal">
+      <div class="admin-modal-content">
+        <h3>✅ Admin Mode Enabled</h3>
+        <p>You now have full access to admin controls.</p>
+        <button id="successClose">OK</button>
+      </div>
+    </div>
+
     <div class="container">
       <p
         id="noResult"

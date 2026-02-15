@@ -134,18 +134,62 @@ toggleBtn.addEventListener("click", () => {
 // ===== SHOP OPEN / CLOSE =====
 
 // Admin login
-document.getElementById("adminLogin").addEventListener("click", () => {
-  const code = prompt("Enter admin code:");
-  if (code === "1234") {
-    // 🔐 change this
-    document.getElementById("adminPanel").style.display = "block";
-    document.getElementById("pendingBtn").style.display = "block";
-    document.getElementById("adminTools").style.display = "flex";
-    alert("Admin mode enabled");
-  } else {
-    alert("Wrong code");
+const adminLoginBtn = document.getElementById("adminLogin");
+const adminModal = document.getElementById("adminModal");
+const adminSubmit = document.getElementById("adminSubmit");
+const adminClose = document.getElementById("adminClose");
+const adminPassword = document.getElementById("adminPassword");
+const adminError = document.getElementById("adminError");
+
+// Open modal
+adminLoginBtn.addEventListener("click", () => {
+  adminModal.style.display = "flex";
+  adminPassword.value = "";
+  adminError.innerText = "";
+  adminPassword.focus();
+});
+
+// Close modal
+adminClose.addEventListener("click", () => {
+  adminModal.style.display = "none";
+});
+
+// Submit login
+adminSubmit.addEventListener("click", handleAdminLogin);
+
+// Enter key support
+adminPassword.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    handleAdminLogin();
   }
 });
+
+function handleAdminLogin() {
+  const code = adminPassword.value;
+
+  if (code === "1234") {
+    // 🔐 Your admin code
+    document.getElementById("adminPanel").style.display = "block";
+    document.getElementById("adminTools").style.display = "flex";
+    adminModal.style.display = "none";
+
+    // Show success popup
+    const successModal = document.getElementById("adminSuccessModal");
+    successModal.style.display = "flex";
+
+    // Close button for success
+    document.getElementById("successClose").onclick = () => {
+      successModal.style.display = "none";
+    };
+
+    // // Optional: auto-close after 2 seconds
+    // setTimeout(() => {
+    //   successModal.style.display = "none";
+    // }, 2000);
+  } else {
+    adminError.innerText = "Wrong admin code";
+  }
+}
 
 // ================= SHOP OPEN / CLOSE SYSTEM =================
 
