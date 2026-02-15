@@ -18,13 +18,23 @@
     <header>
       <div class="cart-bar">
         <!-- LEFT SIDE — Pending Orders -->
-        <div
-          id="pendingBtn"
-          class="pending-header"
-          onclick="window.location.href = 'order.html'"
-          style="display: none"
-        >
-          Pending Orders (<span id="pending-count">0</span>)
+        <div id="adminTools" style="display: none">
+          <div
+            id="pendingBtn"
+            class="pending-header"
+            onclick="window.location.href = 'order.html'"
+          >
+            Pending Orders (<span id="pending-count">0</span>)
+          </div>
+
+          <div
+            id="analyticsBtn"
+            class="analytics-btn"
+            onclick="window.location.href = 'analytics.html'"
+          >
+            <i class="fa-solid fa-chart-line"></i>
+            Analytics Dashboard
+          </div>
         </div>
 
         <!-- CENTER — Title -->

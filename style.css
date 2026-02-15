@@ -429,7 +429,7 @@ h2 {
 
 /* Pending Orders Button */
 .pending-header{
-  position:absolute;
+  position:static;
   left:16px;
   top:16px;
   background:#22c55e;
@@ -448,4 +448,31 @@ h2 {
     left:12px;
     z-index:1000;
   }
+}
+
+
+/* Admin buttons container */
+#adminTools{
+  position:absolute;
+  left:0px;
+  top:16px;
+
+  display:flex;
+  flex-direction:column;
+  gap: 25px;
+}
+
+
+/* Analytics button style */
+.analytics-btn {
+  background: #0f172a;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.analytics-btn:hover {
+  transform: translateY(-2px);
 }

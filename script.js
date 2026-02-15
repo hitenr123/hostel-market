@@ -140,6 +140,7 @@ document.getElementById("adminLogin").addEventListener("click", () => {
     // 🔐 change this
     document.getElementById("adminPanel").style.display = "block";
     document.getElementById("pendingBtn").style.display = "block";
+    document.getElementById("adminTools").style.display = "flex";
     alert("Admin mode enabled");
   } else {
     alert("Wrong code");
