@@ -18,6 +18,7 @@ cursor = db.cursor(dictionary=True)
 
 @app.route("/products")
 def get_products():
+    cursor = db.cursor(dictionary=True)   # fresh cursor
     cursor.execute("SELECT * FROM products")
     result = cursor.fetchall()
     return jsonify(result)

@@ -1,1 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop Analytics</title>
+    <link rel="stylesheet" href="analytics.css">
+</head>
 
+<body>
+
+    <header class="topbar">
+        <h1>📊 Shop Analytics</h1>
+        <button id="backBtn">⬅ Back</button>
+    </header>
+
+    <main>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>Total Products</h3>
+                <p id="totalProducts">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Orders</h3>
+                <p id="totalOrders">0</p>
+            </div>
+
+        </div>
+
+        <section class="tableSection">
+            <h2>Most Ordered Products</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Orders</th>
+                    </tr>
+                </thead>
+
+                <tbody id="productTable"></tbody>
+
+            </table>
+        </section>
+
+    </main>
+
+<script src="analytics.js"></script>
+</body>
+</html>
