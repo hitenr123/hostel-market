@@ -19,23 +19,43 @@ cursor = db.cursor(dictionary=True)
 
 @app.route("/products")
 def get_products():
-    cursor = db.cursor(dictionary=True)   # fresh cursor
+
+    db = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="hiten",
+        database="hostelshop"
+    )
+
+    cursor = db.cursor(dictionary=True)
     cursor.execute("SELECT * FROM products")
     result = cursor.fetchall()
+
+    cursor.close()
+    db.close()
+
     return jsonify(result)
+
 
 
 @app.route("/update-orders", methods=["POST"])
 def update_orders():
-    data = request.json
+
+    db = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="hiten",
+        database="hostelshop"
+    )
+
     cursor = db.cursor()
 
+    data = request.json
     now = datetime.now()
     today = now.date()
 
     for item in data:
 
-        # Reset today's counter if new day
         cursor.execute("""
             UPDATE products
             SET today_orders =
@@ -60,6 +80,10 @@ def update_orders():
         ))
 
     db.commit()
+
+    cursor.close()
+    db.close()
+
 
     return {"status": "success"}
 
