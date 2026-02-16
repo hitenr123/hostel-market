@@ -92,6 +92,38 @@ async function loadAnalytics() {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      animation: {
+        duration: 1600,
+      },
+
+      animations: {
+        x: {
+          type: "number",
+          easing: "linear",
+          duration: 1600,
+          from: 0,
+        },
+        y: {
+          type: "number",
+          easing: "easeOutQuart",
+          duration: 1600,
+          from: (ctx) => {
+            if (ctx.type === "data") {
+              return ctx.chart.scales.y.getPixelForValue(0);
+            }
+          },
+        },
+      },
+
+      transitions: {
+        show: {
+          animations: {
+            x: { from: 0 },
+            y: { from: 0 },
+          },
+        },
+      },
+
       plugins: {
         legend: { display: false },
       },
@@ -102,7 +134,7 @@ async function loadAnalytics() {
             autoSkip: true,
             maxTicksLimit: 5,
           },
-          grid: { display: false },
+          grid: { display: true },
         },
         y: {
           beginAtZero: true,
@@ -111,11 +143,22 @@ async function loadAnalytics() {
     },
   });
 
+  // Trigger reveal animation for line graph
+  const lineCanvas = document.getElementById("revenueLine");
+
+  lineCanvas.classList.remove("pieAnimate");
+  void lineCanvas.offsetWidth; // restart animation
+  lineCanvas.classList.add("pieAnimate");
+
+  // Revenue Pie Chart (per product)
   // Revenue Pie Chart (per product)
   const productNames = Object.keys(productRevenue);
   const productValues = Object.values(productRevenue);
+
   if (revenuePieChart) revenuePieChart.destroy();
+
   const ctxPie = document.getElementById("revenuePie").getContext("2d");
+
   revenuePieChart = new Chart(ctxPie, {
     type: "pie",
     data: {
@@ -131,12 +174,34 @@ async function loadAnalytics() {
             "#8e44ad",
             "#f39c12",
           ],
+          borderWidth: 2,
         },
       ],
     },
+
     options: {
       responsive: true,
       maintainAspectRatio: false,
+
+      animation: {
+        animateRotate: true,
+        duration: 2200,
+        easing: "easeOutQuart",
+      },
+
+      animations: {
+        circumference: {
+          from: 0,
+          duration: 2600,
+          easing: "easeOutQuart",
+        },
+        radius: {
+          from: 0,
+          duration: 1200,
+          easing: "easeOutBack",
+        },
+      },
+
       plugins: {
         legend: {
           position: "bottom",
@@ -144,7 +209,7 @@ async function loadAnalytics() {
       },
     },
   });
+  const pieCanvas = document.getElementById("revenuePie");
 }
-
 loadAnalytics();
 setInterval(loadAnalytics, 5000);

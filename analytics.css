@@ -82,7 +82,6 @@ body {
   grid-template-columns: 2fr 1fr;
   gap: 24px;
   padding: 24px;
-  align-items: stretch;
 }
 
 /* Chart card */
@@ -157,4 +156,52 @@ th {
 
 tr:hover {
     background: #f5f8ff;
+}
+
+/* When screen shrinks */
+@media (max-width: 1000px) {
+
+  .charts {
+    grid-template-columns: 1fr;   /* stack vertically */
+  }
+
+  /* Graph expands */
+  .bigChart {
+    grid-column: 1 / -1;
+    width: 92%;
+    height: 480px;     /* more space for full labels */
+  }
+
+  /* Pie goes below */
+  .smallChart {
+    width: 92%;
+    height: 380px;
+  }
+
+}
+
+/* ---------- PIE CHART KEYFRAME ANIMATION ---------- */
+
+@keyframes pieReveal {
+    0% {
+        clip-path: circle(0% at 50% 50%);
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    60% {
+        clip-path: circle(70% at 50% 50%);
+        transform: scale(1.05);
+        opacity: 1;
+    }
+
+    100% {
+        clip-path: circle(100% at 50% 50%);
+        transform: scale(1);
+    }
+}
+
+/* Apply animation */
+.smallChart canvas {
+    animation: pieReveal 1.4s ease-out;
 }
