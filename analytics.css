@@ -1,73 +1,160 @@
+/* ===== PAGE ===== */
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f7fb;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background: linear-gradient(135deg,#e8edf5,#f7faff);
 }
 
-/* TOP BAR */
+/* ===== TOP BAR ===== */
 
 .topbar {
-    background: #1f2a44;
+    background: linear-gradient(90deg,#1f2a44,#2e3d63);
     color: white;
-    padding: 15px 20px;
-
+    padding: 18px 28px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .topbar button {
     background: white;
     border: none;
-    padding: 8px 15px;
-    border-radius: 6px;
+    padding: 8px 18px;
+    border-radius: 8px;
     cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
 }
 
-/* CARDS */
+.topbar button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* ===== CARDS ===== */
 
 .cards {
     display: flex;
-    gap: 20px;
-    padding: 20px;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 24px;
 }
 
 .card {
-    flex: 1;
+    flex: 1 1 220px;
     background: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+    border-radius: 16px;
+    padding: 22px;
     text-align: center;
+
+    box-shadow:
+        0 2px 6px rgba(0,0,0,0.05),
+        0 10px 24px rgba(0,0,0,0.08);
+
+    transition: 0.25s;
+}
+
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
+.card h3 {
+    color: #666;
+    font-weight: 600;
 }
 
 .card p {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
     margin-top: 10px;
+    color: #1f2a44;
 }
 
-/* TABLE */
+/* ===== CHARTS ===== */
+
+/* Charts layout */
+.charts {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  padding: 24px;
+  align-items: stretch;
+}
+
+/* Chart card */
+.chartCard {
+  background: white;
+  border-radius: 16px;
+  padding: 43px;
+  box-shadow:
+      0 2px 6px rgba(0,0,0,0.05),
+      0 10px 24px rgba(0,0,0,0.08);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.chartCard h3 {
+    margin: -13px 0 15px 0px;
+    padding: 0;
+    font-size: 20px;
+    line-height: 1.2;
+}
+
+.smallChart h3{
+    margin: -24px 0 18px -20px;
+}
+
+.bigChart canvas{
+    margin: 0px 0px 0px -25px;
+}
+
+
+/* Increase height */
+.bigChart {
+  height: 460px;
+}
+
+.smallChart {
+  height: 460px;
+}
+
+/* Canvas fits perfectly */
+.chartCard canvas {
+  flex: 1;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ===== TABLE ===== */
 
 .tableSection {
-    padding: 20px;
+    padding: 24px;
 }
 
 table {
     width: 100%;
     background: white;
     border-collapse: collapse;
-    border-radius: 10px;
+    border-radius: 14px;
     overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
 th, td {
-    padding: 12px;
-    border-bottom: 1px solid #eee;
+    padding: 14px;
+    text-align: left;
 }
 
 th {
-    background: #1f2a44;
+    background: linear-gradient(90deg,#1f2a44,#2e3d63);
     color: white;
 }
 
+tr:hover {
+    background: #f5f8ff;
+}

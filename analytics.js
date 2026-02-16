@@ -1,12 +1,10 @@
 const API = "http://localhost:5000/products";
 
-document.getElementById("backBtn").onclick = () => {
-  window.location.href = "index.html";
-};
+let revenueLineChart;
+let revenuePieChart;
 
 async function loadAnalytics() {
-
-  const res = await fetch(`${API}?t=${Date.now()}`, { cache:"no-store" });
+  const res = await fetch(`${API}?t=${Date.now()}`, { cache: "no-store" });
   const products = await res.json();
 
   // ---------- BASIC ----------
@@ -14,45 +12,139 @@ async function loadAnalytics() {
 
   let totalOrders = 0;
   let revenue = 0;
+  let productRevenue = {};
 
-  products.forEach(p => {
+  products.forEach((p) => {
     totalOrders += p.orders;
-    revenue += p.orders * p.price;
+    revenue += p.revenue;
+    productRevenue[p.name] = p.revenue;
   });
 
   document.getElementById("totalOrders").textContent = totalOrders;
   document.getElementById("revenue").textContent = "₹" + revenue;
 
   // ---------- MOST ORDERED ----------
-  const most = [...products].sort((a,b)=>b.orders-a.orders)[0];
+  const most = [...products].sort((a, b) => b.orders - a.orders)[0];
   document.getElementById("mostOrdered").textContent = most.name;
 
   // ---------- PEAK TIME ----------
   let hours = {};
-  products.forEach(p=>{
-    if(p.last_order_time){
+  products.forEach((p) => {
+    if (p.last_order_time) {
       const h = new Date(p.last_order_time).getHours();
-      hours[h] = (hours[h]||0)+1;
+      hours[h] = (hours[h] || 0) + 1;
     }
   });
 
-  let peak = Object.entries(hours).sort((a,b)=>b[1]-a[1])[0];
-  document.getElementById("peakTime").textContent =
-      peak ? peak[0]+":00" : "N/A";
+  let peak = Object.entries(hours).sort((a, b) => b[1] - a[1])[0];
+  document.getElementById("peakTime").textContent = peak
+    ? peak[0] + ":00"
+    : "N/A";
 
   // ---------- TABLE ----------
   const table = document.getElementById("productTable");
   table.innerHTML = "";
-
-  products.sort((a,b)=>b.orders-a.orders);
-
-  products.forEach(p=>{
-    const row=document.createElement("tr");
-    row.innerHTML=`<td>${p.name}</td><td>${p.orders}</td>`;
+  products.sort((a, b) => b.orders - a.orders);
+  products.forEach((p) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `<td>${p.name}</td><td>${p.orders}</td>`;
     table.appendChild(row);
   });
 
+  // ---------- CHARTS ----------
+
+  // Revenue Line Chart (per day)
+  // Aggregate revenue by last_order_date
+  const revenueByDate = {};
+  products.forEach((p) => {
+    if (p.last_order_date) {
+      revenueByDate[p.last_order_date] =
+        (revenueByDate[p.last_order_date] || 0) + p.revenue;
+    }
+  });
+  const dates = Object.keys(revenueByDate).sort();
+  const revenues = dates.map((d) => revenueByDate[d]);
+
+  if (revenueLineChart) revenueLineChart.destroy();
+  const ctxLine = document.getElementById("revenueLine").getContext("2d");
+  const gradient = ctxLine.createLinearGradient(0, 0, 0, 400);
+  gradient.addColorStop(0, "rgba(54,162,235,0.4)");
+  gradient.addColorStop(1, "rgba(54,162,235,0)");
+
+  revenueLineChart = new Chart(ctxLine, {
+    type: "line",
+    data: {
+      labels: dates,
+      datasets: [
+        {
+          label: "Revenue",
+          data: revenues,
+          borderWidth: 3,
+          borderColor: "#369eff",
+          backgroundColor: gradient,
+          fill: true,
+          tension: 0.35,
+          pointRadius: 5,
+          pointHoverRadius: 8,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+      },
+      scales: {
+        x: {
+          ticks: {
+            maxRotation: 0,
+            autoSkip: true,
+            maxTicksLimit: 5,
+          },
+          grid: { display: false },
+        },
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+
+  // Revenue Pie Chart (per product)
+  const productNames = Object.keys(productRevenue);
+  const productValues = Object.values(productRevenue);
+  if (revenuePieChart) revenuePieChart.destroy();
+  const ctxPie = document.getElementById("revenuePie").getContext("2d");
+  revenuePieChart = new Chart(ctxPie, {
+    type: "pie",
+    data: {
+      labels: productNames,
+      datasets: [
+        {
+          data: productValues,
+          backgroundColor: [
+            "#4e79ff",
+            "#ff6384",
+            "#ffcd56",
+            "#2ecc71",
+            "#8e44ad",
+            "#f39c12",
+          ],
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: "bottom",
+        },
+      },
+    },
+  });
 }
 
 loadAnalytics();
-setInterval(loadAnalytics,3000);
+setInterval(loadAnalytics, 5000);
