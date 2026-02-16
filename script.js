@@ -331,3 +331,25 @@ function updatePendingCount() {
 }
 
 window.addEventListener("storage", updatePendingCount());
+
+
+const searchBox = document.getElementById("searchBox");
+const clearBtn = document.getElementById("clearSearch");
+
+// Show/hide X when typing
+searchBox.addEventListener("input", () => {
+  clearBtn.style.display = searchBox.value ? "block" : "none";
+});
+
+// Clear text when clicked
+clearBtn.addEventListener("click", () => {
+  searchBox.value = "";
+  clearBtn.style.display = "none";
+
+  // Show all products again
+  document.querySelectorAll(".product").forEach(p => {
+    p.style.display = "flex";
+  });
+
+  document.getElementById("noResult").style.display = "none";
+});

@@ -55,12 +55,18 @@
       <br />
       <div class="search-container">
         <i class="fa fa-search"></i>
+
         <input
           type="text"
           id="searchBox"
           placeholder="Search items..."
           onkeyup="searchItems()"
         />
+
+        <!-- CLEAR BUTTON -->
+        <span id="clearSearch" class="clear-search">
+          <i class="fa-solid fa-xmark"></i>
+        </span>
       </div>
     </header>
 
@@ -88,8 +94,8 @@
 
         <div class="admin-modal-buttons">
           <button id="adminClose">Cancel</button>
-<button id="adminSubmit">Login</button>
-</div>
+          <button id="adminSubmit">Login</button>
+        </div>
 
         <p id="adminError" class="admin-error"></p>
       </div>
