@@ -2,6 +2,9 @@ const API = "http://localhost:5000/products";
 
 let revenueLineChart;
 let revenuePieChart;
+let firstLineRender = true;
+let firstPieRender = true;
+
 
 async function loadAnalytics() {
   const res = await fetch(`${API}?t=${Date.now()}`, { cache: "no-store" });
@@ -92,9 +95,7 @@ async function loadAnalytics() {
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      animation: {
-        duration: 1600,
-      },
+      animation: firstLineRender ? { duration: 1600 } : false,
 
       animations: {
         x: {
@@ -142,74 +143,71 @@ async function loadAnalytics() {
       },
     },
   });
-
-  // Trigger reveal animation for line graph
-  const lineCanvas = document.getElementById("revenueLine");
-
-  lineCanvas.classList.remove("pieAnimate");
-  void lineCanvas.offsetWidth; // restart animation
-  lineCanvas.classList.add("pieAnimate");
+  firstLineRender = false;
 
   // Revenue Pie Chart (per product)
   // Revenue Pie Chart (per product)
-  const productNames = Object.keys(productRevenue);
-  const productValues = Object.values(productRevenue);
+  // ---------- Revenue Pie Chart ----------
 
-  if (revenuePieChart) revenuePieChart.destroy();
+const productNames = Object.keys(productRevenue);
+const productValues = Object.values(productRevenue);
 
-  const ctxPie = document.getElementById("revenuePie").getContext("2d");
+if (revenuePieChart) revenuePieChart.destroy();
 
-  revenuePieChart = new Chart(ctxPie, {
-    type: "pie",
-    data: {
-      labels: productNames,
-      datasets: [
-        {
-          data: productValues,
-          backgroundColor: [
-            "#4e79ff",
-            "#ff6384",
-            "#ffcd56",
-            "#2ecc71",
-            "#8e44ad",
-            "#f39c12",
-          ],
-          borderWidth: 2,
-        },
+const ctxPie = document.getElementById("revenuePie").getContext("2d");
+
+revenuePieChart = new Chart(ctxPie, {
+  type: "pie",
+  data: {
+    labels: productNames,
+    datasets: [{
+      data: productValues,
+      backgroundColor: [
+        "#4e79ff",
+        "#ff6384",
+        "#ffcd56",
+        "#2ecc71",
+        "#8e44ad",
+        "#f39c12",
       ],
-    },
+      borderWidth: 2,
+    }]
+  },
 
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
 
-      animation: {
-        animateRotate: true,
-        duration: 2200,
-        easing: "easeOutQuart",
-      },
+    // ⭐ EXACT SAME BEHAVIOR AS LINE GRAPH
+    animation: firstPieRender
+      ? {
+          animateRotate: true,
+          animateScale: true,
+          duration: 1400
+        }
+      : false,
 
-      animations: {
-        circumference: {
-          from: 0,
-          duration: 2600,
-          easing: "easeOutQuart",
-        },
-        radius: {
-          from: 0,
-          duration: 1200,
-          easing: "easeOutBack",
-        },
-      },
+    plugins: {
+      legend: { position: "bottom" },
 
-      plugins: {
-        legend: {
-          position: "bottom",
-        },
-      },
-    },
-  });
-  const pieCanvas = document.getElementById("revenuePie");
+      // ⭐ Hover tooltip (automatic info popup)
+      tooltip: {
+        enabled: true,
+        callbacks: {
+          label: function(context) {
+            const value = context.raw;
+            const total = context.dataset.data.reduce((a,b)=>a+b,0);
+            const percent = ((value/total)*100).toFixed(1);
+            return `₹${value} (${percent}%)`;
+          }
+        }
+      }
+    }
+  }
+});
+
+// Disable animation after first render
+firstPieRender = false;
 }
 loadAnalytics();
 setInterval(loadAnalytics, 5000);

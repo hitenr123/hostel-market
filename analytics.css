@@ -1,77 +1,76 @@
 /* ===== PAGE ===== */
 
 body {
-    margin: 0;
-    font-family: "Segoe UI", Roboto, Arial, sans-serif;
-    background: linear-gradient(135deg,#e8edf5,#f7faff);
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: linear-gradient(135deg, #e8edf5, #f7faff);
 }
 
 /* ===== TOP BAR ===== */
 
 .topbar {
-    background: linear-gradient(90deg,#1f2a44,#2e3d63);
-    color: white;
-    padding: 18px 28px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  background: linear-gradient(90deg, #1f2a44, #2e3d63);
+  color: white;
+  padding: 18px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .topbar button {
-    background: white;
-    border: none;
-    padding: 8px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: 0.2s;
+  background: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
 }
 
 .topbar button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* ===== CARDS ===== */
 
 .cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 18px;
-    padding: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 24px;
 }
 
 .card {
-    flex: 1 1 220px;
-    background: white;
-    border-radius: 16px;
-    padding: 22px;
-    text-align: center;
+  flex: 1 1 220px;
+  background: white;
+  border-radius: 16px;
+  padding: 22px;
+  text-align: center;
 
-    box-shadow:
-        0 2px 6px rgba(0,0,0,0.05),
-        0 10px 24px rgba(0,0,0,0.08);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.05),
+    0 10px 24px rgba(0, 0, 0, 0.08);
 
-    transition: 0.25s;
+  transition: 0.25s;
 }
 
-
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 }
 
 .card h3 {
-    color: #666;
-    font-weight: 600;
+  color: #666;
+  font-weight: 600;
 }
 
 .card p {
-    font-size: 32px;
-    font-weight: bold;
-    margin-top: 10px;
-    color: #1f2a44;
+  font-size: 32px;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #1f2a44;
 }
 
 /* ===== CHARTS ===== */
@@ -90,28 +89,27 @@ body {
   border-radius: 16px;
   padding: 43px;
   box-shadow:
-      0 2px 6px rgba(0,0,0,0.05),
-      0 10px 24px rgba(0,0,0,0.08);
+    0 2px 6px rgba(0, 0, 0, 0.05),
+    0 10px 24px rgba(0, 0, 0, 0.08);
 
   display: flex;
   flex-direction: column;
 }
 
 .chartCard h3 {
-    margin: -13px 0 15px 0px;
-    padding: 0;
-    font-size: 20px;
-    line-height: 1.2;
+  margin: -13px 0 15px 0px;
+  padding: 0;
+  font-size: 20px;
+  line-height: 1.2;
 }
 
-.smallChart h3{
-    margin: -24px 0 18px -20px;
+.smallChart h3 {
+  margin: -24px 0 18px -20px;
 }
 
-.bigChart canvas{
-    margin: 0px 0px 0px -25px;
+.bigChart canvas {
+  margin: 0px 0px 0px -25px;
 }
-
 
 /* Increase height */
 .bigChart {
@@ -132,44 +130,44 @@ body {
 /* ===== TABLE ===== */
 
 .tableSection {
-    padding: 24px;
+  padding: 24px;
 }
 
 table {
-    width: 100%;
-    background: white;
-    border-collapse: collapse;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  width: 100%;
+  background: white;
+  border-collapse: collapse;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
-th, td {
-    padding: 14px;
-    text-align: left;
+th,
+td {
+  padding: 14px;
+  text-align: left;
 }
 
 th {
-    background: linear-gradient(90deg,#1f2a44,#2e3d63);
-    color: white;
+  background: linear-gradient(90deg, #1f2a44, #2e3d63);
+  color: white;
 }
 
 tr:hover {
-    background: #f5f8ff;
+  background: #f5f8ff;
 }
 
 /* When screen shrinks */
 @media (max-width: 1000px) {
-
   .charts {
-    grid-template-columns: 1fr;   /* stack vertically */
+    grid-template-columns: 1fr; /* stack vertically */
   }
 
   /* Graph expands */
   .bigChart {
     grid-column: 1 / -1;
     width: 92%;
-    height: 480px;     /* more space for full labels */
+    height: 480px; /* more space for full labels */
   }
 
   /* Pie goes below */
@@ -177,31 +175,4 @@ tr:hover {
     width: 92%;
     height: 380px;
   }
-
-}
-
-/* ---------- PIE CHART KEYFRAME ANIMATION ---------- */
-
-@keyframes pieReveal {
-    0% {
-        clip-path: circle(0% at 50% 50%);
-        transform: scale(0.8);
-        opacity: 0;
-    }
-
-    60% {
-        clip-path: circle(70% at 50% 50%);
-        transform: scale(1.05);
-        opacity: 1;
-    }
-
-    100% {
-        clip-path: circle(100% at 50% 50%);
-        transform: scale(1);
-    }
-}
-
-/* Apply animation */
-.smallChart canvas {
-    animation: pieReveal 1.4s ease-out;
 }
