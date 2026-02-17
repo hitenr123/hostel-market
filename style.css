@@ -609,6 +609,7 @@ h2 {
 
   #clearSearch{
     right: 20px;
+    font-size: 15px;
   }
 
   .search-icon {
@@ -618,7 +619,6 @@ h2 {
 
   .clear-search {
     right: 20px;
-    font-size: 10px;
   }
 }
 
