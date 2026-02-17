@@ -201,3 +201,22 @@ tr:hover {
   }
 
 }
+
+/* ===== Desktop spacing for charts ===== */
+@media (min-width: 1030px) {
+
+  .chartCard {
+    gap: 22px;        /* space between h3 and chart */
+    padding: 50px;    /* keeps content inside */
+  }
+
+  .chartCard h3 {
+    margin: 0;        /* remove margin conflicts */
+  }
+
+  .chartCard canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+}
