@@ -244,7 +244,7 @@ footer {
 .search-container i.fa-search {
   position: absolute;
   top: 50%;
-  left: 20px;
+  left: 12px;
   transform: translateY(-50%);
   color: #888;
 }
@@ -253,7 +253,7 @@ footer {
 #clearSearch {
   position: absolute;
   top:50%;
-  right: 20px;
+  right: 12px;
   transform: translateY(-50%);
   cursor: pointer;
   font-size: 20px;
@@ -461,26 +461,17 @@ h2 {
   cursor:pointer;
 }
 
-/* Mobile fix */
-@media(max-width:600px){
-  .pending-header{
-    position:fixed;
-    top:12px;
-    left:12px;
-    z-index:1000;
-  }
-}
 
-
-/* Admin buttons container */
 #adminTools{
   position:absolute;
-  left:0px;
+  left:16px;
   top:16px;
 
   display:flex;
   flex-direction:column;
-  gap: 25px;
+  align-items:flex-start;
+
+  gap:10px;              /* spacing between buttons */
 }
 
 
@@ -612,6 +603,14 @@ h2 {
     font-size: 14px;
   }
 
+  .search-container i.fa-search{
+    left: 20px;
+  }
+
+  #clearSearch{
+    right: 20px;
+  }
+
   .search-icon {
     left: 12px;
     font-size: 16px;
@@ -621,4 +620,21 @@ h2 {
     right: 20px;
     font-size: 18px;
   }
+}
+
+/* Mobile & Tablet layout fix */
+@media(max-width:1024px){
+
+  #adminTools{
+    position:static;          /* stops overlap */
+    margin-bottom:12px;
+    align-items:center;
+    gap: 25px;
+  }
+
+  .cart-bar{
+    flex-direction:column;
+    gap:8px;
+  }
+
 }
