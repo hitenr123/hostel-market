@@ -207,11 +207,11 @@ tr:hover {
 
   .chartCard {
     gap: 22px;        /* space between h3 and chart */
-    padding: 50px;    /* keeps content inside */
+    padding: 45px;    /* keeps content inside */
   }
 
   .chartCard h3 {
-    margin: -11px;        /* remove margin conflicts */
+    margin: -11px 0 -11px 0;        /* remove margin conflicts */
   }
 
   .chartCard canvas {
