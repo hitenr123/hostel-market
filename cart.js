@@ -107,7 +107,7 @@ function checkout() {
 
   localStorage.setItem("pendingOrders", JSON.stringify(pending));
 
-  fetch("http://192.168.0.163:5000/update-orders", {
+  fetch("http://localhost:5000/update-orders", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(cart),
