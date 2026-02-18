@@ -87,4 +87,4 @@ def update_orders():
 
     return {"status": "success"}
 
-app.run(port=5000)
+app.run(host="192.168.0.123", port=5000, debug=True)
