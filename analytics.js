@@ -1,4 +1,4 @@
-const API = "http://localhost:5000/products";
+const API = "http://0.0.0.0:5000/products";
 
 let revenueLineChart;
 let revenuePieChart;
