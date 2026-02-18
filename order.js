@@ -59,7 +59,7 @@ async function confirmOrder(index, card){
 
   const order = orders[index];
 
-  await fetch("http://0.0.0.0:5000/update-orders", {
+  await fetch("http://192.168.0.163:5000/update-orders", {
     method:"POST",
     headers:{ "Content-Type":"application/json" },
     body: JSON.stringify(order.items)

@@ -315,7 +315,7 @@ function cartDropAnimation() {
   step();
 }
 
-fetch("http://0.0.0.0:5000/products")
+fetch("http://192.168.0.163:5000/products")
   .then((res) => res.json())
   .then((data) => {
     console.log(data);
