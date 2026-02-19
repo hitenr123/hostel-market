@@ -315,7 +315,7 @@ function cartDropAnimation() {
   step();
 }
 
-fetch("https://raw.githubusercontent.com/hitenr123/hostel-market/refs/heads/main/products.json")
+fetch("http://localhost:5000/products")
   .then((res) => res.json())
   .then((data) => {
     console.log(data);

@@ -30,7 +30,6 @@ def get_products():
 
     cursor.close()
     db.close()
-    export_and_push()
 
     return jsonify(result)
 
@@ -79,37 +78,10 @@ def update_orders():
         cursor.close()
         db.close()
 
-        export_and_push()
-
         return {"status": "success"}
 
     except Exception as e:
         return {"status": "error", "message": str(e)}, 500
-
-
-
-def export_and_push():
-
-    db = get_db()
-
-    cursor = db.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM products")
-    result = cursor.fetchall()
-
-    # Save JSON file
-    with open("products.json", "w") as f:
-        json.dump(result, f, indent=4, default=str)
-
-    cursor.close()
-    db.close()
-
-    # Push to GitHub
-    repo = Repo(".")
-    repo.git.add("products.json")
-
-    if repo.is_dirty():
-        repo.index.commit("Updated products.json")
-        repo.remote(name="origin").push()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
