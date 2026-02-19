@@ -30,6 +30,7 @@ def get_products():
 
     cursor.close()
     db.close()
+    export_and_push()
 
     return jsonify(result)
 
