@@ -5,29 +5,24 @@ import mysql.connector
 from datetime import datetime
 import json
 from git import Repo
+import os
 
 app = Flask(__name__)
 CORS(app)
 
-# MySQL connection
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="hiten",
-    database="hostelshop"
-)
-
-cursor = db.cursor(dictionary=True)
+def get_db():
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password=os.getenv("DB_PASSWORD"),
+        database="hostelshop"
+    )
 
 @app.route("/products")
 def get_products():
 
-    db = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="hiten",
-        database="hostelshop"
-    )
+    db = get_db()
+
 
     cursor = db.cursor(dictionary=True)
     cursor.execute("SELECT * FROM products")
@@ -35,7 +30,6 @@ def get_products():
 
     cursor.close()
     db.close()
-    export_and_push()
 
     return jsonify(result)
 
@@ -43,65 +37,58 @@ def get_products():
 
 @app.route("/update-orders", methods=["POST"])
 def update_orders():
+    try:
+        db = get_db()
+        cursor = db.cursor()
 
-    db = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="hiten",
-        database="hostelshop"
-    )
+        data = request.json
+        now = datetime.now()
+        today = now.date()
 
-    cursor = db.cursor()
-
-    data = request.json
-    now = datetime.now()
-    today = now.date()
-
-    for item in data:
-
-        cursor.execute("""
-            UPDATE products
-            SET today_orders =
-                CASE
-                    WHEN last_order_date = %s THEN today_orders + %s
-                    ELSE %s
-                END,
-                last_order_date = %s,
-                orders = orders + %s,
-                revenue = revenue + (%s * price),
-                last_order_time = %s
-            WHERE name = %s
-        """, (
-            today,
-            item["qty"],
-            item["qty"],
-            today,
-            item["qty"],
-            item["qty"],
-            now,
-            item["name"]
-        ))
-
-    db.commit()
-
-    cursor.close()
-    db.close()
-    export_and_push()
+        if not data:
+            return {"error": "No data received"}, 400
 
 
-    return {"status": "success"}
+        for item in data:
+            cursor.execute(""" 
+                UPDATE products
+                SET today_orders =
+                    CASE
+                        WHEN last_order_date = %s THEN today_orders + %s
+                        ELSE %s
+                    END,
+                    last_order_date = %s,
+                    orders = orders + %s,
+                    revenue = revenue + (%s * price),
+                    last_order_time = %s
+                WHERE name = %s
+            """, (
+                today,
+                item["qty"],
+                item["qty"],
+                today,
+                item["qty"],
+                item["qty"],
+                now,
+                item["name"]
+            ))
 
-app.run(host="0.0.0.0", port=5000, debug=True)
+        db.commit()
+        cursor.close()
+        db.close()
+
+        export_and_push()
+
+        return {"status": "success"}
+
+    except Exception as e:
+        return {"status": "error", "message": str(e)}, 500
+
 
 
 def export_and_push():
 
-    db = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="hiten",
-        database="hostelshop"
-    )
+    db = get_db()
 
     cursor = db.cursor(dictionary=True)
     cursor.execute("SELECT * FROM products")
@@ -115,7 +102,12 @@ def export_and_push():
     db.close()
 
     # Push to GitHub
-    repo = Repo("https://github.com/hitenr123/hostel-market")
+    repo = Repo(".")
     repo.git.add("products.json")
-    repo.index.commit("Updated products.json")
-    repo.remote(name="origin").push()
+
+    if repo.is_dirty():
+        repo.index.commit("Updated products.json")
+        repo.remote(name="origin").push()
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
