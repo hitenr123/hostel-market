@@ -72,6 +72,7 @@ def update_orders():
                 now,
                 item["name"]
             ))
+            print("Rows affected:", cursor.rowcount)
 
         db.commit()
         cursor.close()
