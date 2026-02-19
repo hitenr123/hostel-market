@@ -3,6 +3,8 @@ from flask import request
 from flask_cors import CORS
 import mysql.connector
 from datetime import datetime
+import json
+from git import Repo
 
 app = Flask(__name__)
 CORS(app)
@@ -33,6 +35,7 @@ def get_products():
 
     cursor.close()
     db.close()
+    export_and_push()
 
     return jsonify(result)
 
@@ -83,8 +86,36 @@ def update_orders():
 
     cursor.close()
     db.close()
+    export_and_push()
 
 
     return {"status": "success"}
 
 app.run(host="0.0.0.0", port=5000, debug=True)
+
+
+def export_and_push():
+
+    db = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="hiten",
+        database="hostelshop"
+    )
+
+    cursor = db.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM products")
+    result = cursor.fetchall()
+
+    # Save JSON file
+    with open("products.json", "w") as f:
+        json.dump(result, f, indent=4, default=str)
+
+    cursor.close()
+    db.close()
+
+    # Push to GitHub
+    repo = Repo("https://github.com/hitenr123/hostel-market")
+    repo.git.add("products.json")
+    repo.index.commit("Updated products.json")
+    repo.remote(name="origin").push()

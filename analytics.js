@@ -7,7 +7,7 @@ let firstPieRender = true;
 
 
 async function loadAnalytics() {
-  const res = await fetch(`${API}?t=${Date.now()}`, { cache: "no-store" });
+  const res = await fetch(`${"https://raw.githubusercontent.com/hitenr123/hostel-market/refs/heads/main/products.json"}?t=${Date.now()}`, { cache: "no-store" });
   const products = await res.json();
 
   // ---------- BASIC ----------
