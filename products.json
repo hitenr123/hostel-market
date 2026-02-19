@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "last_order_date": "Sat, 15 Dec 2007 00:00:00 GMT",
+    "last_order_time": null,
+    "name": "Tedhe Medhe",
+    "orders": 5,
+    "price": 14.0,
+    "revenue": 5,
+    "stock": 0,
+    "today_orders": 5
+  },
+  {
+    "id": 2,
+    "last_order_date": "Mon, 21 Aug 2006 00:00:00 GMT",
+    "last_order_time": null,
+    "name": "Bourbon",
+    "orders": 5,
+    "price": 20.0,
+    "revenue": 5,
+    "stock": 0,
+    "today_orders": 5
+  },
+  {
+    "id": 3,
+    "last_order_date": "Thu, 21 Sep 2006 00:00:00 GMT",
+    "last_order_time": null,
+    "name": "Dark Fantasy Chocolate",
+    "orders": 5,
+    "price": 20.0,
+    "revenue": 5,
+    "stock": 0,
+    "today_orders": 5
+  },
+  {
+    "id": 4,
+    "last_order_date": "Sat, 21 Oct 2006 00:00:00 GMT",
+    "last_order_time": null,
+    "name": "Dark Fantasy Vanilla",
+    "orders": 5,
+    "price": 20.0,
+    "revenue": 5,
+    "stock": 0,
+    "today_orders": 5
+  },
+  {
+    "id": 5,
+    "last_order_date": "Thu, 21 Dec 2006 00:00:00 GMT",
+    "last_order_time": null,
+    "name": "Mad Angles Achaari Masti",
+    "orders": 5,
+    "price": 35.0,
+    "revenue": 5,
+    "stock": 0,
+    "today_orders": 5
+  },
+  {
+    "id": 6,
+    "last_order_date": "Sat, 15 Dec 2007 00:00:00 GMT",
+    "last_order_time": null,
+    "name": "Mad Angles Peri Peri",
+    "orders": 5,
+    "price": 35.0,
+    "revenue": 5,
+    "stock": 0,
+    "today_orders": 5
+  }
+]
