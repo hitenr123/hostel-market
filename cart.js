@@ -107,7 +107,7 @@ function checkout() {
 
   localStorage.setItem("pendingOrders", JSON.stringify(pending));
 
-  fetch("http://localhost:5000/update-orders", {
+  fetch("https://raw.githubusercontent.com/hitenr123/hostel-market/refs/heads/main/products.json", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(cart),

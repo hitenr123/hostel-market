@@ -59,7 +59,7 @@ async function confirmOrder(index, card){
 
   const order = orders[index];
 
-  await fetch("http://localhost:5000/update-orders" + Date.now(), {
+  await fetch("https://raw.githubusercontent.com/hitenr123/hostel-market/refs/heads/main/products.json" + Date.now(), {
     cache: "no-store",
     method:"POST",
     headers:{ "Content-Type":"application/json" },
