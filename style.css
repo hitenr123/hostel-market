@@ -13,6 +13,7 @@ body {
   background: #020617;
   color: #e5e7eb;
 }
+
 header {
   background: linear-gradient(135deg, #1e293b, #020617);
   padding: 20px;
@@ -637,4 +638,30 @@ h2 {
     gap:8px;
   }
 
+}
+
+/* ===== USER LOGIN BUTTON (TOP LEFT) ===== */
+
+.user-login-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: #f5a623; /* your gold accent */
+    color: #000;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    transition: 0.3s ease;
+    z-index: 1000;
+}
+
+.user-login-btn:hover {
+    transform: scale(1.1);
 }
