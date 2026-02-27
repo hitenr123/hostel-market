@@ -16,7 +16,11 @@
   </head>
   <body>
     <header>
-      <button id="userLoginBtn" class="user-login-btn" onclick="window.location.href='login.html'">
+      <button
+        id="userLoginBtn"
+        class="user-login-btn"
+        onclick="window.location.href = 'login.html'"
+      >
         <i class="fa-solid fa-user"></i>
       </button>
       <div class="cart-bar">
@@ -114,18 +118,11 @@
     </div>
 
     <div class="container">
-      <p
-        id="noResult"
-        style="
-          display: none;
-          text-align: center;
-          margin-top: 50px;
-          margin-bottom: 50px;
-          font-size: 30px;
-        "
-      >
-        Searched item is not available
-      </p>
+      <div class="no-result-wrapper">
+        <p id="noResult">
+          Searched item is not available
+        </p>
+      </div>
 
       <!-- Product 1 -->
       <div class="product" data-product="tedhe-medhe">

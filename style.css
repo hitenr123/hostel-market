@@ -665,3 +665,42 @@ h2 {
 .user-login-btn:hover {
     transform: scale(1.1);
 }
+
+/* ===== SEARCH NOT FOUND FULL CENTER ===== */
+
+/* Wrapper handles centering */
+/* ===== SEARCH NOT FOUND RESPONSIVE CENTER ===== */
+
+.no-result-wrapper {
+  display: none;              /* hidden by default */
+  
+  width: 100%;
+  min-height: calc(100vh - 160px); 
+  /* subtract approx header + footer height */
+  justify-content: center;
+  align-items: center;
+
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+/* Text styling */
+#noResult {
+  text-align: center;
+  font-size: clamp(1.2rem, 3.5vw, 2rem);
+  font-weight: 600;
+
+  color: #facc15;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem 2rem;
+  border-radius: 14px;
+
+  width: min(90%, 500px);
+}
+
+@media (max-width: 1000px) {
+  .no-result-wrapper {
+    min-height: 50vh;
+    padding: 1.5rem 1rem;
+  }
+}

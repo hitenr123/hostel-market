@@ -96,8 +96,8 @@ function searchItems() {
     }
   });
 
-  document.getElementById("noResult").style.display =
-    found || input === "" ? "none" : "block";
+  document.querySelector(".no-result-wrapper").style.display =
+    found || input === "" ? "none" : "flex";
 }
 
 const toggleBtn = document.getElementById("themeToggle");
@@ -332,7 +332,6 @@ function updatePendingCount() {
 
 window.addEventListener("storage", updatePendingCount());
 
-
 const searchBox = document.getElementById("searchBox");
 const clearBtn = document.getElementById("clearSearch");
 
@@ -347,7 +346,7 @@ clearBtn.addEventListener("click", () => {
   clearBtn.style.display = "none";
 
   // Show all products again
-  document.querySelectorAll(".product").forEach(p => {
+  document.querySelectorAll(".product").forEach((p) => {
     p.style.display = "flex";
   });
 
