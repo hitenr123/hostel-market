@@ -5,7 +5,6 @@ import mysql.connector
 from datetime import datetime
 import json
 from git import Repo
-import os
 
 app = Flask(__name__)
 CORS(app)
@@ -14,7 +13,7 @@ def get_db():
     return mysql.connector.connect(
         host="localhost",
         user="root",
-        password=os.getenv("DB_PASSWORD"),
+        password="hiten",
         database="hostelshop"
     )
 
