@@ -704,3 +704,41 @@ h2 {
     padding: 1.5rem 1rem;
   }
 }
+
+@media (max-width: 1000px) {
+
+  /* USER LOGIN BUTTON */
+  .user-login-btn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 38px;
+    height: 38px;
+    font-size: 14px;
+    z-index: 2000;
+  }
+
+  /* CART BUTTON */
+  .cart-header {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 6px 12px;
+    font-size: 14px;
+    z-index: 2000;
+  }
+
+  /* Prevent header content overlapping */
+  header {
+    padding-top: 70px;
+  }
+
+}
+
+@media (max-width: 600px) {
+  .cart-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
