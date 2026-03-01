@@ -164,6 +164,41 @@ button:hover{
   font-size: 40px;
 }
 
+/* BACK BUTTON */
+.back-btn {
+  position: fixed;
+  top: 25px;
+  left: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+
+  color: white;
+  border: 2px solid #1ecfff;
+  background: transparent;
+
+  box-shadow: 0 0 10px #1ecfff;
+  transition: 0.3s ease;
+  z-index: 1000;
+}
+
+.back-btn i {
+  font-size: 14px;
+}
+
+/* Hover Effect */
+.back-btn:hover {
+  background: #1ecfff;
+  color: black;
+  box-shadow: 0 0 20px #1ecfff;
+  transform: translateY(-2px);
+}
+
 @media (max-width: 900px) {
   .login-box {
     flex-direction: column;
@@ -201,5 +236,12 @@ button:hover{
 
   button {
     padding: 10px 0;
+  }
+
+  .back-btn {
+    top: 15px;
+    left: 15px;
+    padding: 6px 12px;
+    font-size: 12px;
   }
 }
