@@ -1,55 +1,73 @@
-from flask import Flask, jsonify
-from flask import request
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import mysql.connector
 from datetime import datetime
-import json
-from git import Repo
+import os
 
 app = Flask(__name__)
 CORS(app)
 
+# ===== DATABASE CONNECTION =====
 def get_db():
     return mysql.connector.connect(
-        host="localhost",
-        user="root",
+        host=os.getenv("DB_HOST", "localhost"),
+        user=os.getenv("DB_USER", "root"),
         password="hiten",
-        database="hostelshop"
+        database=os.getenv("DB_NAME", "hostelshop")
     )
 
+
+# ===== GET PRODUCTS =====
 @app.route("/products")
 def get_products():
+    try:
+        db = get_db()
+        cursor = db.cursor(dictionary=True)
 
-    db = get_db()
+        cursor.execute("SELECT * FROM products")
+        result = cursor.fetchall()
+
+        cursor.close()
+        db.close()
+
+        return jsonify(result)
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
-    cursor = db.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM products")
-    result = cursor.fetchall()
-
-    cursor.close()
-    db.close()
-
-    return jsonify(result)
-
-
-
+# ===== UPDATE ORDERS (ADMIN PROTECTED) =====
 @app.route("/update-orders", methods=["POST"])
 def update_orders():
     try:
+        # 🔒 Simple Admin Protection
+        admin_key = request.headers.get("X-ADMIN-KEY")
+        if admin_key != os.getenv("ADMIN_SECRET"):
+            return jsonify({"error": "Unauthorized"}), 401
+
+        data = request.json
+        if not data:
+            return jsonify({"error": "No data received"}), 400
+
         db = get_db()
         cursor = db.cursor()
 
-        data = request.json
         now = datetime.now()
         today = now.date()
 
-        if not data:
-            return {"error": "No data received"}, 400
-
-
         for item in data:
-            cursor.execute(""" 
+
+            # ✅ Input validation
+            if "qty" not in item or "name" not in item:
+                continue
+
+            qty = int(item["qty"])
+            name = item["name"]
+
+            if qty <= 0:
+                continue
+
+            cursor.execute("""
                 UPDATE products
                 SET today_orders =
                     CASE
@@ -63,24 +81,24 @@ def update_orders():
                 WHERE name = %s
             """, (
                 today,
-                item["qty"],
-                item["qty"],
+                qty,
+                qty,
                 today,
-                item["qty"],
-                item["qty"],
+                qty,
+                qty,
                 now,
-                item["name"]
+                name
             ))
-            print("Rows affected:", cursor.rowcount)
 
         db.commit()
         cursor.close()
         db.close()
 
-        return {"status": "success"}
+        return jsonify({"status": "success"})
 
     except Exception as e:
-        return {"status": "error", "message": str(e)}, 500
+        return jsonify({"status": "error", "message": str(e)}), 500
+
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000)
