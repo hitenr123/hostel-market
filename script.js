@@ -321,17 +321,6 @@ fetch("https://hostel-market-production.up.railway.app/products")
     console.log(data);
   });
 
-function updatePendingCount() {
-  const countSpan = document.getElementById("pending-count");
-  if (!countSpan) return;
-
-  let orders = JSON.parse(localStorage.getItem("pendingOrders")) || [];
-
-  countSpan.innerText = orders.length;
-}
-
-window.addEventListener("storage", updatePendingCount());
-
 const searchBox = document.getElementById("searchBox");
 const clearBtn = document.getElementById("clearSearch");
 
