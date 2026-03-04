@@ -10,10 +10,11 @@ CORS(app)
 # ===== DATABASE CONNECTION =====
 def get_db():
     return mysql.connector.connect(
-        host=os.getenv("DB_HOST", "localhost"),
-        user=os.getenv("DB_USER", "root"),
-        password="hiten",
-        database=os.getenv("DB_NAME", "hostelshop")
+        host="crossover.proxy.rlwy.net",
+        user="root",
+        password="JNAYQnLAMLNBJbFVfLKzRWkYXsHayTGS",
+        database="railway",
+        port=52813
     )
 
 
