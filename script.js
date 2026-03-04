@@ -315,7 +315,7 @@ function cartDropAnimation() {
   step();
 }
 
-fetch("http://localhost:5000/products")
+fetch("https://hostel-market-production.up.railway.app/products")
   .then((res) => res.json())
   .then((data) => {
     console.log(data);
