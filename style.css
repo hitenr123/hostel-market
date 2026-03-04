@@ -449,19 +449,6 @@ h2 {
   justify-content:center;
 }
 
-/* Pending Orders Button */
-.pending-header{
-  position:static;
-  left:16px;
-  top:16px;
-  background:#22c55e;
-  color:black;
-  padding:8px 14px;
-  border-radius:8px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
 
 #adminTools{
   position:absolute;
