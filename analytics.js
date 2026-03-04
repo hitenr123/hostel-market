@@ -7,7 +7,7 @@ let firstPieRender = true;
 
 
 async function loadAnalytics() {
-  const res = await fetch(`${"http://localhost:5000/products"}?t=${Date.now()}`, { cache: "no-store" });
+  const res = await fetch(`${"https://hostel-market-production.up.railway.app/products"}?t=${Date.now()}`, { cache: "no-store" });
   const products = await res.json();
 
   // ---------- BASIC ----------

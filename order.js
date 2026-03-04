@@ -59,7 +59,7 @@ async function confirmOrder(index, card){
 
   const order = orders[index];
 
-  await fetch("http://localhost:5000/update-orders", {
+  await fetch("https://hostel-market-production.up.railway.app/update-orders", {
     cache: "no-store",
     method:"POST",
     headers:{ "Content-Type":"application/json" },
