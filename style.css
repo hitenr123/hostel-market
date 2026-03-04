@@ -452,8 +452,8 @@ h2 {
 
 #adminTools{
   position:absolute;
-  left:16px;
-  top:16px;
+  left:0px;
+  top:60px;
 
   display:flex;
   flex-direction:column;
