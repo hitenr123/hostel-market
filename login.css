@@ -4,14 +4,12 @@
   box-sizing: border-box;
   font-family: "Segoe UI", sans-serif;
 }
-
 body::before {
   position: fixed;
   top: 0;
   left: 0;
   z-index: -1;
 }
-
 body {
   background-color: black;
   display: flex;
@@ -21,11 +19,159 @@ body {
   position: relative;
   overflow: hidden;
 }
-
 @keyframes popUp {
   to {
     transform: scale(1);
     opacity: 1;
+  }
+}
+@keyframes flipGradient {
+  /* Initial */
+  0% {
+    background: linear-gradient(50deg, black 60%, #2596be 40%);
+  } 
+  /* Blue expands */
+  5% {
+    background: linear-gradient(50deg, black 50%, #2596be 0%);
+  }
+  10% {
+    background: linear-gradient(45deg, black 45%, #2596be 0%);
+  }
+  15% {
+    background: linear-gradient(40deg, black 40%, #2596be 0%);
+  }
+  20% {
+    background: linear-gradient(35deg, black 35%, #2596be 0%);
+  }
+  25% {
+    background: linear-gradient(30deg, black 30%, #2596be 0%);
+  }
+  30% {
+    background: linear-gradient(25deg, black 25%, #2596be 0%);
+  }
+  35% {
+    background: linear-gradient(20deg, black 20%, #2596be 0%);
+  }
+  40% {
+    background: linear-gradient(15deg, black 15%, #2596be 0%);
+  }
+  45% {
+    background: linear-gradient(10deg, black 10%, #2596be 0%);
+  }
+  50% {
+    background: linear-gradient(0deg, black 0%, #2596be 0%);
+  }
+
+  /* Stay */
+  55% {
+    background: linear-gradient(0deg, black 0%, #2596be 0%);
+  }
+
+  /* Final opposite */
+  60% {
+    background: linear-gradient(-5deg, black 0%, #2596be 0%);
+  }
+  65% {
+    background: linear-gradient(-10deg, black 0%, #2596be 0%);
+  }
+  70% {
+    background: linear-gradient(-15deg, black 0%, #2596be 0%);
+  }
+  75% {
+    background: linear-gradient(-20deg, black 10%, #2596be 5%);
+  }
+  80% {
+    background: linear-gradient(-25deg, black 20%, #2596be 10%);
+  }
+  85% {
+    background: linear-gradient(-30deg, black 30%, #2596be 20%);
+  }
+  90% {
+    background: linear-gradient(-35deg, black 40%, #2596be 30%);
+  }
+  95% {
+    background: linear-gradient(-40deg, black 50%, #2596be 40%);
+  }
+  97% {
+    background: linear-gradient(-45deg, black 55%, #2596be 40%);
+  }
+  100% {
+    background: linear-gradient(-50deg, black 60%, #2596be 40%);
+  }
+}
+
+@keyframes flipGradientReverse {
+  /* Initial */
+  100% {
+    background: linear-gradient(50deg, black 60%, #2596be 40%);
+  } 
+  /* Blue expands */
+  95% {
+    background: linear-gradient(50deg, black 50%, #2596be 0%);
+  }
+  90% {
+    background: linear-gradient(45deg, black 45%, #2596be 0%);
+  }
+  85% {
+    background: linear-gradient(40deg, black 40%, #2596be 0%);
+  }
+  80% {
+    background: linear-gradient(35deg, black 35%, #2596be 0%);
+  }
+  75% {
+    background: linear-gradient(30deg, black 30%, #2596be 0%);
+  }
+  70% {
+    background: linear-gradient(25deg, black 25%, #2596be 0%);
+  }
+  65% {
+    background: linear-gradient(20deg, black 20%, #2596be 0%);
+  }
+  60% {
+    background: linear-gradient(15deg, black 15%, #2596be 0%);
+  }
+  55% {
+    background: linear-gradient(10deg, black 10%, #2596be 0%);
+  }
+  50% {
+    background: linear-gradient(0deg, black 0%, #2596be 0%);
+  }
+
+  /* Stay */
+  45% {
+    background: linear-gradient(0deg, black 0%, #2596be 0%);
+  }
+
+  /* Final opposite */
+  40% {
+    background: linear-gradient(-5deg, black 0%, #2596be 0%);
+  }
+  35% {
+    background: linear-gradient(-10deg, black 0%, #2596be 0%);
+  }
+  30% {
+    background: linear-gradient(-15deg, black 0%, #2596be 0%);
+  }
+  25% {
+    background: linear-gradient(-20deg, black 10%, #2596be 5%);
+  }
+  20% {
+    background: linear-gradient(-25deg, black 20%, #2596be 10%);
+  }
+  15% {
+    background: linear-gradient(-30deg, black 30%, #2596be 20%);
+  }
+  10% {
+    background: linear-gradient(-35deg, black 40%, #2596be 30%);
+  }
+  5% {
+    background: linear-gradient(-40deg, black 50%, #2596be 40%);
+  }
+  3% {
+    background: linear-gradient(-45deg, black 55%, #2596be 40%);
+  }
+  0% {
+    background: linear-gradient(-50deg, black 60%, #2596be 40%);
   }
 }
 
@@ -33,46 +179,34 @@ body {
   width: 90%;
   max-width: 900px;
   min-height: 500px;
-  background-image: linear-gradient(50deg, black 62%, #2596be 40%);
+  background: linear-gradient(50deg, black 60%, #2596be 40%);
   box-shadow: 0 0 15px #2596be;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-radius: 20px;
   border: 2px solid #2596be;
-  transform: scale(0.8);
-  opacity: 0;
   animation: popUp 0.6s ease forwards;
 }
-
 .login {
   width: 55%;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-/* Heading */
+} /* Heading */
 .login-box h2 {
   color: white;
   margin-bottom: 25px;
-}
-
-/* Form Layout */
+} /* Form Layout */
 form {
   width: 100%;
   max-width: 350px;
-}
-
-/* Inputs */
-/* Input Wrapper */
+} /* Inputs */ /* Input Wrapper */
 .input-box {
   position: relative;
   width: 100%;
   margin-bottom: 25px;
-}
-
-/* Input Field */
+} /* Input Field */
 .input-box input {
   width: 100%;
   padding: 10px 35px 10px 5px;
@@ -83,20 +217,14 @@ form {
   color: white;
   font-size: 15px;
   transition: 0.3s ease;
-}
-
-/* Placeholder */
+} /* Placeholder */
 .input-box input::placeholder {
   color: rgba(255, 255, 255, 0.6);
-}
-
-/* Focus Effect */
+} /* Focus Effect */
 .input-box input:focus {
   border-bottom: 2px solid #1ecfff;
   box-shadow: 0 8px 10px -8px #1ecfff;
-}
-
-/* Icon */
+} /* Icon */
 .input-box i {
   position: absolute;
   right: 5px;
@@ -105,14 +233,10 @@ form {
   color: rgba(255, 255, 255, 0.7);
   font-size: 14px;
   transition: 0.3s ease;
-}
-
-/* Icon Glow on Focus */
+} /* Icon Glow on Focus */
 .input-box input:focus + i {
   color: #1ecfff;
-}
-
-/* Button */
+} /* Button */
 button {
   width: 100%;
   padding: 12px 0;
@@ -128,7 +252,6 @@ button {
   transition: 0.3s ease;
   animation: pulseGlow 2s infinite alternate;
 }
-
 button::before {
   content: "";
   position: absolute;
@@ -139,13 +262,11 @@ button::before {
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
   border-radius: 30px;
 }
-
 button {
   box-shadow:
     0 0 10px #1ecfff,
     inset 0 0 8px rgba(30, 207, 255, 0.6);
 }
-
 button:hover {
   background: linear-gradient(black 5%, #2596be 95%);
   transform: translateY(-3px);
@@ -153,18 +274,14 @@ button:hover {
     0 0 20px #1ecfff,
     inset 0 0 12px rgba(30, 207, 255, 0.9);
 }
-
 .left-side {
   width: 35%;
   text-align: center;
 }
-
 .left-side h1 {
   color: white;
   font-size: 40px;
-}
-
-/* BACK BUTTON */
+} /* BACK BUTTON */
 .back-btn {
   position: fixed;
   top: 25px;
@@ -177,44 +294,35 @@ button:hover {
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
-
   color: white;
   border: 2px solid #1ecfff;
   background: transparent;
-
   box-shadow: 0 0 10px #1ecfff;
   transition: 0.3s ease;
   z-index: 1000;
 }
-
 .back-btn i {
   font-size: 14px;
-}
-
-/* Hover Effect */
+} /* Hover Effect */
 .back-btn:hover {
   background: #1ecfff;
   color: black;
   box-shadow: 0 0 20px #1ecfff;
   transform: translateY(-2px);
 }
-
 .login p {
   margin-top: 20px;
   color: rgba(255, 255, 255, 0.7);
   font-size: 14px;
 }
-
 .login p a {
   color: #1ecfff;
   text-decoration: none;
   font-weight: 500;
 }
-
 .login p a:hover {
   text-decoration: underline;
 }
-
 .signup-link {
   display: block;
   margin-top: 5px;
@@ -223,9 +331,48 @@ button:hover {
   text-align: center;
   font-weight: 500;
 }
-
 .signup-link:hover {
   text-decoration: underline;
+}
+
+.register{
+  display:none;
+  width:55%;
+  flex-direction:column;
+  align-items:center;
+}
+
+.register p {
+  margin-top: 20px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+}
+
+.welcome{
+  top: 55px;
+  display:none;
+}
+
+.signin-link {
+  display: block;
+  margin-top: 5px;
+  color: #1ecfff;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 500;
+}
+.signin-link:hover {
+  text-decoration: underline;
+}
+
+@keyframes flipGradientMobile {
+  0% {
+    background: linear-gradient(180deg, black 65%, #2596be 35%);
+  }
+
+  100% {
+    background: linear-gradient(180deg,#2596be 35%, black 0%);
+  }
 }
 
 @media (max-width: 900px) {
@@ -235,15 +382,12 @@ button:hover {
     background-image: linear-gradient(180deg, black 65%, #2596be 35%);
     padding: 10px 20px;
   }
-
   .login {
     width: 100%;
   }
-
   .left-side {
     width: 100%;
   }
-
   .left-side h1 {
     position: relative;
     color: white;
@@ -253,30 +397,24 @@ button:hover {
     text-shadow: 0 0 10px #1ecfff;
     bottom: 28px;
   }
-
   .back-btn {
     top: 32px;
     left: 36px;
   }
 }
-
 @media (max-width: 480px) {
   .login-box {
     padding: 20px 15px;
   }
-
   .login-box h2 {
     font-size: 22px;
   }
-
   .left-side h1 {
     font-size: 24px;
   }
-
   button {
     padding: 10px 0;
   }
-
   .back-btn {
     top: 15px;
     left: 15px;

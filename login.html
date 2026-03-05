@@ -18,6 +18,7 @@
       <i class="fa-solid fa-arrow-left"></i>
       Back
     </a>
+    <input type="checkbox" id="toggle" hidden />
     <div class="login-box">
       <div class="login">
         <h2>Login</h2>
@@ -36,11 +37,33 @@
           <button type="submit">Login</button>
         </form>
         <p>Don't have an account?</p>
-        <a href="signup.html" class="signup-link">Sign Up</a>
+        <label for="toggle" class="signup-link">Sign Up</label>
+      </div>
+      <div class="register">
+        <h2>Register</h2>
+
+        <form>
+          <div class="input-box">
+            <input type="text" placeholder="Username" required />
+            <i class="fa-solid fa-user"></i>
+          </div>
+
+          <div class="input-box">
+            <input type="password" placeholder="Password" required />
+            <i class="fa-solid fa-lock"></i>
+          </div>
+
+          <button type="submit">Register</button>
+        </form>
+
+        <p>Already have an account?</p>
+        <label for="toggle" class="signin-link">Sign In</label>
       </div>
       <div class="left-side">
-        <h1>WELCOME<br>BACK!</h1>
+        <h1 class="welcome-back">WELCOME<br />BACK!</h1>
+        <h1 class="welcome">WELCOME!</h1>
       </div>
     </div>
+    <script src="login.js"></script>
   </body>
 </html>
