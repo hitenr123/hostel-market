@@ -400,6 +400,15 @@ button:hover {
   }
 }
 
+@keyframes flipGradientMobileReverse {
+  0% {
+    background: linear-gradient(180deg, #2596be 35%, black 0%);
+  }
+  100% {
+    background: linear-gradient(180deg, black 65%, #2596be 35%);
+  }
+}
+
 @media (max-width: 900px) {
   .login-box {
     flex-direction: column;
@@ -425,6 +434,12 @@ button:hover {
   .back-btn {
     top: 32px;
     left: 36px;
+  }
+  .login-box {
+    flex-direction: column; /* default */
+  }
+  .login-box.column-reverse {
+    flex-direction: column-reverse; /* when register is active */
   }
 }
 @media (max-width: 480px) {

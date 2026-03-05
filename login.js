@@ -6,7 +6,12 @@ const welcomeBack = document.querySelector(".welcome-back");
 const welcome = document.querySelector(".welcome");
 const box = document.querySelector(".login-box");
 
-// --- Function to show a form with animation ---
+// Function to detect mobile
+function isMobile() {
+  return window.innerWidth <= 900;
+}
+
+// Function to show a form with animation
 function showForm(form) {
   // hide everything during animation
   login.style.display = "none";
@@ -14,30 +19,44 @@ function showForm(form) {
   welcomeBack.style.display = "none";
   welcome.style.display = "none";
 
-  if (form === "register") {
-    box.style.animation = "flipGradient 1.2s ease forwards";
-    setTimeout(() => {
-      box.style.flexDirection = "row-reverse";
-      register.style.display = "flex";
-      welcome.style.display = "block";
-    }, 1200);
-  } else if (form === "login") {
-    box.style.animation = "flipGradientReverse 1.2s ease forwards";
-    setTimeout(() => {
-      box.style.flexDirection = "row";
-      login.style.display = "flex";
-      welcomeBack.style.display = "block";
-    }, 1200);
+  // Determine animation
+  let animName;
+  if (isMobile()) {
+    animName = form === "register" ? "flipGradientMobile" : "flipGradientMobileReverse";
+  } else {
+    animName = form === "register" ? "flipGradient" : "flipGradientReverse";
   }
 
-  // save current form in localStorage
+  // Apply animation
+  box.style.animation = `${animName} 1.2s ease forwards`;
+
+  // Flip layout after animation
+  setTimeout(() => {
+    if (form === "register") {
+      box.style.flexDirection = isMobile() ? "column-reverse" : "row-reverse"; // flipped
+      register.style.display = "flex";
+      welcome.style.display = "block";
+    } else {
+      box.style.flexDirection = isMobile() ? "column" : "row"; // normal
+      login.style.display = "flex";
+      welcomeBack.style.display = "block";
+    }
+  }, 1200);
+
+  // Save current form
   localStorage.setItem("currentForm", form);
 }
 
-// --- On page load, show last form with animation ---
+// On page load, show last form
 const savedForm = localStorage.getItem("currentForm") || "register";
 showForm(savedForm);
 
-// --- Event listeners ---
+// Event listeners
 signupBtn.addEventListener("click", () => showForm("register"));
 signinBtn.addEventListener("click", () => showForm("login"));
+
+// Optional: Reapply animation if window is resized
+window.addEventListener("resize", () => {
+  const currentForm = localStorage.getItem("currentForm") || "register";
+  showForm(currentForm);
+});
