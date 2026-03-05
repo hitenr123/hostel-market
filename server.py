@@ -12,7 +12,7 @@ def get_db():
     return mysql.connector.connect(
         host="crossover.proxy.rlwy.net",
         user="root",
-        password="JNAYQnLAMLNBJbFVfLKzRWkYXsHayTGS",
+        password="hiten",
         database="railway",
         port=52813
     )
