@@ -261,6 +261,22 @@ form {
 .input-box input:focus + label + i {
   color: #1ecfff;
 }
+
+/* span inside label */
+.input-box label .extra-info {
+  font-size: 10px;
+  color: rgba(255,255,255,0.6);
+  transition: 0.3s ease all;
+  display: inline-block;
+  margin-left: 4px;
+}
+
+/* hide the extra-info span on focus/value */
+.input-box input:focus + label .extra-info,
+.input-box input:not(:placeholder-shown) + label .extra-info {
+  opacity: 0;
+  display: inline-block; /* maintain inline behavior */
+}
 /* Button */
 button {
   width: 100%;
