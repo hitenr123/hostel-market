@@ -193,38 +193,60 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-} /* Heading */
+}
+/* Heading */
 .login-box h2 {
   color: white;
   margin-bottom: 25px;
-} /* Form Layout */
+} 
+/* Form Layout */
 form {
   width: 100%;
   max-width: 350px;
-} /* Inputs */ /* Input Wrapper */
-.input-box {
+} .input-box {
   position: relative;
   width: 100%;
   margin-bottom: 25px;
-} /* Input Field */
+}
+
 .input-box input {
   width: 100%;
-  padding: 10px 35px 10px 5px;
+  padding: 12px 35px 12px 5px; /* padding-left for label/icon */
   background: transparent;
   border: none;
   border-bottom: 2px solid rgba(255, 255, 255, 0.4);
   outline: none;
   color: white;
   font-size: 15px;
-  transition: 0.3s ease;
-} /* Placeholder */
-.input-box input::placeholder {
+  transition: all 0.3s ease;
+}
+
+/* Label styling */
+.input-box label {
+  position: absolute;
+  left: 5px;
+  top: 12px;
   color: rgba(255, 255, 255, 0.6);
-} /* Focus Effect */
+  pointer-events: none;
+  font-size: 15px;
+  transition: 0.3s ease all;
+}
+
+/* Move label up on focus or when input has value */
+.input-box input:focus + label,
+.input-box input:not(:placeholder-shown) + label {
+  top: -10px;
+  font-size: 12px;
+  color: #1ecfff; /* blue */
+}
+
+/* Input border glow on focus */
 .input-box input:focus {
   border-bottom: 2px solid #1ecfff;
   box-shadow: 0 8px 10px -8px #1ecfff;
-} /* Icon */
+}
+
+/* Icon styling */
 .input-box i {
   position: absolute;
   right: 5px;
@@ -233,10 +255,13 @@ form {
   color: rgba(255, 255, 255, 0.7);
   font-size: 14px;
   transition: 0.3s ease;
-} /* Icon Glow on Focus */
-.input-box input:focus + i {
+}
+
+/* Icon glow on input focus */
+.input-box input:focus + label + i {
   color: #1ecfff;
-} /* Button */
+}
+/* Button */
 button {
   width: 100%;
   padding: 12px 0;
