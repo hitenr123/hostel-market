@@ -55,8 +55,12 @@ showForm(savedForm);
 signupBtn.addEventListener("click", () => showForm("register"));
 signinBtn.addEventListener("click", () => showForm("login"));
 
-// Optional: Reapply animation if window is resized
+let lastWidth = window.innerWidth;
+
 window.addEventListener("resize", () => {
-  const currentForm = localStorage.getItem("currentForm") || "register";
-  showForm(currentForm);
+  if (window.innerWidth > 900 && window.innerWidth !== lastWidth) {
+    const currentForm = localStorage.getItem("currentForm") || "register";
+    showForm(currentForm);
+    lastWidth = window.innerWidth;
+  }
 });
