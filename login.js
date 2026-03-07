@@ -22,7 +22,8 @@ function showForm(form) {
   // Determine animation
   let animName;
   if (isMobile()) {
-    animName = form === "register" ? "flipGradientMobile" : "flipGradientMobileReverse";
+    animName =
+      form === "register" ? "flipGradientMobile" : "flipGradientMobileReverse";
   } else {
     animName = form === "register" ? "flipGradient" : "flipGradientReverse";
   }
@@ -62,5 +63,92 @@ window.addEventListener("resize", () => {
     const currentForm = localStorage.getItem("currentForm") || "register";
     showForm(currentForm);
     lastWidth = window.innerWidth;
+  }
+});
+
+// ===== POPUP FUNCTION =====
+function showPopup(title, name = "", type = "success") {
+  let popup = document.getElementById("popup");
+  if (!popup) {
+    popup = document.createElement("div");
+    popup.id = "popup";
+    popup.style.position = "fixed";
+    popup.style.top = "50%";
+    popup.style.left = "50%";
+    popup.style.transform = "translate(-50%, -50%) scale(0)";
+    popup.style.padding = "20px 30px";
+    popup.style.borderRadius = "10px";
+    popup.style.fontFamily = "Segoe UI, sans-serif";
+    popup.style.textAlign = "center";
+    popup.style.zIndex = "10000";
+    popup.style.transition = "0.3s ease";
+    document.body.appendChild(popup);
+  }
+
+  popup.innerHTML =
+    `<h2 style="color:${type === "success" ? "green" : "red"}">${title}</h2>` +
+    (name ? `<p style="color:cyan">${name}</p>` : "");
+
+  popup.style.transform = "translate(-50%, -50%) scale(1)";
+  setTimeout(() => {
+    popup.style.transform = "translate(-50%, -50%) scale(0)";
+  }, 3000);
+}
+
+// ===== REGISTER FORM SUBMIT =====
+register.querySelector("form").addEventListener("submit", async function (e) {
+  e.preventDefault();
+  const registerUsername = register.querySelector("#register-username");
+  const registerPassword = register.querySelector("#register-password");
+  try {
+    const res = await fetch(
+      "https://hostel-market-production.up.railway.app/users",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ registerUsername, registerPassword }),
+      },
+    );
+    const data = await res.json();
+
+    if (data.status === "REGISTER_SUCCESS") {
+      showPopup("WELCOME", data.registerUsername, "success");
+    } else if (data.status === "ALREADY_REGISTERED") {
+      showPopup("ALREADY REGISTERED", "", "error");
+    } else if (data.status === "ERROR") {
+      showPopup(data.message, "", "error");
+    }
+  } catch (err) {
+    showPopup("NETWORK ERROR", "", "error");
+  }
+});
+
+// ===== LOGIN FORM SUBMIT =====
+login.querySelector("form").addEventListener("submit", async function (e) {
+  e.preventDefault();
+  const loginUsername = login.querySelector("#login-username");
+  const loginPassword = login.querySelector("#login-password");
+
+  try {
+    const res = await fetch(
+      "https://hostel-market-production.up.railway.app/users",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ loginUsername, loginPassword }),
+      },
+    );
+    const data = await res.json();
+
+    if (data.status === "LOGIN_SUCCESS") {
+      showPopup("WELCOME BACK !!", data.loginUsername, "success");
+    } else if (data.status === "INVALID_LOGIN") {
+      document.getElementById("login-error").textContent = "Invalid Login";
+    } else if (data.status === "ERROR") {
+      showPopup(data.message, "", "error");
+    }
+    document.getElementById("login-error").textContent = "";
+  } catch (err) {
+    showPopup("NETWORK ERROR", "", "error");
   }
 });

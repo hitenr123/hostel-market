@@ -9,13 +9,17 @@ CORS(app)
 
 # ===== DATABASE CONNECTION =====
 def get_db():
-    return mysql.connector.connect(
-        host="crossover.proxy.rlwy.net",
-        user="root",
-        password="hiten",
-        database="railway",
-        port=52813
-    )
+    try:
+        return mysql.connector.connect(
+            host="crossover.proxy.rlwy.net",
+            user="root",
+            password="hiten",
+            database="railway",
+            port=52813
+        )
+    except mysql.connector.Error as err:
+        print("Database connection error:", err)
+        return None
 
 
 # ===== GET PRODUCTS =====
@@ -99,7 +103,95 @@ def update_orders():
 
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+    
+@app.route("/users")
+def get_users():
+    try:
+        db = get_db()
+        cursor = db.cursor(dictionary=True)
+
+        cursor.execute("SELECT * FROM users")
+        result = cursor.fetchall()
+
+        cursor.close()
+        db.close()
+
+        return jsonify(result)
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# ===== REGISTER ROUTE =====
+@app.route("/users", methods=["POST"])
+def register():
+    try:
+        data = request.json
+        username = data.get("registerUsername")
+        roomno = data.get("registerPassword")
+
+        if not username or not roomno:
+            return jsonify({"status": "ERROR", "message": "Username and Room No required"}), 400
+
+        db = get_db()
+        if db is None:
+            return jsonify({"status": "ERROR", "message": "Database connection failed"}), 500
+
+        cursor = db.cursor(dictionary=True)
+
+        # Check if user already exists
+        cursor.execute("SELECT * FROM users WHERE username=%s", (username,))
+        if cursor.fetchone():
+            cursor.close()
+            db.close()
+            return jsonify({"status": "ALREADY_REGISTERED"})
+
+        # Insert new user
+        cursor.execute("INSERT INTO users (username, roomno) VALUES (%s, %s)", (username, roomno))
+        db.commit()
+        cursor.close()
+        db.close()
+
+        return jsonify({"status": "REGISTER_SUCCESS", "username": username})
+
+    except Exception as e:
+        return jsonify({"status": "ERROR", "message": str(e)}), 500
+    
+
+# ===== LOGIN ROUTE =====
+@app.route("/users", methods=["POST"])
+def login():
+    try:
+        data = request.json
+        username = data.get("loginUsername")
+        roomno = data.get("loginPassword")
+
+        if not username or not roomno:
+            return jsonify({"status": "ERROR", "message": "Username and Room No required"}), 400
+
+        db = get_db()
+        if db is None:
+            return jsonify({"status": "ERROR", "message": "Database connection failed"}), 500
+
+        cursor = db.cursor(dictionary=True)
+
+        cursor.execute("SELECT * FROM users WHERE username=%s AND roomno=%s", (username, roomno))
+        user = cursor.fetchone()
+
+        cursor.close()
+        db.close()
+
+        if user:
+            return jsonify({"status": "LOGIN_SUCCESS", "username": username})
+        else:
+            return jsonify({"status": "INVALID_LOGIN"})
+
+    except Exception as e:
+        return jsonify({"status": "ERROR", "message": str(e)}), 500
 
 
+# ===== RUN SERVER =====
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    try:
+        app.run(host="0.0.0.0", port=5000)
+    except Exception as e:
+        print("Flask server failed to start:", e)
