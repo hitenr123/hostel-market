@@ -20,12 +20,12 @@ document.getElementById("logoutBtn").onclick = () => {
 
 // ===== THEME TOGGLE =====
 const toggleBtn1 = document.getElementById("themeToggle");
-const icon = toggleBtn1.querySelector("i");
+const icon1 = toggleBtn1.querySelector("i");
 
 // Load saved theme
 if (localStorage.getItem("theme") === "light") {
   document.body.classList.add("light");
-  icon.classList.replace("fa-moon", "fa-sun");
+  icon1.classList.replace("fa-moon", "fa-sun");
 }
 
 // Toggle theme
@@ -36,10 +36,10 @@ toggleBtn1.addEventListener("click", () => {
     const isLight = document.body.classList.toggle("light");
 
     if (isLight) {
-      icon.classList.replace("fa-moon", "fa-sun");
+      icon1.classList.replace("fa-moon", "fa-sun");
       localStorage.setItem("theme", "light");
     } else {
-      icon.classList.replace("fa-sun", "fa-moon");
+      icon1.classList.replace("fa-sun", "fa-moon");
       localStorage.setItem("theme", "dark");
     }
 
