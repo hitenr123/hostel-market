@@ -15,7 +15,7 @@ if (username && roomno) {
 document.getElementById("logoutBtn").onclick = () => {
   localStorage.removeItem("loggedInUser");
   localStorage.removeItem("roomNo");
-  window.location.href = "index.html";
+  window.location.href = "login.html";
 };
 
 // ===== THEME TOGGLE =====
