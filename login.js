@@ -6,7 +6,6 @@ if (box) {
   const register = document.querySelector(".register");
   const welcomeBack = document.querySelector(".welcome-back");
   const welcome = document.querySelector(".welcome");
-  const box = document.querySelector(".login-box");
 
   // Function to detect mobile
   function isMobile() {
@@ -170,8 +169,8 @@ if (box) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            loginUsername: loginUsername,
-            loginPassword: loginPassword,
+            username: loginUsername,
+            password: loginPassword,
           }),
         },
       );
