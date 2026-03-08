@@ -105,6 +105,18 @@ function showPopup(title, name = "", type = "success") {
   }, 3000);
 }
 
+// ===== TURN INDEX BUTTON GREEN =====
+function activateUserButton() {
+  const btn = document.getElementById("userLoginBtn");
+  if (btn) {
+    btn.style.backgroundColor = "green";
+    btn.style.color = "white";
+    btn.style.border = "2px solid darkgreen";
+    btn.style.transition = "0.3s all ease";
+    btn.style.boxShadow = "0 0 10px rgba(0, 128, 0, 0.7)";
+  }
+}
+
 // ===== REGISTER FORM SUBMIT =====
 register.querySelector("form").addEventListener("submit", async function (e) {
   e.preventDefault();
@@ -128,6 +140,7 @@ register.querySelector("form").addEventListener("submit", async function (e) {
 
     if (data.status === "REGISTER_SUCCESS") {
       showPopup("WELCOME", data.username, "success");
+      activateUserButton(); // turn the button green
     } else if (data.status === "ALREADY_REGISTERED") {
       showPopup("ALREADY REGISTERED", "", "error");
     } else if (data.status === "ERROR") {
@@ -162,6 +175,7 @@ login.querySelector("form").addEventListener("submit", async function (e) {
 
     if (data.status === "LOGIN_SUCCESS") {
       showPopup("WELCOME BACK !!", data.loginUsername, "success");
+      activateUserButton(); // turn the button green
       document.getElementById("login-error").textContent = "";
     } else if (data.status === "INVALID_LOGIN") {
       document.getElementById("login-error").textContent = "Invalid Login";
