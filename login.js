@@ -96,13 +96,13 @@ function showPopup(title, name = "", type = "success") {
   }
 
   popup.innerHTML =
-    `<h2 style="color:${type === "success" ? "green" : "red"}">${title}</h2>` +
+    `<h2 style="color:${type === "success" ? "#00ff00" : "red"}">${title}</h2>` +
     (name ? `<p style="color:cyan">${name}</p>` : "");
 
   popup.style.transform = "translate(-50%, -50%) scale(1)";
-  setTimeout(() => {
-    popup.style.transform = "translate(-50%, -50%) scale(0)";
-  }, 3000);
+  // setTimeout(() => {
+  //   popup.style.transform = "translate(-50%, -50%) scale(0)";
+  // }, 3000);
 }
 
 // ===== REGISTER FORM SUBMIT =====
