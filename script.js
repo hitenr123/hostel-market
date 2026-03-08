@@ -354,14 +354,17 @@ function activateUserButton() {
 }
 
 // ===== REDIRECT BUTTON IF LOGGED IN =====
-const btn = document.getElementById("userLoginBtn");
-if (btn && localStorage.getItem("loggedInUser")) {
-  activateUserButton();
-  btn.onclick = () => {
-    window.location.href = "loggedin.html";
-  };
-} else if (btn) {
-  btn.onclick = () => {
-    window.location.href = "login.html";
-  };
-}
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("userLoginBtn");
+
+  if (btn && localStorage.getItem("loggedInUser")) {
+    activateUserButton();
+    btn.onclick = () => {
+      window.location.href = "loggedin.html";
+    };
+  } else if (btn) {
+    btn.onclick = () => {
+      window.location.href = "login.html";
+    };
+  }
+});

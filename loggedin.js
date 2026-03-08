@@ -46,3 +46,18 @@ toggleBtn.addEventListener("click", () => {
     toggleBtn.classList.remove("rotate");
   }, 200);
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const username = localStorage.getItem("loggedInUser");
+  const roomno = localStorage.getItem("roomNo");
+
+  if (!username || !roomno) {
+    // If not logged in, go back to login
+    window.location.href = "login.html";
+    return;
+  }
+
+  // Show user details
+  document.getElementById("usernameDisplay").textContent = "Username: " + username;
+  document.getElementById("roomnoDisplay").textContent = "Room No: " + roomno;
+});
