@@ -19,8 +19,8 @@ document.getElementById("logoutBtn").onclick = () => {
 };
 
 // ===== THEME TOGGLE =====
-const toggleBtn = document.getElementById("themeToggle");
-const icon = toggleBtn.querySelector("i");
+const toggleBtn1 = document.getElementById("themeToggle");
+const icon = toggleBtn1.querySelector("i");
 
 // Load saved theme
 if (localStorage.getItem("theme") === "light") {
@@ -29,8 +29,8 @@ if (localStorage.getItem("theme") === "light") {
 }
 
 // Toggle theme
-toggleBtn.addEventListener("click", () => {
-  toggleBtn.classList.add("rotate");
+toggleBtn1.addEventListener("click", () => {
+  toggleBtn1.classList.add("rotate");
 
   setTimeout(() => {
     const isLight = document.body.classList.toggle("light");
@@ -43,7 +43,7 @@ toggleBtn.addEventListener("click", () => {
       localStorage.setItem("theme", "dark");
     }
 
-    toggleBtn.classList.remove("rotate");
+    toggleBtn1.classList.remove("rotate");
   }, 200);
 });
 
