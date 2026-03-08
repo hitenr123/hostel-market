@@ -128,6 +128,10 @@ if (box) {
         },
       );
 
+      if (!res.ok) {
+        throw new Error("Server error");
+      }
+
       const data = await res.json();
 
       if (data.status === "REGISTER_SUCCESS") {
@@ -165,11 +169,15 @@ if (box) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            registerUsername: loginUsername, // must match Flask keys
-            registerPassword: loginPassword,
+            loginUsername: loginUsername,
+            loginPassword: loginPassword,
           }),
         },
       );
+
+      if (!res.ok) {
+        throw new Error("Server error");
+      }
 
       const data = await res.json();
 
