@@ -86,7 +86,7 @@ function showPopup(title, name = "", type = "success") {
   }
 
   if (type === "success") {
-    popup.style.background =" rgb(4 ,38 ,75)";
+    popup.style.background = " rgb(4 ,38 ,75)";
     popup.style.borderColor = "#007bff"; // neon blue glow
     popup.style.boxShadow = "0 0 15px #007bff, 0 0 30px #007bff";
   } else {
@@ -100,9 +100,9 @@ function showPopup(title, name = "", type = "success") {
     (name ? `<p style="color:cyan">${name}</p>` : "");
 
   popup.style.transform = "translate(-50%, -50%) scale(1)";
-  // setTimeout(() => {
-  //   popup.style.transform = "translate(-50%, -50%) scale(0)";
-  // }, 3000);
+  setTimeout(() => {
+    popup.style.transform = "translate(-50%, -50%) scale(0)";
+  }, 3000);
 }
 
 // ===== REGISTER FORM SUBMIT =====
