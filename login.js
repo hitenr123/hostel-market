@@ -130,8 +130,8 @@ register.querySelector("form").addEventListener("submit", async function (e) {
 login.querySelector("form").addEventListener("submit", async function (e) {
   e.preventDefault();
 
-  const loginUsername = login.querySelector("#register-username").value;
-  const loginPassword = login.querySelector("#register-password").value;
+  const loginUsername = login.querySelector("#login-username").value;
+  const loginPassword = login.querySelector("#login-password").value;
 
   try {
     const res = await fetch(
