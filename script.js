@@ -341,3 +341,20 @@ clearBtn.addEventListener("click", () => {
 
   document.getElementById("noResult").style.display = "none";
 });
+
+// ===== TURN INDEX BUTTON GREEN =====
+function activateUserButton() {
+  const btn = document.getElementById("userLoginBtn");
+  if (btn) {
+    btn.style.backgroundColor = "green";
+    btn.style.color = "white";
+    btn.style.border = "2px solid darkgreen";
+    btn.style.transition = "0.3s all ease";
+    btn.style.boxShadow = "0 0 10px rgba(0, 128, 0, 0.7)";
+  }
+}
+
+// ===== CHECK IF USER IS LOGGED IN =====
+if (localStorage.getItem("loggedInUser")) {
+  activateUserButton();
+}
