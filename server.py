@@ -124,7 +124,6 @@ def get_users():
 # ===== REGISTER ROUTE =====
 @app.route("/register", methods=["POST","OPTIONS"])
 def register():
-
     if request.method == "OPTIONS":
         return jsonify({"status": "ok"}), 200
 
@@ -159,20 +158,16 @@ def register():
 
     except Exception as e:
         return jsonify({"status": "ERROR", "message": str(e)}), 500
-    
 
 # ===== LOGIN ROUTE =====
 @app.route("/login", methods=["POST","OPTIONS"])
 def login():
-
     if request.method == "OPTIONS":
         return jsonify({"status": "ok"}), 200
 
     try:
         data = request.json
-
-        # match your JS keys
-        username = data.get("registerUsername")
+        username = data.get("registerUsername")  # 👈 match your JS login keys
         roomno = data.get("registerPassword")
 
         if not username or not roomno:
@@ -183,14 +178,11 @@ def login():
             return jsonify({"status": "ERROR", "message": "Database connection failed"}), 500
 
         cursor = db.cursor(dictionary=True)
-
         cursor.execute(
             "SELECT * FROM users WHERE username=%s AND roomno=%s",
             (username, roomno)
         )
-
         user = cursor.fetchone()
-
         cursor.close()
         db.close()
 
