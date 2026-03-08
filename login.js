@@ -86,7 +86,7 @@ function showPopup(title, name = "", type = "success") {
   }
 
   if (type === "success") {
-    popup.style.background = " rgb(4 ,38 ,75)";
+    popup.style.background =" rgb(4 ,38 ,75)";
     popup.style.borderColor = "#007bff"; // neon blue glow
     popup.style.boxShadow = "0 0 15px #007bff, 0 0 30px #007bff";
   } else {
@@ -127,15 +127,7 @@ register.querySelector("form").addEventListener("submit", async function (e) {
     const data = await res.json();
 
     if (data.status === "REGISTER_SUCCESS") {
-      showPopup("WELCOME", data.registerUsername, "success");
-
-      // Automatically switch to login after 2 seconds
-      setTimeout(() => {
-        showForm("login");
-        // Optionally, prefill the username in login form
-        login.querySelector("#login-username").value = registerUsername;
-        login.querySelector("#login-password").value = "";
-      }, 2000);
+      showPopup("WELCOME", data.username, "success");
     } else if (data.status === "ALREADY_REGISTERED") {
       showPopup("ALREADY REGISTERED", "", "error");
     } else if (data.status === "ERROR") {
