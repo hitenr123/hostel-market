@@ -108,6 +108,13 @@ if (box) {
     }, 2000);
   }
 
+  function activateUserButton() {
+    const btn = document.getElementById("userButton");
+    if (btn) {
+      btn.style.background = "green";
+    }
+  }
+
   // ===== REGISTER FORM SUBMIT =====
   register.querySelector("form").addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -194,7 +201,6 @@ if (box) {
         localStorage.setItem("roomNo", loginPassword);
 
         showPopup("WELCOME BACK !!", data.loginUsername, "success");
-        activateUserButton(); // turn the index button green
       } else if (data.status === "INVALID_LOGIN") {
         document.getElementById("login-error").textContent = "Invalid Login";
       } else if (data.status === "ERROR") {
