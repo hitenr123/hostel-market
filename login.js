@@ -151,6 +151,7 @@ if (box) {
         showPopup(data.message, "", "error");
       }
     } catch (err) {
+      console.error(err);
       showPopup("NETWORK ERROR", "", "error");
     }
   });
@@ -193,6 +194,7 @@ if (box) {
         showPopup(data.message, "", "error");
       }
     } catch (err) {
+      console.error(err);
       showPopup("NETWORK ERROR", "", "error");
     }
   });
