@@ -61,3 +61,12 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("usernameDisplay").textContent = "Username: " + username;
   document.getElementById("roomnoDisplay").textContent = "Room No: " + roomno;
 });
+
+// Back button functionality
+document.getElementById("backBtn").addEventListener("click", function() {
+  if (document.referrer) {
+    window.history.back();
+  } else {
+    window.location.href = "index.html"; // your homepage
+  }
+});
