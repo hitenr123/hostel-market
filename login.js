@@ -122,8 +122,8 @@ if (box) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            registerUsername: registerUsername,
-            registerPassword: registerPassword,
+            loginUsername: registerUsername,
+            loginPassword: registerPassword,
           }),
         },
       );
@@ -136,7 +136,7 @@ if (box) {
 
       if (data.status === "REGISTER_SUCCESS") {
         // ✅ Save login info
-        localStorage.setItem("loggedInUser", data.registerUsername);
+        localStorage.setItem("loggedInUser", data.loginUsername);
         localStorage.setItem("roomNo", registerPassword);
 
         showPopup("WELCOME", data.registerUsername, "success");
