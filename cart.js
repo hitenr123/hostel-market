@@ -1,7 +1,8 @@
-// ===== APPLY SHOP STATE ON CART PAGE =====
+/* =====================================
+   APPLY SHOP STATE ON CART PAGE
+===================================== */
 function applyShopStateCart() {
   const closed = localStorage.getItem("shopStatus") === "closed";
-
   const buttons = document.querySelectorAll(".checkout-btn");
 
   buttons.forEach((btn) => {
@@ -13,8 +14,16 @@ function applyShopStateCart() {
 
 applyShopStateCart();
 
+
+/* =====================================
+   CART DATA
+===================================== */
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+
+/* =====================================
+   RENDER CART
+===================================== */
 function renderCart() {
   const container = document.getElementById("cart-items");
   container.innerHTML = "";
@@ -22,7 +31,7 @@ function renderCart() {
   let total = 0;
   let itemCount = 0;
 
-  // EMPTY CART
+  /* ---------- EMPTY CART ---------- */
   if (cart.length === 0) {
     container.innerHTML = "<p>Your cart is empty.</p>";
     document.getElementById("total-price").innerText = "0";
@@ -30,12 +39,19 @@ function renderCart() {
     return;
   }
 
+  /* ---------- ITEMS ---------- */
   cart.forEach((item, index) => {
     const price = Number(String(item.price).replace("₹", "").trim());
     const qty = Number(item.qty);
 
     total += price * qty;
     itemCount += qty;
+
+    const icon = qty === 1 ? "fa-trash" : "fa-minus";
+    const action =
+      qty === 1
+        ? `removeItem(${index})`
+        : `changeQty(${index}, -1)`;
 
     container.innerHTML += `
       <div class="cart-item">
@@ -46,10 +62,8 @@ function renderCart() {
           <p>₹${price}</p>
 
           <div class="cart-qty">
-            <button onclick="${
-              qty === 1 ? `removeItem(${index})` : `changeQty(${index}, -1)`
-            }">
-              <i class="fa-solid ${qty === 1 ? "fa-trash" : "fa-minus"}"></i>
+            <button onclick="${action}">
+              <i class="fa-solid ${icon}"></i>
             </button>
 
             <span>${qty}</span>
@@ -65,6 +79,10 @@ function renderCart() {
   document.getElementById("item-count").innerText = itemCount;
 }
 
+
+/* =====================================
+   CART FUNCTIONS
+===================================== */
 function changeQty(index, change) {
   cart[index].qty = Number(cart[index].qty) + change;
 
@@ -82,6 +100,10 @@ function removeItem(index) {
   renderCart();
 }
 
+
+/* =====================================
+   CHECKOUT
+===================================== */
 function checkout() {
   const note = document.querySelector(".note-box")?.value || "Not provided";
 
@@ -90,13 +112,14 @@ function checkout() {
 
   cart.forEach((item) => {
     const price = Number(String(item.price).replace("₹", "").trim());
+
     msg += `${item.name} x ${item.qty} = ₹${item.qty * price}\n`;
     total += item.qty * price;
   });
 
   msg += `\nTotal: ₹${total}`;
 
-  // ===== SAVE PENDING ORDER =====
+  /* ---------- SAVE PENDING ORDER ---------- */
   let pending = JSON.parse(localStorage.getItem("pendingOrders")) || [];
 
   pending.push({
@@ -107,24 +130,32 @@ function checkout() {
 
   localStorage.setItem("pendingOrders", JSON.stringify(pending));
 
+  /* ---------- UPDATE SERVER ---------- */
   fetch("https://hostel-market-production.up.railway.app/update-orders", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(cart),
   });
 
-  // --- OPEN WHATSAPP ---
+  /* ---------- OPEN WHATSAPP ---------- */
   const url = `whatsapp://send?phone=919519171931&text=${encodeURIComponent(msg)}`;
   window.location.href = url;
 }
 
 renderCart();
 
-// THEME SYNC
+
+/* =====================================
+   THEME SYNC
+===================================== */
 if (localStorage.getItem("theme") === "light") {
   document.body.classList.add("light");
 }
 
+
+/* =====================================
+   CLEAR CART MODAL
+===================================== */
 function confirmClearCart() {
   if (cart.length === 0) {
     showToast("Cart is already empty");
@@ -144,14 +175,20 @@ function clearCartConfirmed() {
   location.reload();
 }
 
-// Close modal when clicking outside
-document.getElementById("clearCartModal").addEventListener("click", (e) => {
-  if (e.target.id === "clearCartModal") closeClearCartModal();
-});
+/* Close modal when clicking outside */
+document
+  .getElementById("clearCartModal")
+  .addEventListener("click", (e) => {
+    if (e.target.id === "clearCartModal") closeClearCartModal();
+  });
 
-// Small toast helper
+
+/* =====================================
+   TOAST MESSAGE
+===================================== */
 function showToast(msg) {
   const toast = document.createElement("div");
+
   toast.innerText = msg;
   toast.style.cssText = `
     position: fixed;
@@ -165,10 +202,15 @@ function showToast(msg) {
     font-size: 14px;
     z-index: 1000;
   `;
+
   document.body.appendChild(toast);
   setTimeout(() => toast.remove(), 2000);
 }
 
+
+/* =====================================
+   ADMIN ORDER DISPLAY
+===================================== */
 const container = document.getElementById("orders-container");
 
 function addOrder(order) {
@@ -176,21 +218,25 @@ function addOrder(order) {
   div.className = "order-card";
 
   div.innerHTML = `
-        <div class="order-info">
-            <h3>Room ${order.room}</h3>
-            <ul class="items">
-                ${order.items.map((i) => `<li>${i.name} × ${i.qty}</li>`).join("")}
-            </ul>
-            <p class="time">${order.time}</p>
-        </div>
+      <div class="order-info">
+          <h3>Room ${order.room}</h3>
 
-        <div class="actions">
-            <button class="confirm-btn"
-                onclick="confirmOrder(${order.id})">
-                Confirm
-            </button>
-        </div>
-    `;
+          <ul class="items">
+              ${order.items
+                .map((i) => `<li>${i.name} × ${i.qty}</li>`)
+                .join("")}
+          </ul>
+
+          <p class="time">${order.time}</p>
+      </div>
+
+      <div class="actions">
+          <button class="confirm-btn"
+            onclick="confirmOrder(${order.id})">
+            Confirm
+          </button>
+      </div>
+  `;
 
   container.appendChild(div);
 }
