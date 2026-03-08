@@ -170,8 +170,10 @@ def login():
 
     try:
         data = request.json
-        username = data.get("loginUsername")
-        roomno = data.get("loginPassword")
+
+        # match your JS keys
+        username = data.get("registerUsername")
+        roomno = data.get("registerPassword")
 
         if not username or not roomno:
             return jsonify({"status": "ERROR", "message": "Username and Room No required"}), 400
@@ -182,20 +184,27 @@ def login():
 
         cursor = db.cursor(dictionary=True)
 
-        cursor.execute("SELECT * FROM users WHERE username=%s AND roomno=%s", (username, roomno))
+        cursor.execute(
+            "SELECT * FROM users WHERE username=%s AND roomno=%s",
+            (username, roomno)
+        )
+
         user = cursor.fetchone()
 
         cursor.close()
         db.close()
 
         if user:
-            return jsonify({"status": "LOGIN_SUCCESS", "username": username})
+            return jsonify({
+                "status": "LOGIN_SUCCESS",
+                "loginUsername": username
+            })
         else:
             return jsonify({"status": "INVALID_LOGIN"})
 
     except Exception as e:
         return jsonify({"status": "ERROR", "message": str(e)}), 500
-
+    
 
 # ===== RUN SERVER =====
 if __name__ == "__main__":

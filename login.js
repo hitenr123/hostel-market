@@ -129,6 +129,7 @@ register.querySelector("form").addEventListener("submit", async function (e) {
 // ===== LOGIN FORM SUBMIT =====
 login.querySelector("form").addEventListener("submit", async function (e) {
   e.preventDefault();
+
   const loginUsername = login.querySelector("#login-username").value;
   const loginPassword = login.querySelector("#login-password").value;
 
@@ -139,11 +140,12 @@ login.querySelector("form").addEventListener("submit", async function (e) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          registerUsername: loginUsername,
-          registerPassword: loginPassword,
+          loginUsername: loginUsername,
+          loginPassword: loginPassword,
         }),
       },
     );
+
     const data = await res.json();
 
     if (data.status === "LOGIN_SUCCESS") {
