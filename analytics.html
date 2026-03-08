@@ -1,76 +1,106 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Shop Analytics</title>
-    <link rel="stylesheet" href="analytics.css" />
-  </head>
 
-  <body>
-    <header class="topbar">
-      <h1>📊 Shop Analytics</h1>
-      <button onclick="location.href='index.html'" id="backBtn">⬅ Back</button>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <title>Shop Analytics</title>
 
-    <main>
-      <div class="cards">
-        <div class="card">
-          <h3>Total Products</h3>
-          <p id="totalProducts">0</p>
-        </div>
+  <!-- Styles -->
+  <link rel="stylesheet" href="analytics.css" />
+</head>
 
-        <div class="card">
-          <h3>Total Orders</h3>
-          <p id="totalOrders">0</p>
-        </div>
 
-        <div class="card">
-          <h3>Revenue Estimate</h3>
-          <p id="revenue">₹0</p>
-        </div>
+<body>
 
-        <div class="card">
-          <h3>Most Ordered</h3>
-          <p id="mostOrdered">-</p>
-        </div>
+  <!-- ================= HEADER ================= -->
+  <header class="topbar">
+    <h1>📊 Shop Analytics</h1>
 
-        <div class="card">
-          <h3>Peak Order Hour</h3>
-          <p id="peakTime">-</p>
-        </div>
+    <button id="backBtn" onclick="location.href='index.html'">
+      ⬅ Back
+    </button>
+  </header>
 
-        <section class="charts">
-          <!-- BIG LINE GRAPH -->
-          <div class="chartCard bigChart">
-            <h3>Revenue Growth Per Day</h3>
-            <canvas id="revenueLine" class="animatePie"></canvas>
-          </div>
 
-          <!-- NORMAL PIE GRAPH -->
-          <div class="chartCard smallChart">
-            <h3>Revenue Contribution by Product</h3>
-            <canvas id="revenuePie" class="animatePie"></canvas>
-          </div>
-        </section>
+  <!-- ================= MAIN CONTENT ================= -->
+  <main>
+
+    <!-- ===== STATISTICS CARDS ===== -->
+    <section class="cards">
+
+      <div class="card">
+        <h3>📦 Total Products</h3>
+        <p id="totalProducts">0</p>
       </div>
 
-      <section class="tableSection">
-        <h2>Most Ordered Products</h2>
+      <div class="card">
+        <h3>Total Orders</h3>
+        <p id="totalOrders">0</p>
+      </div>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Orders</th>
-            </tr>
-          </thead>
+      <div class="card">
+        <h3>Revenue Estimate</h3>
+        <p id="revenue">₹0</p>
+      </div>
 
-          <tbody id="productTable"></tbody>
-        </table>
-      </section>
-    </main>
+      <div class="card">
+        <h3>Most Ordered</h3>
+        <p id="mostOrdered">-</p>
+      </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="analytics.js"></script>
-  </body>
+      <div class="card">
+        <h3>Peak Order Hour</h3>
+        <p id="peakTime">-</p>
+      </div>
+
+    </section>
+
+
+    <!-- ================= CHARTS ================= -->
+    <section class="charts">
+
+      <!-- Revenue Line Chart -->
+      <div class="chartCard bigChart">
+        <h3>Revenue Growth Per Day</h3>
+        <canvas id="revenueLine" class="animatePie"></canvas>
+      </div>
+
+      <!-- Revenue Pie Chart -->
+      <div class="chartCard smallChart">
+        <h3>Revenue Contribution by Product</h3>
+        <canvas id="revenuePie" class="animatePie"></canvas>
+      </div>
+
+    </section>
+
+
+    <!-- ================= TABLE ================= -->
+    <section class="tableSection">
+
+      <h2>Most Ordered Products</h2>
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Orders</th>
+          </tr>
+        </thead>
+
+        <tbody id="productTable"></tbody>
+
+      </table>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================= SCRIPTS ================= -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="analytics.js"></script>
+
+</body>
+
 </html>
