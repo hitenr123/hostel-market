@@ -5,7 +5,8 @@ const username = localStorage.getItem("loggedInUser");
 const roomno = localStorage.getItem("roomNo");
 
 if (username && roomno) {
-  document.getElementById("usernameDisplay").textContent = "Username: " + username;
+  document.getElementById("usernameDisplay").textContent =
+    "Username: " + username;
   document.getElementById("roomnoDisplay").textContent = "Room No: " + roomno;
 } else {
   window.location.href = "login.html"; // redirect if not logged in
@@ -58,15 +59,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Show user details
-  document.getElementById("usernameDisplay").textContent = "Username: " + username;
+  document.getElementById("usernameDisplay").textContent =
+    "Username: " + username;
   document.getElementById("roomnoDisplay").textContent = "Room No: " + roomno;
 });
 
 // Back button functionality
-document.getElementById("backBtn").addEventListener("click", function() {
-  if (document.referrer) {
-    window.history.back();
-  } else {
-    window.location.href = "index.html"; // your homepage
-  }
+document.getElementById("backBtn").addEventListener("click", function () {
+  window.location.href = "index.html";
 });
