@@ -1,10 +1,9 @@
+/* =====================================================
+GLOBAL RESET
+===================================================== */
+
 * {
   box-sizing: border-box;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
 }
 
 body {
@@ -12,23 +11,40 @@ body {
   font-family: "Segoe UI", sans-serif;
   background: #020617;
   color: #e5e7eb;
+  font-size: clamp(14px, 2.5vw, 16px);
 }
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* =====================================================
+HEADER
+===================================================== */
 
 header {
   background: linear-gradient(135deg, #1e293b, #020617);
   padding: 20px;
   text-align: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
   position: relative;
 }
 
 header h1 {
   margin: 10px;
 }
+
 header p {
   margin: 10px 0 0;
   font-size: 14px;
 }
+
+
+/* =====================================================
+PRODUCT GRID
+===================================================== */
 
 .container {
   padding: 20px;
@@ -41,11 +57,35 @@ header p {
   background: #031525;
   border-radius: 15px;
   padding: 15px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
   position: relative;
   display: flex;
   flex-direction: column;
 }
+
+.product img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 10px;
+  background-color: #2f3034;
+}
+
+.product h2 {
+  margin: 10px 0 5px;
+  color: #e5e7eb;
+  font-size: clamp(18px, 4vw, 22px);
+}
+
+.product p {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+
+/* =====================================================
+BADGE
+===================================================== */
 
 .badge {
   position: absolute;
@@ -57,6 +97,12 @@ header p {
   padding: 4px 8px;
   border-radius: 6px;
 }
+
+
+/* =====================================================
+PRICE ROW
+===================================================== */
+
 .price-row {
   display: flex;
   align-items: flex-start;
@@ -79,7 +125,7 @@ header p {
   color: #9ca3af;
   text-decoration: line-through;
   position: relative;
-  top: 8px; /* pushes it down = subscript effect */
+  top: 8px;
 }
 
 .offer {
@@ -89,43 +135,28 @@ header p {
   top: 6px;
 }
 
-.product img {
-  width: 100%;
-  height: 180px;
-  object-fit: contain;
-  border-radius: 10px;
-  background-color: #2f3034;
-}
-
-.product h2 {
-  margin: 10px 0 5px;
-  color: #e5e7eb;
-}
-.product p {
-  font-size: 14px;
-  color: #9ca3af;
-}
-
 .stock {
   font-size: 13px;
   color: #facc15;
   margin-bottom: 10px;
 }
 
+
+/* =====================================================
+INPUT (ROOM NUMBER)
+===================================================== */
+
 .note-box {
   width: 91%;
   padding: 10px 12px;
-  margin: 6px 0 10px 0px;
+  margin: 6px 0 10px;
   border-radius: 10px;
   font-size: 14px;
-  
   border: 1px solid #334155;
   background-color: #0f172a;
   color: #f8fafc;
   outline: none;
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .note-box::placeholder {
@@ -134,15 +165,20 @@ header p {
 
 .note-box:focus {
   border-color: #0af7db;
-  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25);
+  box-shadow: 0 0 0 2px rgba(34,197,94,0.25);
 }
+
+
+/* =====================================================
+QUANTITY
+===================================================== */
 
 .qty-box {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin: auto 0px 10px 0px;
+  margin: auto 0 10px;
 }
 
 .qty-btn {
@@ -168,41 +204,10 @@ header p {
   text-align: center;
 }
 
-.btn {
-  display: block;
-  text-align: center;
-  padding: 12px;
-  background: #14b8a6;
-  color: black;
-  text-decoration: none;
-  border-radius: 10px;
-  font-size: 17px;
-  font-weight: bolder;
-  margin-top: auto;
-}
 
-.btn:hover {
-  background-color: #0d9488;
-}
-
-footer {
-  text-align: center;
-  padding: 15px;
-  font-size: 13px;
-  color: #9ca3af;
-}
-.cart-header {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: #f59e0b;
-  color: #000;
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  overflow: hidden;
-}
+/* =====================================================
+BUTTONS
+===================================================== */
 
 .cart-btn {
   background: #f59e0b;
@@ -219,10 +224,58 @@ footer {
   background: #fbbf24;
 }
 
-.cart-btn:disabled{
+.cart-btn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
+
+.btn {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  background: #14b8a6;
+  color: black;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: auto;
+}
+
+.btn:hover {
+  background: #0d9488;
+}
+
+
+/* =====================================================
+CART BUTTON
+===================================================== */
+
+.cart-header {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #f59e0b;
+  color: #000;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cart-drop-ball {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: black;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+
+/* =====================================================
+SEARCH
+===================================================== */
 
 .search-container {
   position: relative;
@@ -231,17 +284,14 @@ footer {
   margin: 20px auto;
 }
 
-/* SEARCH INPUT */
 .search-container input {
   width: 100%;
-  padding: 10px 38px 10px 38px; /* LEFT icon + RIGHT X space */
+  padding: 10px 38px;
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 16px;
-  box-sizing: border-box;
 }
 
-/* SEARCH ICON */
 .search-container i.fa-search {
   position: absolute;
   top: 50%;
@@ -250,10 +300,9 @@ footer {
   color: #888;
 }
 
-/* CLEAR X */
 #clearSearch {
   position: absolute;
-  top:50%;
+  top: 50%;
   right: 12px;
   transform: translateY(-50%);
   cursor: pointer;
@@ -263,34 +312,38 @@ footer {
 }
 
 #clearSearch:hover {
-  color:  black;
-}
-
-body.light #clearSearch:hover {
   color: black;
 }
 
-/* ☀️ THEME BUTTON */
+
+/* =====================================================
+THEME BUTTON
+===================================================== */
+
 .theme-btn {
   position: relative;
   background: #1e293b;
-  color: #ffffff;
+  color: #fff;
   border: none;
   padding: 10px 12px;
   border-radius: 50%;
   cursor: pointer;
   font-size: 16px;
   z-index: 1000;
-  transition: transform 0.4s ease, background 0.3s ease;
+  transition: transform 0.4s ease;
 }
 
 .theme-btn.rotate {
   transform: rotate(180deg);
 }
 
-/* ☀️ LIGHT MODE */
+
+/* =====================================================
+LIGHT MODE
+===================================================== */
+
 body.light {
-  background: #ffffff;
+  background: #fff;
   color: #020617;
 }
 
@@ -298,59 +351,31 @@ body.light header,
 body.light footer {
   background: #8cc5ff;
   color: #020617;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 body.light .product {
   background: #cae5ff;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
 body.light .cart-btn,
 body.light .btn {
   background: #0f172a;
-  color: #ffffff;
+  color: #fff;
 }
 
 body.light .qty-btn {
-  background: #e5e7eb;
-  color: #020617;
-}
-
-body.light input {
-  background: #ffffff;
-  color: #020617;
-}
-
-body.light .product h2 {
-  color: #020617;
-}
-
-body.light .product p {
-  color: #020617;
+  background: #2e3847;
+  color: white;
 }
 
 body.light .offer {
   color: red;
 }
 
-body.light .note-box:focus {
-  border-color: #000000;
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0);
-}
 
-body.light .cart-header{
-  background-color: #fec66c;
-}
-
-body.light .qty-btn{
-  background-color: #2e3847;
-  color: white;
-}
-
-body.light .qty-btn:hover {
-  background: #0f172a;
-}
+/* =====================================================
+ADMIN
+===================================================== */
 
 .admin-login-btn {
   position: fixed;
@@ -372,110 +397,10 @@ body.light .qty-btn:hover {
   font-weight: bold;
 }
 
-/* 📱 MOBILE */
-@media (max-width: 600px) {
 
-  .container {
-    grid-template-columns: 1fr;
-    padding: 12px;
-  }
-
-  .product {
-    padding: 12px;
-  }
-
-  .product img {
-    height: 160px;
-  }
-
-  .search-container {
-    padding: 0 12px;
-  }
-
-  .search-container i{
-    left: 20px;
-  }
-
-  .cart-header {
-    position: fixed;
-    top: 12px;
-    right: 12px;
-    z-index: 1000;
-  }
-
-  .btn,
-  .cart-btn {
-    font-size: 16px;
-    padding: 14px;
-    min-height: 44px;
-  }
-}
-
-/* 📱 TABLET */
-@media (min-width: 600px) and (max-width: 1024px) {
-
-  .container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .product img {
-    height: 180px;
-  }
-}
-
-body {
-  font-size: clamp(14px, 2.5vw, 16px);
-}
-
-h2 {
-  font-size: clamp(18px, 4vw, 22px);
-}
-
-/* Small falling ball inside cart */
-.cart-drop-ball {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: black;
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-/* ===== HEADER BAR LAYOUT ===== */
-.cart-bar{
-  position: relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-
-#adminTools{
-  position:absolute;
-  left:0px;
-  top:60px;
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  gap:30px;              /* spacing between buttons */
-}
-
-
-/* Analytics button style */
-.analytics-btn {
-  background: #0f172a;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.analytics-btn:hover {
-  transform: translateY(-2px);
-}
-
-/* ===== ADMIN MODAL ===== */
+/* =====================================================
+ADMIN MODAL
+===================================================== */
 
 .admin-modal {
   position: fixed;
@@ -497,233 +422,46 @@ h2 {
   box-shadow: 0 10px 40px rgba(0,0,0,0.7);
 }
 
-.admin-modal-content h3 {
-  margin-bottom: 15px;
-}
 
-.admin-modal-content input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #334155;
-  background: #020617;
-  color: white;
-  margin-bottom: 15px;
-}
+/* =====================================================
+FOOTER
+===================================================== */
 
-.admin-modal-buttons {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-.admin-modal-buttons button {
-  padding: 8px 14px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-#adminSubmit {
-  background: #22c55e;
-  color: black;
-}
-
-#adminClose {
-  background: #ef4444;
-  color: white;
-}
-
-.admin-error {
-  margin-top: 10px;
-  color: red;
+footer {
+  text-align: center;
+  padding: 15px;
   font-size: 13px;
+  color: #9ca3af;
 }
 
-#adminSuccessModal .admin-modal-content {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  align-items: center;
-}
 
-#adminSuccessModal button {
-  background: #22c55e;
-  color: black;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-@media (max-width: 1024px) {
-  .search-container {
-    width: 260px;
-  }
-
-  .search-container input {
-    padding: 10px 36px;
-    font-size: 14px;
-  }
-
-  .search-icon {
-    left: 10px;
-    font-size: 15px;
-  }
-
-  .clear-search {
-    right: 10px;
-    font-size: 16px;
-  }
-}
+/* =====================================================
+RESPONSIVE
+===================================================== */
 
 @media (max-width: 600px) {
-  .search-container {
-    width: 100%;
+
+  .container {
+    grid-template-columns: 1fr;
+    padding: 12px;
   }
 
-  .search-container input {
-    padding: 12px 35px;
-    font-size: 14px;
+  .product img {
+    height: 160px;
   }
 
-  .search-container i.fa-search{
-    left: 20px;
-  }
-
-  #clearSearch{
-    right: 20px;
-    font-size: 15px;
-  }
-
-  .search-icon {
-    left: 12px;
+  .btn,
+  .cart-btn {
     font-size: 16px;
-  }
-
-  .clear-search {
-    right: 20px;
-  }
-}
-
-/* Mobile & Tablet layout fix */
-@media(max-width:1024px){
-
-  #adminTools{
-    position:static;          /* stops overlap */
-    margin-bottom:12px;
-    align-items:center;
-    gap: 25px;
-  }
-
-  .cart-bar{
-    flex-direction:column;
-    gap:8px;
+    padding: 14px;
   }
 
 }
 
-/* ===== USER LOGIN BUTTON (TOP LEFT) ===== */
+@media (min-width: 600px) and (max-width: 1024px) {
 
-.user-login-btn {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: none;
-    background: #f5a623; /* your gold accent */
-    color: #000;
-    font-size: 15px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    transition: 0.3s ease;
-    z-index: 1000;
-}
-
-.user-login-btn:hover {
-    transform: scale(1.1);
-}
-
-/* ===== SEARCH NOT FOUND FULL CENTER ===== */
-
-/* Wrapper handles centering */
-/* ===== SEARCH NOT FOUND RESPONSIVE CENTER ===== */
-
-.no-result-wrapper {
-  display: none;              /* hidden by default */
-  
-  width: 100%;
-  min-height: calc(100vh - 160px); 
-  /* subtract approx header + footer height */
-  justify-content: center;
-  align-items: center;
-
-  padding: 2rem 1rem;
-  text-align: center;
-}
-
-/* Text styling */
-#noResult {
-  text-align: center;
-  font-size: clamp(1.2rem, 3.5vw, 2rem);
-  font-weight: 600;
-
-  color: #facc15;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 1.5rem 2rem;
-  border-radius: 14px;
-
-  width: min(90%, 500px);
-}
-
-@media (max-width: 1000px) {
-  .no-result-wrapper {
-    min-height: 50vh;
-    padding: 1.5rem 1rem;
-  }
-}
-
-@media (max-width: 1000px) {
-
-  /* USER LOGIN BUTTON */
-  .user-login-btn {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    width: 38px;
-    height: 38px;
-    font-size: 14px;
-    z-index: 2000;
+  .container {
+    grid-template-columns: repeat(2,1fr);
   }
 
-  /* CART BUTTON */
-  .cart-header {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    padding: 6px 12px;
-    font-size: 14px;
-    z-index: 2000;
-  }
-
-  /* Prevent header content overlapping */
-  header {
-    padding-top: 70px;
-  }
-
-}
-
-@media (max-width: 600px) {
-  .cart-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 }
