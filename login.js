@@ -98,15 +98,18 @@ function showPopup(title, name = "", type = "success") {
 // ===== REGISTER FORM SUBMIT =====
 register.querySelector("form").addEventListener("submit", async function (e) {
   e.preventDefault();
-  const registerUsername = register.querySelector("#register-username");
-  const registerPassword = register.querySelector("#register-password");
+  const registerUsername = register.querySelector("#register-username").value;
+  const registerPassword = register.querySelector("#register-password").value;
   try {
     const res = await fetch(
-      "https://hostel-market-production.up.railway.app/users",
+      "https://hostel-market-production.up.railway.app/register",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ registerUsername, registerPassword }),
+        body: JSON.stringify({
+          registerUsername: registerUsername,
+          registerPassword: registerPassword,
+        }),
       },
     );
     const data = await res.json();
@@ -126,16 +129,19 @@ register.querySelector("form").addEventListener("submit", async function (e) {
 // ===== LOGIN FORM SUBMIT =====
 login.querySelector("form").addEventListener("submit", async function (e) {
   e.preventDefault();
-  const loginUsername = login.querySelector("#login-username");
-  const loginPassword = login.querySelector("#login-password");
+  const loginUsername = login.querySelector("#login-username").value;
+  const loginPassword = login.querySelector("#login-password").value;
 
   try {
     const res = await fetch(
-      "https://hostel-market-production.up.railway.app/users",
+      "https://hostel-market-production.up.railway.app/login",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ loginUsername, loginPassword }),
+        body: JSON.stringify({
+          registerUsername: loginUsername,
+          registerPassword: loginPassword,
+        }),
       },
     );
     const data = await res.json();

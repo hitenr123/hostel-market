@@ -1,11 +1,11 @@
 from flask import Flask, jsonify, request
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import mysql.connector
 from datetime import datetime
 import os
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
 
 # ===== DATABASE CONNECTION =====
 def get_db():
@@ -122,13 +122,17 @@ def get_users():
         return jsonify({"error": str(e)}), 500
 
 # ===== REGISTER ROUTE =====
-@app.route("/users", methods=["POST"])
+@app.route("/register", methods=["POST","OPTIONS"])
 def register():
+
+    if request.method == "OPTIONS":
+        return jsonify({"status": "ok"}), 200
+
     try:
         data = request.json
         username = data.get("registerUsername")
         roomno = data.get("registerPassword")
-
+        
         if not username or not roomno:
             return jsonify({"status": "ERROR", "message": "Username and Room No required"}), 400
 
@@ -158,8 +162,12 @@ def register():
     
 
 # ===== LOGIN ROUTE =====
-@app.route("/users", methods=["POST"])
+@app.route("/login", methods=["POST","OPTIONS"])
 def login():
+
+    if request.method == "OPTIONS":
+        return jsonify({"status": "ok"}), 200
+
     try:
         data = request.json
         username = data.get("loginUsername")
