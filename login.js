@@ -131,7 +131,9 @@ if (box) {
         throw new Error("Server error");
       }
 
-      const data = await res.json();
+      const text = await res.text();
+      console.log("SERVER RESPONSE:", text);
+      const data = JSON.parse(text);
 
       if (data.status === "REGISTER_SUCCESS") {
         // ✅ Save login info
@@ -163,15 +165,19 @@ if (box) {
     const loginPassword = login.querySelector("#login-password").value;
 
     try {
+      const bodyData = {
+        registerUsername: loginUsername,
+        registerPassword: loginPassword,
+      };
+
+      console.log("Sending:", bodyData);
+
       const res = await fetch(
         "https://hostel-market-production.up.railway.app/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            username: loginUsername,
-            password: loginPassword,
-          }),
+          body: JSON.stringify(bodyData),
         },
       );
 
@@ -179,7 +185,9 @@ if (box) {
         throw new Error("Server error");
       }
 
-      const data = await res.json();
+      const text = await res.text();
+      console.log("SERVER RESPONSE:", text);
+      const data = JSON.parse(text);
 
       if (data.status === "LOGIN_SUCCESS") {
         localStorage.setItem("loggedInUser", data.loginUsername);
