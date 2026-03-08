@@ -106,7 +106,7 @@ if (box) {
     popup.style.transform = "translate(-50%, -50%) scale(1)";
     setTimeout(() => {
       popup.style.transform = "translate(-50%, -50%) scale(0)";
-    }, 3000);
+    }, 2000);
   }
 
   // ===== REGISTER FORM SUBMIT =====
