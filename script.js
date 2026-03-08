@@ -346,11 +346,10 @@ clearBtn.addEventListener("click", () => {
 function activateUserButton() {
   const btn = document.getElementById("userLoginBtn");
   if (btn) {
-    btn.style.backgroundColor = "#00ff00";
+    btn.style.backgroundColor = "#1fa21f";
     btn.style.color = "white";
     btn.style.border = "2px solid darkgreen";
     btn.style.transition = "0.3s all ease";
-    btn.style.boxShadow = "0 0 10px rgba(0, 128, 0, 0.7)";
   }
 }
 
