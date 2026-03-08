@@ -197,7 +197,7 @@ body {
 /* Heading */
 .login-box h2 {
   color: white;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 } 
 /* Form Layout */
 form {
@@ -410,7 +410,8 @@ button:hover {
 #login-error{
   color:red;
   font-size:14px;
-  margin-bottom:10px;
+  margin: 0px;
+  margin-bottom: 15px;
 }
 
 @keyframes flipGradientMobile {

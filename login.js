@@ -85,6 +85,16 @@ function showPopup(title, name = "", type = "success") {
     document.body.appendChild(popup);
   }
 
+  if (type === "success") {
+    popup.style.background =" rgb(4 ,38 ,75)";
+    popup.style.borderColor = "#007bff"; // neon blue glow
+    popup.style.boxShadow = "0 0 15px #007bff, 0 0 30px #007bff";
+  } else {
+    popup.style.background = "rgba(0,0,0)";
+    popup.style.borderColor = "#ff8c00"; // neon orange glow
+    popup.style.boxShadow = "0 0 15px #ff8c00, 0 0 30px #ff8c00";
+  }
+
   popup.innerHTML =
     `<h2 style="color:${type === "success" ? "green" : "red"}">${title}</h2>` +
     (name ? `<p style="color:cyan">${name}</p>` : "");
@@ -111,7 +121,7 @@ register.querySelector("form").addEventListener("submit", async function (e) {
           registerUsername: registerUsername,
           registerPassword: registerPassword,
         }),
-      }
+      },
     );
 
     const data = await res.json();
@@ -142,10 +152,10 @@ login.querySelector("form").addEventListener("submit", async function (e) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          registerUsername: loginUsername,   // must match Flask keys
+          registerUsername: loginUsername, // must match Flask keys
           registerPassword: loginPassword,
         }),
-      }
+      },
     );
 
     const data = await res.json();
