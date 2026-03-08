@@ -5,7 +5,7 @@ from datetime import datetime
 import os
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True)
+CORS(app)
 
 # ===== DATABASE CONNECTION =====
 def get_db():
