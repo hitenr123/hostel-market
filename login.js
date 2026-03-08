@@ -1,5 +1,5 @@
 const box = document.querySelector(".login-box");
-if (box) {
+if (box && document.querySelector(".login")) {
   const signupBtn = document.querySelector(".signup-link");
   const signinBtn = document.querySelector(".signin-link");
   const login = document.querySelector(".login");
@@ -14,6 +14,7 @@ if (box) {
 
   // Function to show a form with animation
   function showForm(form) {
+    if (!login || !register || !welcomeBack || !welcome) return;
     // hide everything during animation
     login.style.display = "none";
     register.style.display = "none";
