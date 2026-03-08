@@ -131,9 +131,16 @@ if (box) {
       const data = await res.json();
 
       if (data.status === "REGISTER_SUCCESS") {
-        // Save logged in user
+        // ✅ Save login info
         localStorage.setItem("loggedInUser", data.registerUsername);
+        localStorage.setItem("roomNo", registerPassword);
+
         showPopup("WELCOME", data.registerUsername, "success");
+
+        // Activate the green button immediately
+        if (window.location.href.includes("login.html")) {
+          activateUserButton();
+        }
       } else if (data.status === "ALREADY_REGISTERED") {
         showPopup("ALREADY REGISTERED", "", "error");
       } else if (data.status === "ERROR") {
@@ -167,9 +174,11 @@ if (box) {
       const data = await res.json();
 
       if (data.status === "LOGIN_SUCCESS") {
-        // Save logged in user
         localStorage.setItem("loggedInUser", data.loginUsername);
+        localStorage.setItem("roomNo", loginPassword);
+
         showPopup("WELCOME BACK !!", data.loginUsername, "success");
+        activateUserButton(); // turn the index button green
       } else if (data.status === "INVALID_LOGIN") {
         document.getElementById("login-error").textContent = "Invalid Login";
       } else if (data.status === "ERROR") {
