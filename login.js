@@ -100,6 +100,7 @@ register.querySelector("form").addEventListener("submit", async function (e) {
   e.preventDefault();
   const registerUsername = register.querySelector("#register-username").value;
   const registerPassword = register.querySelector("#register-password").value;
+
   try {
     const res = await fetch(
       "https://hostel-market-production.up.railway.app/register",
@@ -107,15 +108,16 @@ register.querySelector("form").addEventListener("submit", async function (e) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          registerUsername: loginUsername,
-          registerPassword: loginPassword,
+          registerUsername: registerUsername,
+          registerPassword: registerPassword,
         }),
-      },
+      }
     );
+
     const data = await res.json();
 
     if (data.status === "REGISTER_SUCCESS") {
-      showPopup("WELCOME", data.registerUsername, "success");
+      showPopup("WELCOME", data.username, "success");
     } else if (data.status === "ALREADY_REGISTERED") {
       showPopup("ALREADY REGISTERED", "", "error");
     } else if (data.status === "ERROR") {
@@ -140,22 +142,22 @@ login.querySelector("form").addEventListener("submit", async function (e) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          loginUsername: loginUsername,
-          loginPassword: loginPassword,
+          registerUsername: loginUsername,   // must match Flask keys
+          registerPassword: loginPassword,
         }),
-      },
+      }
     );
 
     const data = await res.json();
 
     if (data.status === "LOGIN_SUCCESS") {
       showPopup("WELCOME BACK !!", data.loginUsername, "success");
+      document.getElementById("login-error").textContent = "";
     } else if (data.status === "INVALID_LOGIN") {
       document.getElementById("login-error").textContent = "Invalid Login";
     } else if (data.status === "ERROR") {
       showPopup(data.message, "", "error");
     }
-    document.getElementById("login-error").textContent = "";
   } catch (err) {
     showPopup("NETWORK ERROR", "", "error");
   }

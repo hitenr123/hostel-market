@@ -131,7 +131,7 @@ def register():
         data = request.json
         username = data.get("registerUsername")
         roomno = data.get("registerPassword")
-        
+
         if not username or not roomno:
             return jsonify({"status": "ERROR", "message": "Username and Room No required"}), 400
 
@@ -159,6 +159,7 @@ def register():
     except Exception as e:
         return jsonify({"status": "ERROR", "message": str(e)}), 500
 
+
 # ===== LOGIN ROUTE =====
 @app.route("/login", methods=["POST","OPTIONS"])
 def login():
@@ -167,7 +168,9 @@ def login():
 
     try:
         data = request.json
-        username = data.get("registerUsername")  # 👈 match your JS login keys
+
+        # Match JS keys
+        username = data.get("registerUsername")  # login JS uses same keys as register
         roomno = data.get("registerPassword")
 
         if not username or not roomno:
@@ -178,19 +181,15 @@ def login():
             return jsonify({"status": "ERROR", "message": "Database connection failed"}), 500
 
         cursor = db.cursor(dictionary=True)
-        cursor.execute(
-            "SELECT * FROM users WHERE username=%s AND roomno=%s",
-            (username, roomno)
-        )
+
+        # Check if user exists in the registered data
+        cursor.execute("SELECT * FROM users WHERE username=%s AND roomno=%s", (username, roomno))
         user = cursor.fetchone()
         cursor.close()
         db.close()
 
         if user:
-            return jsonify({
-                "status": "LOGIN_SUCCESS",
-                "loginUsername": username
-            })
+            return jsonify({"status": "LOGIN_SUCCESS", "loginUsername": username})
         else:
             return jsonify({"status": "INVALID_LOGIN"})
 
