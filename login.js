@@ -107,8 +107,8 @@ register.querySelector("form").addEventListener("submit", async function (e) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          registerUsername: registerUsername,
-          registerPassword: registerPassword,
+          registerUsername: loginUsername,
+          registerPassword: loginPassword,
         }),
       },
     );
