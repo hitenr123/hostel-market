@@ -1,248 +1,418 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ===== META ===== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hostel Mini Shop</title>
 
-  <!-- PWA Meta -->
-  <meta name="theme-color" content="#0f172a" />
-  <link rel="manifest" href="manifest.json" />
+  <!-- ===== PWA ===== -->
+  <meta name="theme-color" content="#0f172a">
+  <link rel="manifest" href="manifest.json">
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Icons -->
+  <!-- ===== STYLES ===== -->
+  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-  />
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 </head>
 
 <body>
 
-  <!-- ================= HEADER ================= -->
-  <header>
+<header>
 
-    <!-- User Login -->
-    <button id="userLoginBtn" class="user-login-btn"
-      onclick="window.location.href='login.html'">
-      <i class="fa-solid fa-user"></i>
-    </button>
+  <!-- User Login -->
+  <button id="userLoginBtn" class="user-login-btn"
+          onclick="window.location.href='login.html'">
+    <i class="fa-solid fa-user"></i>
+  </button>
 
-    <div class="cart-bar">
+  <!-- ===== TOP BAR ===== -->
+  <div class="cart-bar">
 
-      <!-- Admin Analytics -->
-      <div id="adminTools" style="display:none">
-        <div id="analyticsBtn" class="analytics-btn"
-          onclick="window.location.href='analytics.html'">
-          <i class="fa-solid fa-chart-line"></i>
-          Analytics Dashboard
-        </div>
+    <!-- Admin Tools -->
+    <div id="adminTools" style="display:none;">
+      <div id="analyticsBtn" class="analytics-btn"
+           onclick="window.location.href='analytics.html'">
+        <i class="fa-solid fa-chart-line"></i>
+        Analytics Dashboard
       </div>
-
-      <!-- Title -->
-      <h1>Hostel Mini Shop</h1>
-
-      <!-- Cart -->
-      <div class="cart-header"
-        onclick="window.location.href='cart.html'">
-        <i class="fa-solid fa-cart-shopping"></i>
-        Cart (<span id="cart-count">0</span>)
-      </div>
-
     </div>
 
-    <!-- Theme Toggle -->
-    <button id="themeToggle" class="theme-btn">
-      <i class="fa-solid fa-moon"></i>
-    </button>
+    <!-- Title -->
+    <h1>Hostel Mini Shop</h1>
 
-    <!-- Shop Info -->
-    <p>
-      Room No. 106 | Open: 6 PM – 4 AM <br>
-      Contact: 9519171931, 7217441564
-    </p>
-
-    <!-- Search -->
-    <div class="search-container">
-      <i class="fa fa-search"></i>
-
-      <input
-        type="text"
-        id="searchBox"
-        placeholder="Search items..."
-        onkeyup="searchItems()"
-      />
-
-      <span id="clearSearch" class="clear-search">
-        <i class="fa-solid fa-xmark"></i>
-      </span>
-    </div>
-
-  </header>
-
-
-  <!-- ================= ADMIN BUTTON ================= -->
-  <button id="adminLogin" class="admin-login-btn">Admin</button>
-
-
-  <!-- ================= ADMIN PANEL ================= -->
-  <div id="adminPanel"
-       style="display:none; text-align:center; margin:10px">
-
-    <button id="shopToggle" class="admin-btn">
-      Shop: <span id="shopStatus">OPEN</span>
-    </button>
-
-  </div>
-
-
-  <!-- ================= ADMIN LOGIN MODAL ================= -->
-  <div id="adminModal" class="admin-modal">
-
-    <div class="admin-modal-content">
-
-      <h3>Admin Login</h3>
-
-      <input
-        type="password"
-        id="adminPassword"
-        placeholder="Enter Admin Code"
-      />
-
-      <div class="admin-modal-buttons">
-        <button id="adminClose">Cancel</button>
-        <button id="adminSubmit">Login</button>
-      </div>
-
-      <p id="adminError" class="admin-error"></p>
-
-    </div>
-  </div>
-
-
-  <!-- ================= ADMIN SUCCESS POPUP ================= -->
-  <div id="adminSuccessModal" class="admin-modal">
-
-    <div class="admin-modal-content">
-
-      <h3>✅ Admin Mode Enabled</h3>
-      <p>You now have full access to admin controls.</p>
-
-      <button id="successClose">OK</button>
-
-    </div>
-  </div>
-
-
-  <!-- ================= PRODUCTS ================= -->
-  <div class="container">
-
-    <div class="no-result-wrapper">
-      <p id="noResult">
-        Searched item is not available
-      </p>
-    </div>
-
-
-    <!-- ===== PRODUCT 1 ===== -->
-    <div class="product" data-product="tedhe-medhe">
-
-      <span class="badge">Best Seller</span>
-
-      <img src="tedhe-medhe-removebg-preview.png" alt="Tedhe Medhe" />
-
-      <h2>Tedhe Medhe</h2>
-      <p>Spicy and Crunchy</p>
-
-      <div class="price-row">
-        <span class="new-price"><span class="rs">₹</span>14</span>
-        <span class="old-price">₹20</span>
-        <span class="offer">(30% OFF)</span>
-      </div>
-
-      <div class="stock" id="tedhe-medhe-stock"></div>
-
-      <div class="input-box">
-        <input type="text" class="note-box" placeholder="Room No">
-      </div>
-
-      <div class="qty-box">
-        <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
-        <span class="qty">1</span>
-        <button class="qty-btn" onclick="changeQty(this,1)">+</button>
-      </div>
-
-      <button class="cart-btn" onclick="addToCart(this)">
-        Add to Cart
-      </button>
-
-      <button class="btn" onclick="orderProduct(this)">
-        Order on WhatsApp
-      </button>
-
-    </div>
-
-
-    <!-- ===== PRODUCT 2 ===== -->
-    <div class="product" data-product="bourbon">
-
-      <span class="badge">Best Seller</span>
-
-      <img src="Bourbon-removebg-preview.png" alt="Bourbon">
-
-      <h2>Bourbon</h2>
-      <p>Perfect late-night snack.</p>
-
-      <div class="price-row">
-        <span class="new-price"><span class="rs">₹</span>20</span>
-        <span class="old-price">₹30</span>
-        <span class="offer">(33% OFF)</span>
-      </div>
-
-      <div class="stock" id="bourbon"></div>
-
-      <div class="input-box">
-        <input type="text" class="note-box" placeholder="Room No">
-      </div>
-
-      <div class="qty-box">
-        <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
-        <span class="qty">1</span>
-        <button class="qty-btn" onclick="changeQty(this,1)">+</button>
-      </div>
-
-      <button class="cart-btn" onclick="addToCart(this)">Add to Cart</button>
-      <button class="btn" onclick="orderProduct(this)">Order on WhatsApp</button>
-
+    <!-- Cart -->
+    <div class="cart-header"
+         onclick="window.location.href='cart.html'">
+      <i class="fa-solid fa-cart-shopping"></i>
+      Cart (<span id="cart-count">0</span>)
     </div>
 
   </div>
 
+  <!-- Theme Toggle -->
+  <button id="themeToggle" class="theme-btn">
+    <i class="fa-solid fa-moon"></i>
+  </button>
 
-  <!-- ================= FOOTER ================= -->
-  <footer>
+  <!-- Shop Info -->
+  <p>
+    Room No. 106 | Open: 6 PM – 4 AM<br>
+    Contact: 9519171931, 7217441564
+  </p>
 
-    <p>
-      Only for hostel students • Open 6 PM – 4 AM • Limited stock daily
-    </p>
+  <br>
 
-    <p>
-      Scan QR or share link to order easily
-    </p>
+  <!-- ===== SEARCH ===== -->
+  <div class="search-container">
 
-    <img
-      src="hostel-qr.jpeg"
-      alt="Scan to open hostel shop"
-      style="width:160px; margin-top:10px; border-radius:10px"
+    <i class="fa fa-search"></i>
+
+    <input
+      type="text"
+      id="searchBox"
+      placeholder="Search items..."
+      onkeyup="searchItems()"
     >
 
-  </footer>
+    <span id="clearSearch" class="clear-search">
+      <i class="fa-solid fa-xmark"></i>
+    </span>
+
+  </div>
+
+</header>
 
 
-  <!-- ================= SCRIPTS ================= -->
-  <script src="script.js"></script>
-  <script src="cart.js"></script>
+<!-- ===== ADMIN BUTTON ===== -->
+<button id="adminLogin" class="admin-login-btn">Admin</button>
+
+<div id="adminPanel" style="display:none; text-align:center; margin:10px">
+
+  <button id="shopToggle" class="admin-btn">
+    Shop: <span id="shopStatus">OPEN</span>
+  </button>
+
+</div>
+
+
+<!-- ===== ADMIN LOGIN MODAL ===== -->
+<div id="adminModal" class="admin-modal">
+
+  <div class="admin-modal-content">
+
+    <h3>Admin Login</h3>
+
+    <input type="password"
+           id="adminPassword"
+           placeholder="Enter Admin Code">
+
+    <div class="admin-modal-buttons">
+      <button id="adminClose">Cancel</button>
+      <button id="adminSubmit">Login</button>
+    </div>
+
+    <p id="adminError" class="admin-error"></p>
+
+  </div>
+
+</div>
+
+
+<!-- ===== ADMIN SUCCESS MODAL ===== -->
+<div id="adminSuccessModal" class="admin-modal">
+
+  <div class="admin-modal-content">
+
+    <h3>✅ Admin Mode Enabled</h3>
+    <p>You now have full access to admin controls.</p>
+
+    <button id="successClose">OK</button>
+
+  </div>
+
+</div>
+
+
+<!-- ================= PRODUCTS ================= -->
+<div class="container">
+
+  <div class="no-result-wrapper">
+    <p id="noResult">Searched item is not available</p>
+  </div>
+
+
+  <!-- ===== PRODUCT 1 ===== -->
+  <div class="product" data-product="tedhe-medhe">
+
+    <span class="badge">Best Seller</span>
+    <img src="tedhe-medhe-removebg-preview.png" alt="Tedhe Medhe">
+
+    <h2>Tedhe Medhe</h2>
+    <p>Spicy and Crunchy</p>
+
+    <div class="price-row">
+      <span class="new-price"><span class="rs">₹</span>14</span>
+      <span class="old-price">₹20</span>
+      <span class="offer">(30% OFF)</span>
+    </div>
+
+    <div class="stock" id="tedhe-medhe-stock"></div>
+
+    <div class="input-box">
+      <input type="text" class="note-box" placeholder="Room No">
+    </div>
+
+    <br>
+
+    <div class="qty-box">
+      <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+      <span class="qty">1</span>
+      <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+    </div>
+
+    <br>
+
+    <button class="cart-btn" onclick="addToCart(this)">Add to Cart</button>
+
+    <br>
+
+    <button class="btn" onclick="orderProduct(this)">
+      Order on WhatsApp
+    </button>
+
+  </div>
+
+
+  <!-- ===== PRODUCT 2 ===== -->
+  <div class="product" data-product="bourbon">
+
+    <span class="badge">Best Seller</span>
+    <img src="Bourbon-removebg-preview.png" alt="Bourbon">
+
+    <h2>Bourbon</h2>
+    <p>Perfect late-night snack.</p>
+
+    <div class="price-row">
+      <span class="new-price"><span class="rs">₹</span>20</span>
+      <span class="old-price">₹30</span>
+      <span class="offer">(33% OFF)</span>
+    </div>
+
+    <div class="stock" id="bourbon"></div>
+
+    <div class="input-box">
+      <input type="text" class="note-box" placeholder="Room No">
+    </div>
+
+    <br>
+
+    <div class="qty-box">
+      <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+      <span class="qty">1</span>
+      <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+    </div>
+
+    <br>
+
+    <button class="cart-btn" onclick="addToCart(this)">Add to Cart</button>
+
+    <br>
+
+    <button class="btn" onclick="orderProduct(this)">
+      Order on WhatsApp
+    </button>
+
+  </div>
+
+
+  <!-- ===== PRODUCT 3 ===== -->
+  <div class="product" data-product="dark-fantasy-chocolate">
+
+    <span class="badge">Hot Deal</span>
+    <img src="Dark_Fantasy_Chocolate-removebg-preview.png" alt="Chocolate">
+
+    <h2>Dark Fantasy Chocolate</h2>
+    <p>Sweet cravings solved.</p>
+
+    <div class="price-row">
+      <span class="new-price"><span class="rs">₹</span>20</span>
+      <span class="old-price">₹30</span>
+      <span class="offer">(33% OFF)</span>
+    </div>
+
+    <div class="stock" id="dark-fantasy-chocolate"></div>
+
+    <div class="input-box">
+      <input type="text" class="note-box" placeholder="Room No">
+    </div>
+
+    <br>
+
+    <div class="qty-box">
+      <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+      <span class="qty">1</span>
+      <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+    </div>
+
+    <br>
+
+    <button class="cart-btn" onclick="addToCart(this)">Add to Cart</button>
+
+    <br>
+
+    <button class="btn" onclick="orderProduct(this)">
+      Order on WhatsApp
+    </button>
+
+  </div>
+
+
+  <!-- ===== PRODUCT 4 ===== -->
+  <div class="product" data-product="dark-fantasy-vanilla">
+
+    <span class="badge">Hot Deal</span>
+    <img src="Dark Fantasy Vanilla.jpeg" alt="Vanilla">
+
+    <h2>Dark Fantasy Vanilla</h2>
+    <p>Sweet cravings solved.</p>
+
+    <div class="price-row">
+      <span class="new-price"><span class="rs">₹</span>20</span>
+      <span class="old-price">₹30</span>
+      <span class="offer">(33% OFF)</span>
+    </div>
+
+    <div class="stock" id="dark-fantasy-vanilla"></div>
+
+    <div class="input-box">
+      <input type="text" class="note-box" placeholder="Room No">
+    </div>
+
+    <br>
+
+    <div class="qty-box">
+      <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+      <span class="qty">1</span>
+      <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+    </div>
+
+    <br>
+
+    <button class="cart-btn" onclick="addToCart(this)">Add to Cart</button>
+
+    <br>
+
+    <button class="btn" onclick="orderProduct(this)">
+      Order on WhatsApp
+    </button>
+
+  </div>
+
+
+  <!-- ===== PRODUCT 5 ===== -->
+  <div class="product" data-product="mad-angles-achaari">
+
+    <span class="badge">Hot Deal</span>
+    <img src="mad angles achaari new.jpeg.png" alt="Mad Angles">
+
+    <h2>Mad Angles Achaari Masti</h2>
+    <p>Spicy cravings solved.</p>
+
+    <div class="price-row">
+      <span class="new-price"><span class="rs">₹</span>35</span>
+      <span class="old-price">₹50</span>
+      <span class="offer">(30% OFF)</span>
+    </div>
+
+    <div class="stock" id="mad-angles-achaari"></div>
+
+    <div class="input-box">
+      <input type="text" class="note-box" placeholder="Room No">
+    </div>
+
+    <br>
+
+    <div class="qty-box">
+      <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+      <span class="qty">1</span>
+      <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+    </div>
+
+    <br>
+
+    <button class="cart-btn" onclick="addToCart(this)">Add to Cart</button>
+
+    <br>
+
+    <button class="btn" onclick="orderProduct(this)">
+      Order on WhatsApp
+    </button>
+
+  </div>
+
+
+  <!-- ===== PRODUCT 6 ===== -->
+  <div class="product" data-product="mad-angles-peri">
+
+    <span class="badge">Hot Deal</span>
+    <img src="bingo-peri-peri-mad-angles-removebg-preview - Copy.png" alt="Mad Angles">
+
+    <h2>Mad Angles Peri Peri</h2>
+    <p>Spicy cravings solved.</p>
+
+    <div class="price-row">
+      <span class="new-price"><span class="rs">₹</span>35</span>
+      <span class="old-price">₹50</span>
+      <span class="offer">(30% OFF)</span>
+    </div>
+
+    <div class="stock" id="mad-angles-peri"></div>
+
+    <div class="input-box">
+      <input type="text" class="note-box" placeholder="Room No">
+    </div>
+
+    <br>
+
+    <div class="qty-box">
+      <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+      <span class="qty">1</span>
+      <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+    </div>
+
+    <br>
+
+    <button class="cart-btn" onclick="addToCart(this)">Add to Cart</button>
+
+    <br>
+
+    <button class="btn" onclick="orderProduct(this)">
+      Order on WhatsApp
+    </button>
+
+  </div>
+
+</div>
+
+
+<footer>
+
+  <p>Only for hostel students • Open 6 PM – 4 AM • Limited stock daily</p>
+  <p>Scan QR or share link to order easily</p>
+
+  <img
+    src="hostel-qr.jpeg"
+    alt="Scan to open hostel shop"
+    style="width:160px; margin-top:10px; border-radius:10px"
+  >
+
+</footer>
+
+<script src="script.js"></script>
+<script src="cart.js"></script>
 
 </body>
 </html>
