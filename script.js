@@ -350,7 +350,7 @@ function activateUserButton() {
     btn.style.color = "white";
     btn.style.border = "2px solid darkgreen";
     btn.style.transition = "0.3s all ease";
-    btn.style.boxShadow = "0 0 10px rgba(0, 128, 0, 0.7)";
+    btn.style.boxShadow = "0 0 10px rgba(0, 255, 0, 0.7)";
   }
 }
 
