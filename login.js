@@ -201,6 +201,11 @@ if (box) {
         localStorage.setItem("roomNo", loginPassword);
 
         showPopup("WELCOME BACK !!", data.loginUsername, "success");
+
+        // Redirect to dashboard
+        setTimeout(() => {
+          window.location.href = "loggedin.html";
+        }, 1200);
       } else if (data.status === "INVALID_LOGIN") {
         document.getElementById("login-error").textContent = "Invalid Login";
       } else if (data.status === "ERROR") {
