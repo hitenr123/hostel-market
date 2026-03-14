@@ -55,7 +55,7 @@ def update_orders():
             return jsonify({"error": "No data received"}), 400
 
         db = get_db()
-        cursor = db.cursor()
+        cursor = db.cursor(dictionary=True)
 
         now = datetime.now()
         today = now.date()
@@ -143,21 +143,17 @@ def get_users():
         return jsonify({"error": str(e)}), 500
     
 @app.route("/orders")
-def get_orders1():
-    try:
-        db = get_db()
-        cursor = db.cursor(dictionary=True)
+def get_orders_all():
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
 
-        cursor.execute("SELECT * FROM users")
-        result = cursor.fetchall()
+    cursor.execute("SELECT * FROM orders")
+    result = cursor.fetchall()
 
-        cursor.close()
-        db.close()
+    cursor.close()
+    db.close()
 
-        return jsonify(result)
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    return jsonify(result)
 
 
 @app.route("/orders/<username>")

@@ -87,13 +87,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       data.forEach((order) => {
         const div = document.createElement("div");
+        const date = new Date(order.order_time).toLocaleString();
         div.classList.add("order-item");
 
         div.innerHTML = `
           <strong>${order.product_name}</strong><br>
           Qty: ${order.quantity}<br>
           Total: ₹${order.total_price}<br>
-          <small>${order.order_time}</small>
+          <small>${date}</small>
         `;
 
         orderList.appendChild(div);
