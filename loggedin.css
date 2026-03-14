@@ -120,8 +120,7 @@ body.light #themeToggle {
 
 #orderList {
   margin-top: 15px;
-  max-height: 200px;
-  overflow-y: auto;
+  max-height: 400px;
 }
 
 .order-item {
