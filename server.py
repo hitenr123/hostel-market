@@ -143,7 +143,7 @@ def get_users():
         return jsonify({"error": str(e)}), 500
     
 @app.route("/orders")
-def get_users():
+def get_orders1():
     try:
         db = get_db()
         cursor = db.cursor(dictionary=True)
