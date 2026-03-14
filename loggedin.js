@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <strong>${order.product_name}</strong><br>
           Qty: ${order.quantity}<br>
           Total: ₹${order.total_price}<br>
-          <small>${order.order_date}</small>
+          <small>${order.order_time}</small>
         `;
 
         orderList.appendChild(div);
