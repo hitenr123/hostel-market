@@ -162,14 +162,18 @@ if (adminClose) {
 }
 
 // Submit login
-adminSubmit.addEventListener("click", handleAdminLogin);
+if (adminSubmit) {
+  adminSubmit.addEventListener("click", handleAdminLogin);
+}
 
 // Enter key support
-adminPassword.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
-    handleAdminLogin();
-  }
-});
+if (adminPassword) {
+  adminPassword.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      handleAdminLogin();
+    }
+  });
+}
 
 function handleAdminLogin() {
   const code = adminPassword.value;
