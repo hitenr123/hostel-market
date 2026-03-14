@@ -125,7 +125,6 @@ function checkout() {
   localStorage.setItem("pendingOrders", JSON.stringify(pending));
 
   /* ---------- UPDATE SERVER ---------- */
-  /* ---------- UPDATE SERVER ---------- */
 
   const username = localStorage.getItem("loggedInUser");
 
