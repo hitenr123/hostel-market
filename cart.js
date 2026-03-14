@@ -14,12 +14,10 @@ function applyShopStateCart() {
 
 applyShopStateCart();
 
-
 /* =====================================
    CART DATA
 ===================================== */
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
 
 /* =====================================
    RENDER CART
@@ -49,9 +47,7 @@ function renderCart() {
 
     const icon = qty === 1 ? "fa-trash" : "fa-minus";
     const action =
-      qty === 1
-        ? `removeItem(${index})`
-        : `changeQty(${index}, -1)`;
+      qty === 1 ? `removeItem(${index})` : `changeQty(${index}, -1)`;
 
     container.innerHTML += `
       <div class="cart-item">
@@ -79,7 +75,6 @@ function renderCart() {
   document.getElementById("item-count").innerText = itemCount;
 }
 
-
 /* =====================================
    CART FUNCTIONS
 ===================================== */
@@ -99,7 +94,6 @@ function removeItem(index) {
   localStorage.setItem("cart", JSON.stringify(cart));
   renderCart();
 }
-
 
 /* =====================================
    CHECKOUT
@@ -131,11 +125,31 @@ function checkout() {
   localStorage.setItem("pendingOrders", JSON.stringify(pending));
 
   /* ---------- UPDATE SERVER ---------- */
+  /* ---------- UPDATE SERVER ---------- */
+
+  const username = localStorage.getItem("loggedInUser");
+
   fetch("https://hostel-market-production.up.railway.app/update-orders", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(cart),
-  });
+    headers: {
+      "Content-Type": "application/json",
+      "X-USER": username,
+      "X-ADMIN-KEY": "your_admin_secret",
+    },
+    body: JSON.stringify(
+      cart.map((item) => ({
+        name: item.name,
+        qty: item.qty,
+      })),
+    ),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Order saved:", data);
+    })
+    .catch((err) => {
+      console.error("Order error:", err);
+    });
 
   /* ---------- OPEN WHATSAPP ---------- */
   const url = `whatsapp://send?phone=919519171931&text=${encodeURIComponent(msg)}`;
@@ -144,14 +158,12 @@ function checkout() {
 
 renderCart();
 
-
 /* =====================================
    THEME SYNC
 ===================================== */
 if (localStorage.getItem("theme") === "light") {
   document.body.classList.add("light");
 }
-
 
 /* =====================================
    CLEAR CART MODAL
@@ -176,12 +188,9 @@ function clearCartConfirmed() {
 }
 
 /* Close modal when clicking outside */
-document
-  .getElementById("clearCartModal")
-  .addEventListener("click", (e) => {
-    if (e.target.id === "clearCartModal") closeClearCartModal();
-  });
-
+document.getElementById("clearCartModal").addEventListener("click", (e) => {
+  if (e.target.id === "clearCartModal") closeClearCartModal();
+});
 
 /* =====================================
    TOAST MESSAGE
@@ -206,7 +215,6 @@ function showToast(msg) {
   document.body.appendChild(toast);
   setTimeout(() => toast.remove(), 2000);
 }
-
 
 /* =====================================
    ADMIN ORDER DISPLAY

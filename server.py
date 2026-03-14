@@ -141,19 +141,6 @@ def get_users():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
-@app.route("/orders")
-def get_orders_all():
-    db = get_db()
-    cursor = db.cursor(dictionary=True)
-
-    cursor.execute("SELECT * FROM orders")
-    result = cursor.fetchall()
-
-    cursor.close()
-    db.close()
-
-    return jsonify(result)
 
 
 @app.route("/orders/<username>")
