@@ -47,8 +47,6 @@ def update_orders():
     try:
         # 🔒 Simple Admin Protection
         admin_key = request.headers.get("X-ADMIN-KEY")
-        print("Admin key received:", admin_key)
-        print("Expected:", os.getenv("ADMIN_SECRET"))
         if admin_key != os.getenv("ADMIN_SECRET"):
             return jsonify({"error": "Unauthorized"}), 401
 
