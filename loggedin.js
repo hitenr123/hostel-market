@@ -66,41 +66,67 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ===== FETCH ORDERS =====
-  fetch(
-    `https://hostel-market-production.up.railway.app/orders/${encodeURIComponent(username)}`,
-  )
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error("Server error");
+  // ===== FETCH ORDERS =====
+fetch(
+  `https://hostel-market-production.up.railway.app/orders/${encodeURIComponent(username)}`
+)
+  .then((res) => {
+    if (!res.ok) {
+      throw new Error("Server error");
+    }
+    return res.json();
+  })
+  .then((data) => {
+    const orderList = document.getElementById("orderList");
+
+    if (!orderList) return;
+
+    if (!data || data.length === 0) {
+      orderList.innerHTML = "<p>No orders yet.</p>";
+      return;
+    }
+
+    /* GROUP ORDERS BY TIME */
+    const groupedOrders = {};
+
+    data.forEach((order) => {
+      const key = order.order_time;
+
+      if (!groupedOrders[key]) {
+        groupedOrders[key] = [];
       }
-      return res.json();
-    })
-    .then((data) => {
-      const orderList = document.getElementById("orderList");
 
-      if (!orderList) return;
-
-      if (!data || data.length === 0) {
-        orderList.innerHTML = "<p>No orders yet.</p>";
-        return;
-      }
-
-      data.forEach((order) => {
-        const div = document.createElement("div");
-        const date = new Date(order.order_time).toLocaleString();
-        div.classList.add("order-item");
-
-        div.innerHTML = `
-          <strong>${order.product_name}</strong><br>
-          Qty: ${order.quantity}<br>
-          Total: ₹${order.total_price}<br>
-          <small>${date}</small>
-        `;
-
-        orderList.appendChild(div);
-      });
-    })
-    .catch((error) => {
-      console.error("Error fetching orders:", error);
+      groupedOrders[key].push(order);
     });
+
+    /* CREATE ONE DIV PER ORDER */
+    Object.keys(groupedOrders).forEach((time) => {
+      const orders = groupedOrders[time];
+
+      const div = document.createElement("div");
+      div.classList.add("order-item");
+
+      let itemsHTML = "";
+
+      orders.forEach((item) => {
+        itemsHTML += `
+          <strong>${item.product_name}</strong>  
+          Qty: ${item.quantity}  
+          Total: ₹${item.total_price}<br>
+        `;
+      });
+
+      const date = new Date(time).toLocaleString();
+
+      div.innerHTML = `
+        ${itemsHTML}
+        <small>${date}</small>
+      `;
+
+      orderList.appendChild(div);
+    });
+  })
+  .catch((error) => {
+    console.error("Error fetching orders:", error);
+  });
 });

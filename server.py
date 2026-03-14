@@ -153,10 +153,10 @@ def get_orders(username):
         cursor = db.cursor(dictionary=True)
 
         cursor.execute("""
-            SELECT product_name, quantity, total_price, order_time
-            FROM orders
-            WHERE username = %s
-            ORDER BY order_time DESC
+        SELECT order_id, product_name, quantity, total_price, order_time
+        FROM orders
+        WHERE username = %s
+        ORDER BY order_time DESC
         """, (username,))
 
         result = cursor.fetchall()
