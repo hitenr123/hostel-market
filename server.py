@@ -60,18 +60,22 @@ def update_orders():
         now = datetime.now()
         today = now.date()
 
+        username = request.headers.get("X-USER")
+        
+        if not username:
+            return jsonify({"error": "User not identified"}), 400
+        
         for item in data:
-
-            # ✅ Input validation
+            
             if "qty" not in item or "name" not in item:
                 continue
-
+            
             qty = int(item["qty"])
             name = item["name"]
-
+            
             if qty <= 0:
                 continue
-
+            
             cursor.execute("""
                 UPDATE products
                 SET today_orders =
@@ -93,6 +97,23 @@ def update_orders():
                 qty,
                 now,
                 name
+            ))
+            
+            cursor.execute("SELECT price FROM products WHERE name=%s", (name,))
+            price_row = cursor.fetchone()
+            
+            price = price_row["price"] if price_row else 0
+            total_price = qty * price
+            
+            cursor.execute("""
+                INSERT INTO orders (username, product_name, quantity, total_price, order_time)
+                VALUES (%s, %s, %s, %s, %s)
+            """, (
+                username,
+                name,
+                qty,
+                total_price,
+                now
             ))
 
         db.commit()
@@ -120,6 +141,48 @@ def get_users():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route("/orders")
+def get_users():
+    try:
+        db = get_db()
+        cursor = db.cursor(dictionary=True)
+
+        cursor.execute("SELECT * FROM users")
+        result = cursor.fetchall()
+
+        cursor.close()
+        db.close()
+
+        return jsonify(result)
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/orders/<username>")
+def get_orders(username):
+    try:
+        db = get_db()
+        cursor = db.cursor(dictionary=True)
+
+        cursor.execute("""
+            SELECT product_name, quantity, total_price, order_time
+            FROM orders
+            WHERE username = %s
+            ORDER BY order_time DESC
+        """, (username,))
+
+        result = cursor.fetchall()
+
+        cursor.close()
+        db.close()
+
+        return jsonify(result)
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 # ===== REGISTER ROUTE =====
 @app.route("/register", methods=["POST","OPTIONS"])
