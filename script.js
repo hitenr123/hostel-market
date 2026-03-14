@@ -18,7 +18,7 @@ function orderProduct(button) {
   const product = button.closest(".product");
   const productName = product.querySelector("h2").innerText;
   const qty = parseInt(product.querySelector(".qty").innerText);
-  const note = product.querySelector(".note-box")?.value || "Not provided";
+  const note = localStorage.getItem("roomNo") || "Unknown";
 
   orderOnWhatsApp(productName, qty, note);
 }
@@ -77,7 +77,10 @@ function updateCartCount() {
     }
   });
 
-  document.getElementById("cart-count").innerText = count;
+  const cartCountEl = document.getElementById("cart-count");
+  if (cartCountEl) {
+    cartCountEl.innerText = count;
+  }
 }
 
 function searchItems() {
@@ -101,35 +104,35 @@ function searchItems() {
 }
 
 const toggleBtn = document.getElementById("themeToggle");
-const icon = toggleBtn.querySelector("i");
 
-// 🌑 Default DARK
-document.body.classList.remove("light");
+if (toggleBtn) {
+  const icon = toggleBtn.querySelector("i");
 
-// Load saved theme
-if (localStorage.getItem("theme") === "light") {
-  document.body.classList.add("light");
-  icon.classList.replace("fa-moon", "fa-sun");
+  document.body.classList.remove("light");
+
+  if (localStorage.getItem("theme") === "light") {
+    document.body.classList.add("light");
+    icon.classList.replace("fa-moon", "fa-sun");
+  }
+
+  toggleBtn.addEventListener("click", () => {
+    toggleBtn.classList.add("rotate");
+
+    setTimeout(() => {
+      const isLight = document.body.classList.toggle("light");
+
+      if (isLight) {
+        icon.classList.replace("fa-moon", "fa-sun");
+        localStorage.setItem("theme", "light");
+      } else {
+        icon.classList.replace("fa-sun", "fa-moon");
+        localStorage.setItem("theme", "dark");
+      }
+
+      toggleBtn.classList.remove("rotate");
+    }, 200);
+  });
 }
-
-toggleBtn.addEventListener("click", () => {
-  // rotate animation
-  toggleBtn.classList.add("rotate");
-
-  setTimeout(() => {
-    const isLight = document.body.classList.toggle("light");
-
-    if (isLight) {
-      icon.classList.replace("fa-moon", "fa-sun");
-      localStorage.setItem("theme", "light");
-    } else {
-      icon.classList.replace("fa-sun", "fa-moon");
-      localStorage.setItem("theme", "dark");
-    }
-
-    toggleBtn.classList.remove("rotate");
-  }, 200);
-});
 
 // ===== SHOP OPEN / CLOSE =====
 
@@ -142,17 +145,21 @@ const adminPassword = document.getElementById("adminPassword");
 const adminError = document.getElementById("adminError");
 
 // Open modal
-adminLoginBtn.addEventListener("click", () => {
-  adminModal.style.display = "flex";
-  adminPassword.value = "";
-  adminError.innerText = "";
-  adminPassword.focus();
-});
+if (adminLoginBtn) {
+  adminLoginBtn.addEventListener("click", () => {
+    adminModal.style.display = "flex";
+    adminPassword.value = "";
+    adminError.innerText = "";
+    adminPassword.focus();
+  });
+}
 
 // Close modal
-adminClose.addEventListener("click", () => {
-  adminModal.style.display = "none";
-});
+if (adminClose) {
+  adminClose.addEventListener("click", () => {
+    adminModal.style.display = "none";
+  });
+}
 
 // Submit login
 adminSubmit.addEventListener("click", handleAdminLogin);
@@ -251,7 +258,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function cartDropAnimation() {
   const cart = document.querySelector(".cart-header");
+  if (!cart) return;
   const icon = cart.querySelector("i");
+  if (!icon) return;
   if (!cart || !icon) return;
 
   const cartRect = cart.getBoundingClientRect();
@@ -324,23 +333,23 @@ fetch("https://hostel-market-production.up.railway.app/products")
 const searchBox = document.getElementById("searchBox");
 const clearBtn = document.getElementById("clearSearch");
 
-// Show/hide X when typing
-searchBox.addEventListener("input", () => {
-  clearBtn.style.display = searchBox.value ? "block" : "none";
-});
-
-// Clear text when clicked
-clearBtn.addEventListener("click", () => {
-  searchBox.value = "";
-  clearBtn.style.display = "none";
-
-  // Show all products again
-  document.querySelectorAll(".product").forEach((p) => {
-    p.style.display = "flex";
+if (searchBox && clearBtn) {
+  searchBox.addEventListener("input", () => {
+    clearBtn.style.display = searchBox.value ? "block" : "none";
   });
 
-  document.getElementById("noResult").style.display = "none";
-});
+  clearBtn.addEventListener("click", () => {
+    searchBox.value = "";
+    clearBtn.style.display = "none";
+
+    document.querySelectorAll(".product").forEach((p) => {
+      p.style.display = "flex";
+    });
+
+    const noResult = document.getElementById("noResult");
+    if (noResult) noResult.style.display = "none";
+  });
+}
 
 // ===== TURN INDEX BUTTON GREEN =====
 function activateUserButton() {
