@@ -3,6 +3,7 @@ from flask_cors import CORS, cross_origin
 import mysql.connector
 from datetime import datetime
 import os
+import uuid
 
 app = Flask(__name__)
 CORS(app)
@@ -104,11 +105,13 @@ def update_orders():
             
             price = price_row["price"] if price_row else 0
             total_price = qty * price
+            order_id = str(uuid.uuid4())
             
             cursor.execute("""
                 INSERT INTO orders (username, product_name, quantity, total_price, order_time)
                 VALUES (%s, %s, %s, %s, %s)
             """, (
+                order_id,
                 username,
                 name,
                 qty,
