@@ -133,7 +133,7 @@ function checkout() {
     headers: {
       "Content-Type": "application/json",
       "X-USER": username,
-      "X-ADMIN-KEY": "your_admin_secret",
+      "X-ADMIN-KEY": "12345",
     },
     body: JSON.stringify(
       cart.map((item) => ({
