@@ -1,131 +1,150 @@
 /* loggedin.css */
-body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background-color: #0f172a;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  transition: 0.3s background-color ease;
+
+*{
+  box-sizing: border-box;
 }
 
-body.light {
-  background-color: #f0f0f0;
-  color: #111;
+body{
+  margin:0;
+  font-family:"Segoe UI",sans-serif;
+
+  background: linear-gradient(135deg,#020617,#0f172a,#1e293b);
+  color:white;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  min-height:100vh;
 }
 
-.container {
-  text-align: center;
-  position: relative;
+/* container */
+
+.container{
+  width:90%;
+  max-width:450px;
+  text-align:center;
 }
 
-.login-box {
-  background: rgba(30, 41, 59, 0.95);
-  padding: 30px 40px;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
-  min-width: 300px;
+/* user card */
+
+.login-box{
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+
+  border-radius:18px;
+  padding:30px;
+
+  border:1px solid rgba(255,255,255,0.1);
+
+  box-shadow:0 10px 35px rgba(0,0,0,0.6);
+
+  transition:0.3s;
 }
 
-body.light .login-box {
-  background: #ffffff;
-  color: #111;
-  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+.login-box:hover{
+  transform:translateY(-4px);
 }
 
-.welcome h2 {
-  margin-bottom: 15px;
+/* welcome text */
+
+.welcome h2{
+  margin-bottom:10px;
+  font-size:26px;
+  letter-spacing:1px;
 }
 
-.welcome p {
-  margin: 5px 0;
-  font-size: 1.1rem;
+.welcome p{
+  margin:5px 0;
+  font-size:15px;
+  opacity:0.9;
 }
 
-#logoutBtn {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  background-color: #dc2626;
-  color: white;
-  transition: 0.3s all ease;
+/* logout button */
+
+#logoutBtn{
+  margin-top:20px;
+  padding:10px 24px;
+
+  border:none;
+  border-radius:25px;
+
+  font-size:14px;
+  font-weight:600;
+
+  cursor:pointer;
+
+  background: linear-gradient(45deg,#ef4444,#dc2626);
+  color:white;
+
+  transition:0.25s;
 }
 
-#logoutBtn:hover {
-  background-color: #b91c1c;
+#logoutBtn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 15px rgba(239,68,68,0.7);
 }
 
-#themeToggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  padding: 10px;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  background-color: #1f2937;
-  color: white;
-  transition: 0.3s all ease;
+/* section title */
+
+h3{
+  margin-top:35px;
+  margin-bottom:15px;
+  font-weight:500;
 }
 
-body.light #themeToggle {
-  background-color: #e5e7eb;
-  color: #111;
+/* orders list */
+
+#orderList{
+  max-height:350px;
+  overflow-y:auto;
 }
 
-#themeToggle.rotate {
-  transform: rotate(360deg);
+/* order cards */
+
+.order-item{
+  background: rgba(255,255,255,0.07);
+
+  padding:12px;
+  margin-bottom:12px;
+
+  border-radius:10px;
+
+  text-align:left;
+
+  border-left:4px solid #22c55e;
+
+  transition:0.25s;
 }
 
-.back-btn {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 8px 16px;
-  border-radius: 25px;
-
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-
-  color: white;
-  border: 2px solid #1ecfff;
-  background: transparent;
-
-
-  transition: 0.3s ease;
-  z-index: 1000;
+.order-item:hover{
+  transform:translateX(4px);
+  background:rgba(255,255,255,0.12);
 }
 
-.back-btn i {
-  font-size: 14px;
+/* back button */
+
+.back-btn{
+  position:fixed;
+  top:20px;
+  left:20px;
+
+  padding:8px 16px;
+
+  border-radius:25px;
+
+  border:2px solid #22c55e;
+
+  background:transparent;
+  color:white;
+
+  cursor:pointer;
+
+  transition:0.3s;
 }
 
-.back-btn:hover {
-  background: #1ecfff;
-  color: black;
-  box-shadow: 0 0 20px #1ecfff;
-  transform: translateY(-2px);
-}
-
-#orderList {
-  margin-top: 15px;
-  max-height: 400px;
-}
-
-.order-item {
-  background: rgba(255,255,255,0.1);
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 8px;
+.back-btn:hover{
+  background:#22c55e;
+  color:black;
+  box-shadow:0 0 15px #22c55e;
 }
