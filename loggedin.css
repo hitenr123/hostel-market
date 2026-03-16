@@ -143,6 +143,10 @@ h3{
   transition:0.3s;
 }
 
+.back-btn i{
+  margin-right: 3px;
+}
+
 .back-btn:hover{
   background:#22c55e;
   color:black;
